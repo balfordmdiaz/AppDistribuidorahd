@@ -69,7 +69,7 @@
               <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Nuevo Empleado</a>
             </li>
         </ul>
-        <div class="tab-content" id="myTabContent">
+        <div class="tab-content" id="ListaEmpleado">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <h3>Lista Empleado</h3>
 
@@ -89,6 +89,40 @@
             </div>
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <h3>Nuevo Empleado</h3>
+
+                <form id="store-employee">
+                @csrf
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Codigo Empleado</label>
+                    <input type="text" class="form-control" id="txtcodeemp" name="txtcodeemp" placeholder="ex:EMP001">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Nombre</label>
+                    <input type="text" class="form-control" id="txtname" name="txtname">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Apellido</label>
+                    <input type="text" class="form-control" id="txtlastname" name="txtlastname">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Cedula</label>
+                    <input type="text" class="form-control" id="txtidentif" name="txtidentif" placeholder="ex: 000-000000-0000A">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Telefono</label>
+                    <input type="text" class="form-control" id="txttelefono" name="txttelefono">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Direccion</label>
+                    <input type="text" class="form-control" id="txtaddress" name="txtaddress">
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Correo</label>
+                    <input type="text" class="form-control" id="txtemail" name="txtemail">
+                </div>
+                <button type="submit" class="btn btn-primary">Agregar</button>
+                </form>
+
             </div>
 
         </div>
@@ -123,5 +157,51 @@
         })
     </script>
 
+    <script>
+
+        $('#store-employee').submit(function(e)
+        {
+            e.preventDefault();
+
+            var idlempleado = $('#txtcodeemp').val();  //(names de los input)
+            var nombre = $('#txtname').val();
+            var apellido = $('#txtlastname').val();
+            var cedula = $('#txtidentif').val();
+            var telefono = $('#txttelefono').val();
+            var direccion = $('#txtaddress').val();
+            var email = $('#txtemail').val();
+            var _token = $("input[name=_token]").val();
+
+            $.ajax({
+                url: "{{ route('employees.store') }}",   //ruta del post donde almacenara
+                type: "POST",
+                data:{
+                    idlempleado: idlempleado,
+                    nombre: nombre,
+                    apellido: apellido,
+                    cedula: cedula,
+                    telefono: telefono,
+                    direccion: direccion,
+                    email: email,
+                    _token:_token
+                },
+                success:function(response)
+                {
+                    if(response)
+                    {
+                        $('#store-employee')[0].reset();   //limpiar campos del formulario luego de agregarlos
+                        toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});
+                        $('#table-employee').DataTable().ajax.reload();  //recargar tabla
+                    }
+                }
+            });
+
+        });
+
+
+
+    </script>
+
 </body>
 </html>
+

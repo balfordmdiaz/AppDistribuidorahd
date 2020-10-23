@@ -49,21 +49,18 @@ class EmployeesController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $employee =new Employees();
+        //llamar al procedimiento almacenado
+        $employee = DB::select('call spstore_empleados(?,?,?,?,?,?,?)',
+                        [$request->idlempleado,
+                        $request->nombre,
+                        $request->apellido,
+                        $request->cedula,
+                        $request->telefono,
+                        $request->direccion,
+                        $request->email]);
 
-
-        $employee->idlempleado = request('IdLEmpleado');
-        $employee->nombre = request('Nombre');
-        $employee->apellido = request('Apellido');
-        $employee->cedula = request('Cedula');
-        $employee->telefono = request('Telefono');
-        $employee->direccion = request('Direccion');
-        $employee->email = request('Email');
-
-        $employee  -> save();
-
-        return back()->with('success','Item created successfully!');
+        return back();
+        //return back()->with('success','Item created successfully!');
     }
 
     /**
