@@ -21,7 +21,7 @@ class EmployeesController extends Controller
                     ->addColumn('action', function($employee)
                     {
                         $acciones = '<a href="" class="btn btn-info btn-sm"> Editar </a>';
-                        $acciones .= '&nbsp;&nbsp;<button type="button" name="delete" id="" class="btn btn-danger btn-sm"> Eliminar </button>';
+                        $acciones .= '&nbsp;&nbsp;<button type="button" name="delete" id="'.$employee->idempleado.'" class="delete btn btn-danger btn-sm"> Eliminar </button>';
                         return $acciones;
                     })
                     ->rawColumns(['action'])
@@ -103,8 +103,11 @@ class EmployeesController extends Controller
      * @param  \App\Models\Employees  $employees
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Employees $employees)
+    public function destroy($id)
     {
         //
+
+        $employee = DB::select('call spdel_empleado(?)', [$id]);
+        return back();
     }
 }
