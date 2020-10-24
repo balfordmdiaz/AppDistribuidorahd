@@ -128,6 +128,66 @@
         </div>
 
 
+  <!-- Modal Para editar-->
+    <!-- Button trigger modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="employee_edit_modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Editar Empleado</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <form id="employee-edit-form">
+    <div class="modal-body">
+
+            @csrf
+            <input type="hidden" id="txtId2" name="txtId2">
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Codigo Empleado</label>
+                <input type="text" class="form-control" id="txtcodeemp2" name="txtcodeemp2" placeholder="ex:EMP001">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Nombre</label>
+                <input type="text" class="form-control" id="txtname2" name="txtname2">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Apellido</label>
+                <input type="text" class="form-control" id="txtlastname2" name="txtlastname2">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Cedula</label>
+                <input type="text" class="form-control" id="txtidentif2" name="txtidentif2" placeholder="ex: 000-000000-0000A">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Telefono</label>
+                <input type="text" class="form-control" id="txttelefono2" name="txttelefono2">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Direccion</label>
+                <input type="text" class="form-control" id="txtaddress2" name="txtaddress2">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Correo</label>
+                <input type="text" class="form-control" id="txtemail2" name="txtemail2">
+            </div>
+
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Actualizar</button>
+    </div>
+    </form>
+    </div>
+</div>
+</div>
+
+
 
   <!-- Modal Eliminar-->
   <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -143,7 +203,7 @@
           ¿Desea ELIMINAR el registro seleccionado?
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
           <button type="button" id="btndelete" name="btndelete" class="btn btn-danger">Eliminar</button>
         </div>
       </div>
@@ -254,6 +314,24 @@
                 });
         });
 
+    </script>
+
+    <script>
+        function editemployee(id){
+            $.get('employees/edit/'+id, function(employee){
+                //asignar los datos recuperados en la ventana modal
+                $('#txtcodeemp2').val(employee[0].idlempleado);
+                $('#txtname2').val(employee[0].nombre);
+                $('#txtlastname2').val(employee[0].apellido);
+                $('#txtidentif2').val(employee[0].cedula);
+                $('#txttelefono2').val(employee[0].telefono);
+                $('#txtaddress2').val(employee[0].direccion);
+                $('#txtemail2').val(employee[0].email);
+                $("input[name=_token]").val();
+
+                $('#employee_edit_modal').modal('toggle');
+            })
+        }
     </script>
 
 </body>

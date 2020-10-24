@@ -20,7 +20,7 @@ class EmployeesController extends Controller
             return DataTables::of($employee)
                     ->addColumn('action', function($employee)
                     {
-                        $acciones = '<a href="" class="btn btn-info btn-sm"> Editar </a>';
+                        $acciones = '<a href="javascript:void(0)" onclick="editemployee('.$employee->idempleado.')" class="btn btn-info btn-sm"> Editar </a>';
                         $acciones .= '&nbsp;&nbsp;<button type="button" name="delete" id="'.$employee->idempleado.'" class="delete btn btn-danger btn-sm"> Eliminar </button>';
                         return $acciones;
                     })
@@ -31,22 +31,13 @@ class EmployeesController extends Controller
         return view('employees.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         //llamar al procedimiento almacenado
@@ -63,46 +54,28 @@ class EmployeesController extends Controller
         //return back()->with('success','Item created successfully!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Employees  $employees
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(Employees $employees)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Employees  $employees
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Employees $employees)
+
+    public function edit($id)
     {
         //
+        $employee = DB::select('call spedit_empleado(?)', [$id]);
+        return response()->json($employee);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Employees  $employees
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Employees $employees)
+
+    public function update(Request $request)
     {
         //
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Employees  $employees
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
         //

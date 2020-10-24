@@ -25,3 +25,4 @@ Route::get('/', function () {
 Route::resource('employees','App\Http\Controllers\EmployeesController');
 Route::post('employees', [EmployeesController::class, 'store'])->name('employees.store');
 Route::get('employees/destroy/{idempleado}', [EmployeesController::class, 'destroy'])->name('employees.destroy');
+Route::get('employees/edit/{idempleado}', [EmployeesController::class, 'edit'])->name('employees.edit');
