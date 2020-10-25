@@ -51,7 +51,7 @@ class EmployeesController extends Controller
                         $request->email]);
 
         return back();
-        //return back()->with('success','Item created successfully!');
+
     }
 
 
@@ -72,7 +72,17 @@ class EmployeesController extends Controller
     public function update(Request $request)
     {
         //
+        $employee = DB::select('call spupdate_empleado(?,?,?,?,?,?,?,?)',
+                        [$request->idempleado,
+                        $request->idlempleado,
+                        $request->nombre,
+                        $request->apellido,
+                        $request->cedula,
+                        $request->telefono,
+                        $request->direccion,
+                        $request->email]);
 
+        return back();
     }
 
 

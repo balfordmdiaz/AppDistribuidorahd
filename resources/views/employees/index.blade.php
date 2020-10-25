@@ -213,7 +213,7 @@
     </div><!--fin container-->
 
 
-    <script>//MOSTRAR DATOS EN LA TABLA
+    <script>//LISTAR REGISTROS CON DATATABLE
         $(document).ready(function()
         {
             var tableemployee = $('#table-employee').DataTable(
@@ -332,6 +332,50 @@
                 $('#employee_edit_modal').modal('toggle');
             })
         }
+    </script>
+
+    <script>
+
+        $('#employee-edit-form').submit(function(e){
+
+            e.preventDefault();
+
+            var idempleado2 = $('#txtId2').val();
+            var idlempleado2 = $('#txtcodeemp2').val();
+            var nombre2 = $('#txtname2').val();
+            var apellido2 = $('#txtlastname2').val();
+            var cedula2 = $('#txtidentif2').val();
+            var telefono2 = $('#txttelefono2').val();
+            var direccion2 = $('#txtaddress2').val();
+            var email2 = $('#txtemail2').val();
+            var _token2 = $("input[name=_token]").val();
+
+            $.ajax({
+                url: "{{ route('employees.update') }}",
+                type: "POST",
+                data:{
+                    idempleado: idempleado2,
+                    idlempleado: idlempleado2,
+                    nombre: nombre2,
+                    apellido: apellido2,
+                    cedula: cedula2,
+                    telefono: telefono2,
+                    direccion: direccion2,
+                    email: email2,
+                    _token:_token2
+                },
+                success:function(response)
+                {
+                    if(response)
+                    {
+                        $('#employee_edit_modal').modal('hide');
+                        toastr.info('El Registro fue actualizado Correctamente.', 'Actualizar Registro', {timeOut:3000});
+                        $('#table-employee').DataTable().ajax.reload();  //recargar tabla
+                    }
+                }
+            })
+        });
+
     </script>
 
 </body>
