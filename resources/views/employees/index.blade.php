@@ -254,7 +254,7 @@
             var direccion = $('#txtaddress').val();
             var email = $('#txtemail').val();
             var _token = $("input[name=_token]").val();
-
+            console.log(idlempleado);
             $.ajax({
                 url: "{{ route('employees.store') }}",   //ruta del post donde almacenara
                 type: "POST",
@@ -320,6 +320,7 @@
         function editemployee(id){
             $.get('employees/edit/'+id, function(employee){
                 //asignar los datos recuperados en la ventana modal
+                $('#txtId2').val(employee[0].idempleado);
                 $('#txtcodeemp2').val(employee[0].idlempleado);
                 $('#txtname2').val(employee[0].nombre);
                 $('#txtlastname2').val(employee[0].apellido);
@@ -340,7 +341,7 @@
 
             e.preventDefault();
 
-            var idempleado2 = $('#txtId2').val();
+            var idempleado2 = $('#txtId2').val(); //Agregado
             var idlempleado2 = $('#txtcodeemp2').val();
             var nombre2 = $('#txtname2').val();
             var apellido2 = $('#txtlastname2').val();
@@ -349,7 +350,9 @@
             var direccion2 = $('#txtaddress2').val();
             var email2 = $('#txtemail2').val();
             var _token2 = $("input[name=_token]").val();
-
+            console.log('error');
+            console.log(idlempleado2);
+            console.log(idempleado2);
             $.ajax({
                 url: "{{ route('employees.update') }}",
                 type: "POST",
@@ -368,6 +371,7 @@
                 {
                     if(response)
                     {
+                        
                         $('#employee_edit_modal').modal('hide');
                         toastr.info('El Registro fue actualizado Correctamente.', 'Actualizar Registro', {timeOut:3000});
                         $('#table-employee').DataTable().ajax.reload();  //recargar tabla
