@@ -40,6 +40,18 @@ class EmployeesController extends Controller
 
     public function store(Request $request)
     {
+
+        $request->validate([
+            'txtcodeemp' => 'required',
+            'txtname'  => 'required',
+            'txtlastname'  => 'required',
+            'txtidentif'  => 'required',
+            'txttelefono'  => 'required',
+            'txtaddress'  => 'required',
+            'txtemail'  => 'required|email'
+ 
+        ]);
+
         //llamar al procedimiento almacenado
         $employee = DB::select('call spstore_empleados(?,?,?,?,?,?,?)',
                         [$request->idlempleado,

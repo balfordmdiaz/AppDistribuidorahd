@@ -90,39 +90,47 @@
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <h3>Nuevo Empleado</h3>
 
-                <form id="store-employee">
+                <form id="store-employee" method="" action="">
                 @csrf
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Codigo Empleado</label>
-                    <input type="text" class="form-control" id="txtcodeemp" name="txtcodeemp" placeholder="ex:EMP001">
+                    <input type="text" class="form-control"  name="txtcodeemp" placeholder="ex:EMP001">
+                    
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Nombre</label>
                     <input type="text" class="form-control" id="txtname" name="txtname">
+                    
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Apellido</label>
                     <input type="text" class="form-control" id="txtlastname" name="txtlastname">
+                   
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Cedula</label>
                     <input type="text" class="form-control" id="txtidentif" name="txtidentif" placeholder="ex: 000-000000-0000A">
+                    
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Telefono</label>
                     <input type="text" class="form-control" id="txttelefono" name="txttelefono">
+                   
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Direccion</label>
                     <input type="text" class="form-control" id="txtaddress" name="txtaddress">
+                    
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Correo</label>
                     <input type="text" class="form-control" id="txtemail" name="txtemail">
+                    
                 </div>
                 <button type="submit" class="btn btn-primary">Agregar</button>
                 </form>
 
+                <div id="result"><!-- Respuesta AJAX (¡IMPORTANTE!) --></div>
             </div>
 
         </div>
@@ -254,7 +262,14 @@
             var direccion = $('#txtaddress').val();
             var email = $('#txtemail').val();
             var _token = $("input[name=_token]").val();
-            console.log(idlempleado);
+
+
+            if(idlempleado==null || nombre==null || apellido==null || cedula==null || telefono==null || direccion==null || email==null )
+            {
+                toastr.error('Llene todos los campos.', 'Error', {timeOut:3000});
+            }
+            else
+            {
             $.ajax({
                 url: "{{ route('employees.store') }}",   //ruta del post donde almacenara
                 type: "POST",
@@ -278,6 +293,7 @@
                     }
                 }
             });
+            }
 
         });
 
