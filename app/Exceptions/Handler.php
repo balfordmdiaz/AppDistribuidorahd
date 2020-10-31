@@ -35,9 +35,5 @@ class Handler extends ExceptionHandler
 
     }
 
-    public function render()
-    {
-        if ($exception instanceof ValidationException)
-        return response()->json(['message' => 'Your error message here', 'errors' => $exception->validator->getMessageBag()], 422); //type your error code.
-    }
+
 }
