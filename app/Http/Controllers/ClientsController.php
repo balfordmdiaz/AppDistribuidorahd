@@ -58,7 +58,7 @@ class ClientsController extends Controller
         ]);
 
         //llamar al procedimiento almacenado
-        $employee = DB::select('call spstore_cliente(?,?,?,?,?,?,?,?)',
+        $client = DB::select('call spstore_cliente(?,?,?,?,?,?,?,?)',
                         [$request->idlcliente,
                         $request->nombre,
                         $request->apellido,
@@ -89,7 +89,7 @@ class ClientsController extends Controller
     public function update(Request $request)
     {
         //
-        $employee = DB::select('call spupdate_cliente(?,?,?,?,?,?,?,?,?)',
+        $client = DB::select('call spupdate_cliente(?,?,?,?,?,?,?,?,?)',
                         [$request->idcliente,
                         $request->idlcliente,
                         $request->nombre,

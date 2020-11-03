@@ -14,5 +14,5 @@ class Clients extends Model
 
     protected $fillable = ['idlcliente','nombre','apellido','cedula','telefono','departamento','direccion','email'];
 
-
+    public $timestamps = false;
 }

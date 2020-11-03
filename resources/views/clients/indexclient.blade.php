@@ -95,7 +95,7 @@
                 @csrf
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Codigo Cliente</label>
-                    <input type="text" class="form-control" id="txtcodecli" name="txtcodecli" placeholder="ex:CLI001">
+                    <input type="text" class="form-control" id="txtcodecli" name="txtcodecli" placeholder="ex:CL001">
 
                 </div>
                 <div class="form-group">
@@ -130,7 +130,7 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Correo</label>
-                    <input type="text" class="form-control" id="txtemail" name="txtemail">
+                    <input type="email" class="form-control" id="txtemail" name="txtemail">
 
                 </div>
                 <button type="submit" class="btn btn-primary">Agregar</button>
@@ -163,7 +163,7 @@
             <input type="hidden" id="txtId2" name="txtId2">
             <div class="form-group">
                 <label for="exampleFormControlInput1">Codigo Cliente</label>
-                <input type="text" class="form-control" id="txtcodecli2" name="txtcodecli2" placeholder="ex:CLI001">
+                <input type="text" class="form-control" id="txtcodecli2" name="txtcodecli2" placeholder="ex:CL001">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Nombre</label>
@@ -191,7 +191,7 @@
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Correo</label>
-                <input type="text" class="form-control" id="txtemail2" name="txtemail2">
+                <input type="email" class="form-control" id="txtemail2" name="txtemail2">
             </div>
 
 
