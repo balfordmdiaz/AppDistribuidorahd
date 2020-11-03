@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Empleados</title>
+    <title>Clientes</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.css"/>
@@ -63,23 +63,24 @@
 
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Lista de Empleados</a>
+              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Lista de Clientes</a>
             </li>
             <li class="nav-item" role="presentation">
-              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Nuevo Empleado</a>
+              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Nuevo Cliente</a>
             </li>
         </ul>
-        <div class="tab-content" id="ListaEmpleado">
+        <div class="tab-content" id="ListaCliente">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                <h3>Lista Empleado</h3>
+                <h3>Lista Clientes</h3>
 
-                <table id="table-employee" class="table table-hover">
+                <table id="table-client" class="table table-hover">
                     <thead>
                         <td>Id</td>
                         <td>Nombre</td>
                         <td>Apellido</td>
                         <td>Cedula</td>
                         <td>Telefono</td>
+                        <td>Departamento</td>
                         <td>Direccion</td>
                         <td>Correo</td>
                         <td>Acciones</td>
@@ -88,13 +89,13 @@
 
             </div>
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                <h3>Nuevo Empleado</h3>
+                <h3>Nuevo Cliente</h3>
 
-                <form id="store-employee" method="" action="">
+                <form id="store-client" method="" action="">
                 @csrf
                 <div class="form-group">
-                    <label for="exampleFormControlInput1">Codigo Empleado</label>
-                    <input type="text" class="form-control"  name="txtcodeemp" placeholder="ex:EMP001">
+                    <label for="exampleFormControlInput1">Codigo Cliente</label>
+                    <input type="text" class="form-control" id="txtcodecli" name="txtcodecli" placeholder="ex:CL001">
 
                 </div>
                 <div class="form-group">
@@ -118,13 +119,18 @@
 
                 </div>
                 <div class="form-group">
+                    <label for="exampleFormControlInput1">Departamento</label>
+                    <input type="text" class="form-control" id="txtdepart" name="txtdepart">
+
+                </div>
+                <div class="form-group">
                     <label for="exampleFormControlInput1">Direccion</label>
                     <input type="text" class="form-control" id="txtaddress" name="txtaddress">
 
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Correo</label>
-                    <input type="text" class="form-control" id="txtemail" name="txtemail">
+                    <input type="email" class="form-control" id="txtemail" name="txtemail">
 
                 </div>
                 <button type="submit" class="btn btn-primary">Agregar</button>
@@ -140,24 +146,24 @@
     <!-- Button trigger modal -->
 
 <!-- Modal -->
-<div class="modal fade" id="employee_edit_modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="client_edit_modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 <div class="modal-dialog">
     <div class="modal-content">
     <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Editar Empleado</h5>
+        <h5 class="modal-title" id="staticBackdropLabel">Editar Cliente</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
         </button>
     </div>
 
-    <form id="employee-edit-form">
+    <form id="client-edit-form">
     <div class="modal-body">
 
             @csrf
             <input type="hidden" id="txtId2" name="txtId2">
             <div class="form-group">
-                <label for="exampleFormControlInput1">Codigo Empleado</label>
-                <input type="text" class="form-control" id="txtcodeemp2" name="txtcodeemp2" placeholder="ex:EMP001">
+                <label for="exampleFormControlInput1">Codigo Cliente</label>
+                <input type="text" class="form-control" id="txtcodecli2" name="txtcodecli2" placeholder="ex:CL001">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Nombre</label>
@@ -176,12 +182,16 @@
                 <input type="text" class="form-control" id="txttelefono2" name="txttelefono2">
             </div>
             <div class="form-group">
+                <label for="exampleFormControlInput1">Departamento</label>
+                <input type="text" class="form-control" id="txtdepart2" name="txtdepart2">
+            </div>
+            <div class="form-group">
                 <label for="exampleFormControlInput1">Direccion</label>
                 <input type="text" class="form-control" id="txtaddress2" name="txtaddress2">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Correo</label>
-                <input type="text" class="form-control" id="txtemail2" name="txtemail2">
+                <input type="email" class="form-control" id="txtemail2" name="txtemail2">
             </div>
 
 
@@ -224,21 +234,22 @@
     <script>//LISTAR REGISTROS CON DATATABLE
         $(document).ready(function()
         {
-            var tableemployee = $('#table-employee').DataTable(
+            var tableclient = $('#table-client').DataTable(
                 {
                     processing:true,
                     serverside:true,
                     ajax:
                     {
-                        url:"{{ route('employees.index' )}}",
+                        url:"{{ route('clients.index') }}",
                     },
                     columns:
                     [
-                        {data: 'idlempleado'},
+                        {data: 'idlcliente'},
                         {data: 'nombre'},
                         {data: 'apellido'},
                         {data: 'cedula'},
                         {data: 'telefono'},
+                        {data: 'departamento'},
                         {data: 'direccion'},
                         {data: 'email'},
                         {data: 'action', orderable: false},
@@ -248,37 +259,39 @@
         })
     </script>
 
-    <script> //AGREGAR DATOS A LA TABLA EMPLEADO
+    <script> //AGREGAR DATOS A LA TABLA CLIENTE
 
-        $('#store-employee').submit(function(e)
+        $('#store-client').submit(function(e)
         {
             e.preventDefault();
 
-            var idlempleado = $('#txtcodeemp').val();  //(names de los input)
+            var idlcliente = $('#txtcodecli').val();  //(names de los input)
             var nombre = $('#txtname').val();
             var apellido = $('#txtlastname').val();
             var cedula = $('#txtidentif').val();
             var telefono = $('#txttelefono').val();
+            var departamento = $('#txtdepart').val();
             var direccion = $('#txtaddress').val();
             var email = $('#txtemail').val();
             var _token = $("input[name=_token]").val();
 
 
-            if(idlempleado==null || nombre==null || apellido==null || cedula==null || telefono==null || direccion==null || email==null )
-            {
-                toastr.error('Llene todos los campos.', 'Error', {timeOut:3000});
-            }
-            else
-            {
+            //if(idlcliente==null || nombre==null || apellido==null || cedula==null || telefono==null || departamento==null || direccion==null || email==null )
+            //{
+            //    toastr.error('Llene todos los campos.', 'Error', {timeOut:3000});
+            //}
+            //else
+            //{
             $.ajax({
-                url: "{{ route('employees.store') }}",   //ruta del post donde almacenara
+                url: "{{ route('clients.store') }}",   //ruta del post donde almacenara
                 type: "POST",
                 data:{
-                    idlempleado: idlempleado,
+                    idlcliente: idlcliente,
                     nombre: nombre,
                     apellido: apellido,
                     cedula: cedula,
                     telefono: telefono,
+                    departamento: departamento,
                     direccion: direccion,
                     email: email,
                     _token:_token
@@ -287,13 +300,13 @@
                 {
                     if(response)
                     {
-                        $('#store-employee')[0].reset();   //limpiar campos del formulario luego de agregarlos
+                        $('#store-client')[0].reset();   //limpiar campos del formulario luego de agregarlos
                         toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});
-                        $('#table-employee').DataTable().ajax.reload();  //recargar tabla
+                        $('#table-client').DataTable().ajax.reload();  //recargar tabla
                     }
                 }
             });
-            }
+            //}
 
         });
 
@@ -301,12 +314,12 @@
 
     </script>
 
-    <script>//ELIMINAR DATOS EN LA TABLA EMPLEADO
+    <script>//ELIMINAR DATOS EN LA TABLA Cliente
 
-        var emp_id;
+        var cli_id;
 
         $(document).on('click', '.delete', function(){
-            emp_id = $(this).attr('id');
+            cli_id = $(this).attr('id');
 
             $('#confirmModal').modal('show');
 
@@ -314,7 +327,7 @@
 
         $('#btndelete').click(function(){
             $.ajax({
-                url:"employees/destroy/"+emp_id,
+                url:"clients/destroy/"+cli_id,
                 beforeSend:function(){
                     $('#btndelete').text('Eliminando...');
                 },
@@ -322,7 +335,7 @@
                     setTimeout(function(){
                         $('#confirmModal').modal('hide');
                         toastr.warning('El Registro fue eliminado Correctamente.', 'Eliminar Registro', {timeOut:3000});
-                        $('#table-employee').DataTable().ajax.reload();  //recargar tabla
+                        $('#table-client').DataTable().ajax.reload();  //recargar tabla
 
                     }, 2000);
                     $('#btndelete').text('Eliminar');
@@ -333,50 +346,53 @@
     </script>
 
     <script>
-        function editemployee(id){
-            $.get('employees/edit/'+id, function(employee){
+        function editclient(id){
+            $.get('clients/edit/'+id, function(client){
                 //asignar los datos recuperados en la ventana modal
-                $('#txtId2').val(employee[0].idempleado);
-                $('#txtcodeemp2').val(employee[0].idlempleado);
-                $('#txtname2').val(employee[0].nombre);
-                $('#txtlastname2').val(employee[0].apellido);
-                $('#txtidentif2').val(employee[0].cedula);
-                $('#txttelefono2').val(employee[0].telefono);
-                $('#txtaddress2').val(employee[0].direccion);
-                $('#txtemail2').val(employee[0].email);
+                $('#txtId2').val(client[0].idcliente);
+                $('#txtcodecli2').val(client[0].idlcliente);
+                $('#txtname2').val(client[0].nombre);
+                $('#txtlastname2').val(client[0].apellido);
+                $('#txtidentif2').val(client[0].cedula);
+                $('#txttelefono2').val(client[0].telefono);
+                $('#txtdepart2').val(client[0].departamento);
+                $('#txtaddress2').val(client[0].direccion);
+                $('#txtemail2').val(client[0].email);
                 $("input[name=_token]").val();
 
-                $('#employee_edit_modal').modal('toggle');
+                $('#client_edit_modal').modal('toggle');
             })
         }
     </script>
 
     <script>
 
-        $('#employee-edit-form').submit(function(e){
+        $('#client-edit-form').submit(function(e){
 
             e.preventDefault();
 
-            var idempleado2 = $('#txtId2').val(); //Agregado
-            var idlempleado2 = $('#txtcodeemp2').val();
+            var idcliente2 = $('#txtId2').val(); //Agregado
+            var idlcliente2 = $('#txtcodecli2').val();
             var nombre2 = $('#txtname2').val();
             var apellido2 = $('#txtlastname2').val();
             var cedula2 = $('#txtidentif2').val();
             var telefono2 = $('#txttelefono2').val();
+            var departamento2 = $('#txtdepart2').val();
             var direccion2 = $('#txtaddress2').val();
             var email2 = $('#txtemail2').val();
             var _token2 = $("input[name=_token]").val();
 
             $.ajax({
-                url: "{{ route('employees.update') }}",
+                url: "{{ route('clients.update') }}",
                 type: "POST",
                 data:{
-                    idempleado: idempleado2,
-                    idlempleado: idlempleado2,
+                    idcliente: idcliente2,
+                    idlcliente: idlcliente2,
                     nombre: nombre2,
                     apellido: apellido2,
                     cedula: cedula2,
                     telefono: telefono2,
+                    departamento: departamento2,
                     direccion: direccion2,
                     email: email2,
                     _token:_token2
@@ -386,9 +402,9 @@
                     if(response)
                     {
 
-                        $('#employee_edit_modal').modal('hide');
+                        $('#client_edit_modal').modal('hide');
                         toastr.info('El Registro fue actualizado Correctamente.', 'Actualizar Registro', {timeOut:3000});
-                        $('#table-employee').DataTable().ajax.reload();  //recargar tabla
+                        $('#table-client').DataTable().ajax.reload();  //recargar tabla
                     }
                 }
             })
@@ -398,4 +414,3 @@
 
 </body>
 </html>
-

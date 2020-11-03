@@ -20,8 +20,8 @@ class EmployeesController extends Controller
             return DataTables::of($employee)
                     ->addColumn('action', function($employee)
                     {
-                        $acciones = '<a href="" class="btn btn-info btn-sm"> Editar </a>';
-                        $acciones .= '&nbsp;&nbsp;<button type="button" name="delete" id="" class="btn btn-danger btn-sm"> Eliminar </button>';
+                        $acciones = '<a href="javascript:void(0)" onclick="editemployee('.$employee->idempleado.')" class="btn btn-info btn-sm"> Editar </a>';
+                        $acciones .= '&nbsp;&nbsp;<button type="button" name="delete" id="'.$employee->idempleado.'" class="delete btn btn-danger btn-sm"> Eliminar </button>';
                         return $acciones;
                     })
                     ->rawColumns(['action'])
@@ -31,83 +31,78 @@ class EmployeesController extends Controller
         return view('employees.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
-        //
-        $employee =new Employees();
 
+        $request->validate([
+            'txtcodeemp' => 'required',
+            'txtname'  => 'required',
+            'txtlastname'  => 'required',
+            'txtidentif'  => 'required',
+            'txttelefono'  => 'required',
+            'txtaddress'  => 'required',
+            'txtemail'  => 'required|email'
+ 
+        ]);
 
-        $employee->idlempleado = request('IdLEmpleado');
-        $employee->nombre = request('Nombre');
-        $employee->apellido = request('Apellido');
-        $employee->cedula = request('Cedula');
-        $employee->telefono = request('Telefono');
-        $employee->direccion = request('Direccion');
-        $employee->email = request('Email');
+        //llamar al procedimiento almacenado
+        $employee = DB::select('call spstore_empleados(?,?,?,?,?,?,?)',
+                        [$request->idlempleado,
+                        $request->nombre,
+                        $request->apellido,
+                        $request->cedula,
+                        $request->telefono,
+                        $request->direccion,
+                        $request->email]);
 
-        $employee  -> save();
+        return back();
 
-        return back()->with('success','Item created successfully!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Employees  $employees
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(Employees $employees)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Employees  $employees
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Employees $employees)
+
+    public function edit($id)
     {
         //
+        $employee = DB::select('call spedit_empleado(?)', [$id]);
+        return response()->json($employee);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Employees  $employees
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Employees $employees)
+
+    public function update(Request $request)
     {
         //
+        $employee = DB::select('call spupdate_empleado(?,?,?,?,?,?,?,?)',
+                        [$request->idempleado,
+                        $request->idlempleado,
+                        $request->nombre,
+                        $request->apellido,
+                        $request->cedula,
+                        $request->telefono,
+                        $request->direccion,
+                        $request->email]);
+
+        return back();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Employees  $employees
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Employees $employees)
+
+    public function destroy($id)
     {
         //
+
+        $employee = DB::select('call spdel_empleado(?)', [$id]);
+        return back();
     }
 }
