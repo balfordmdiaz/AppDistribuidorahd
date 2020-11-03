@@ -240,7 +240,7 @@
                     serverside:true,
                     ajax:
                     {
-                        url:"{{ route('clients.index' )}}",
+                        url:"{{ route('clients.index') }}",
                     },
                     columns:
                     [
@@ -276,12 +276,12 @@
             var _token = $("input[name=_token]").val();
 
 
-            if(idlcliente==null || nombre==null || apellido==null || cedula==null || telefono==null || departamento==null || direccion==null || email==null )
-            {
-                toastr.error('Llene todos los campos.', 'Error', {timeOut:3000});
-            }
-            else
-            {
+            //if(idlcliente==null || nombre==null || apellido==null || cedula==null || telefono==null || departamento==null || direccion==null || email==null )
+            //{
+            //    toastr.error('Llene todos los campos.', 'Error', {timeOut:3000});
+            //}
+            //else
+            //{
             $.ajax({
                 url: "{{ route('clients.store') }}",   //ruta del post donde almacenara
                 type: "POST",
@@ -306,7 +306,7 @@
                     }
                 }
             });
-            }
+            //}
 
         });
 

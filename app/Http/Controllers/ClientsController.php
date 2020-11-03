@@ -9,11 +9,7 @@ use Yajra\DataTables\DataTables;
 
 class ClientsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index(Request $request)
     {
         //
@@ -45,17 +41,17 @@ class ClientsController extends Controller
     {
         //
 
-        $request->validate([
-            'txtcodecli' => 'required',
-            'txtname'  => 'required',
-            'txtlastname'  => 'required',
-            'txtidentif'  => 'required',
-            'txttelefono'  => 'required',
-            'txtdepart'  => 'required',
-            'txtaddress'  => 'required',
-            'txtemail'  => 'required|email'
-
-        ]);
+//        $request->validate([
+//            'txtcodecli' => 'required',
+//            'txtname'  => 'required',
+//            'txtlastname'  => 'required',
+//            'txtidentif'  => 'required',
+//            'txttelefono'  => 'required',
+//            'txtdepart'  => 'required',
+//            'txtaddress'  => 'required',
+//            'txtemail'  => 'required|email'
+//
+//        ]);
 
         //llamar al procedimiento almacenado
         $client = DB::select('call spstore_cliente(?,?,?,?,?,?,?,?)',
