@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Categorias</title>
+    <title>Proveedores</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.css"/>
@@ -26,45 +26,45 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="/">Inicio <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/employees">Empleados</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="/clients">Clientes</a>
-              </li>
-              <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Producto
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/categories">Categoria</a>
-                    <a class="dropdown-item" href="/productstock">Stock</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/products">Articulo</a>
-                  </div>
-                </li>
-              <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Proveedor
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/providers">Proveedor</a>
-                    <a class="dropdown-item" href="#">Pedidos</a>
-                  </div>
-                </li>
-              <li class="nav-item dropdown">
+              <a class="nav-link" href="/">Inicio <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/employees">Empleados</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/clients">Clientes</a>
+            </li>
+            <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Facturas
+                  Producto
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="#">Facturas del Dia</a>
-                  <a class="dropdown-item" href="#">Facturas del Mes</a>
+                  <a class="dropdown-item" href="/categories">Categoria</a>
+                  <a class="dropdown-item" href="/productstock">Stock</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Facturas del Año</a>
+                  <a class="dropdown-item" href="/products">Articulo</a>
                 </div>
               </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Proveedor
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/providers">Proveedor</a>
+                  <a class="dropdown-item" href="#">Pedidos</a>
+                </div>
+              </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Facturas
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Facturas del Dia</a>
+                <a class="dropdown-item" href="#">Facturas del Mes</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Facturas del Año</a>
+              </div>
+            </li>
           </ul>
           <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
@@ -77,42 +77,58 @@
 
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Lista de Categorias</a>
+              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Lista de Proveedores</a>
             </li>
             <li class="nav-item" role="presentation">
-              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Nueva Categoria</a>
+              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Nuevo Proveedor</a>
             </li>
         </ul>
-        <div class="tab-content" id="ListaCategoria">
-            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" align="center">
-                <h3>Lista Categoria</h3>
+        <div class="tab-content" id="ListaProveedor">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <h3 align="center">Lista Proveedores</h3>
 
-                <table id="table-category" class="table table-hover">
+                <table id="table-provider" class="table table-hover">
                     <thead>
-                        <td align="center">Id</td>
-                        <td align="center">Categoria</td>
-                        <td align="center">Acciones</td>
+                        <td>Id</td>
+                        <td>Nombre</td>
+                        <td>Telefono</td>
+                        <td>Direccion</td>
+                        <td>Correo</td>
+                        <td>Acciones</td>
                     </thead>
-                    <tbody id="idTBody_Maltas" align="center"></tbody><!-- Centrar contenido de la tabla -->
                 </table>
 
             </div>
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                <h3>Nueva Categoria</h3>
+                <h3 align="center">Nuevo Proveedor</h3>
 
-                <form id="store-category" method="" action="">
+                <form id="store-provider" method="" action="">
                 @csrf
                 <div class="form-group">
-                    <label for="exampleFormControlInput1">Codigo Categoria</label>
-                    <input type="text" class="form-control" id="txtidcat" name="txtidcat" placeholder="ex:CAT001">
+                    <label for="exampleFormControlInput1">Codigo Proveedor</label>
+                    <input type="text" class="form-control" id="txtidprov" name="txtidprov" placeholder="ex:PR001">
 
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlInput1">Categoria</label>
+                    <label for="exampleFormControlInput1">Nombre</label>
                     <input type="text" class="form-control" id="txtname" name="txtname">
 
                 </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Telefono</label>
+                    <input type="text" class="form-control" id="txttelefono" name="txttelefono">
 
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Direccion</label>
+                    <input type="text" class="form-control" id="txtaddress" name="txtaddress">
+
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Correo</label>
+                    <input type="email" class="form-control" id="txtemail" name="txtemail">
+
+                </div>
                 <button type="submit" class="btn btn-primary">Agregar</button>
                 </form>
 
@@ -126,29 +142,42 @@
     <!-- Button trigger modal -->
 
 <!-- Modal -->
-<div class="modal fade" id="category_edit_modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="provider_edit_modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 <div class="modal-dialog">
     <div class="modal-content">
     <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Editar Categoria</h5>
+        <h5 class="modal-title" id="staticBackdropLabel">Editar Cliente</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
         </button>
     </div>
 
-    <form id="category-edit-form">
+    <form id="provider-edit-form">
     <div class="modal-body">
 
             @csrf
             <input type="hidden" id="txtId2" name="txtId2">
             <div class="form-group">
-                <label for="exampleFormControlInput1">Codigo Categoria</label>
-                <input type="text" class="form-control" id="txtidcat2" name="txtidcat2" placeholder="ex:CAT001">
+                <label for="exampleFormControlInput1">Codigo Cliente</label>
+                <input type="text" class="form-control" id="txtidprov2" name="txtidprov2" placeholder="ex:PR001">
             </div>
             <div class="form-group">
-                <label for="exampleFormControlInput1">Categoria</label>
+                <label for="exampleFormControlInput1">Nombre</label>
                 <input type="text" class="form-control" id="txtname2" name="txtname2">
             </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Telefono</label>
+                <input type="text" class="form-control" id="txttelefono2" name="txttelefono2">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Direccion</label>
+                <input type="text" class="form-control" id="txtaddress2" name="txtaddress2">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Correo</label>
+                <input type="email" class="form-control" id="txtemail2" name="txtemail2">
+            </div>
+
 
     </div>
     <div class="modal-footer">
@@ -189,18 +218,21 @@
     <script>//LISTAR REGISTROS CON DATATABLE
         $(document).ready(function()
         {
-            var tablecategory = $('#table-category').DataTable(
+            var tableclient = $('#table-provider').DataTable(
                 {
                     processing:true,
                     serverside:true,
                     ajax:
                     {
-                        url:"{{ route('categories.index') }}",
+                        url:"{{ route('providers.index') }}",
                     },
                     columns:
                     [
-                        {data: 'idlcategoria'},
-                        {data: 'descripcion'},
+                        {data: 'idlproveedor'},
+                        {data: 'nombreproveedor'},
+                        {data: 'telefono'},
+                        {data: 'direccion'},
+                        {data: 'email'},
                         {data: 'action', orderable: false},
                     ]
                 }
@@ -208,38 +240,44 @@
         })
     </script>
 
-    <script> //AGREGAR DATOS A LA TABLA CATEGORIA
+    <script> //AGREGAR DATOS A LA TABLA CLIENTE
 
-        $('#store-category').submit(function(e)
+        $('#store-provider').submit(function(e)
         {
             e.preventDefault();
 
-            var idlcategoria = $('#txtidcat').val();  //(names de los input)
-            var descripcion = $('#txtname').val();
+            var idlproveedor = $('#txtidprov').val();  //(names de los input)
+            var nombre = $('#txtname').val();
+            var telefono = $('#txttelefono').val();
+            var direccion = $('#txtaddress').val();
+            var email = $('#txtemail').val();
             var _token = $("input[name=_token]").val();
 
 
-            //if(idlcategoria==null || descripcion==null  )
+            //if(idlcliente==null || nombre==null || apellido==null || cedula==null || telefono==null || departamento==null || direccion==null || email==null )
             //{
             //    toastr.error('Llene todos los campos.', 'Error', {timeOut:3000});
             //}
             //else
             //{
             $.ajax({
-                url: "{{ route('categories.store') }}",   //ruta del post donde almacenara
+                url: "{{ route('providers.store') }}",   //ruta del post donde almacenara
                 type: "POST",
                 data:{
-                    idlcategoria: idlcategoria,
-                    descripcion: descripcion,
+                    idlproveedor: idlproveedor,
+                    nombreproveedor: nombre,
+                    telefono: telefono,
+                    direccion: direccion,
+                    email: email,
                     _token:_token
                 },
                 success:function(response)
                 {
                     if(response)
                     {
-                        $('#store-category')[0].reset();   //limpiar campos del formulario luego de agregarlos
+                        $('#store-provider')[0].reset();   //limpiar campos del formulario luego de agregarlos
                         toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});
-                        $('#table-category').DataTable().ajax.reload();  //recargar tabla
+                        $('#table-provider').DataTable().ajax.reload();  //recargar tabla
                     }
                 }
             });
@@ -251,12 +289,12 @@
 
     </script>
 
-    <script>//ELIMINAR DATOS EN LA TABLA CATEGORIA
+    <script>//ELIMINAR DATOS EN LA TABLA Cliente
 
-        var cat_id;
+        var pro_id;
 
         $(document).on('click', '.delete', function(){
-            cat_id = $(this).attr('id');
+            pro_id = $(this).attr('id');
 
             $('#confirmModal').modal('show');
 
@@ -264,7 +302,7 @@
 
         $('#btndelete').click(function(){
             $.ajax({
-                url:"categories/destroy/"+cat_id,
+                url:"providers/destroy/"+pro_id,
                 beforeSend:function(){
                     $('#btndelete').text('Eliminando...');
                 },
@@ -272,7 +310,7 @@
                     setTimeout(function(){
                         $('#confirmModal').modal('hide');
                         toastr.warning('El Registro fue eliminado Correctamente.', 'Eliminar Registro', {timeOut:3000});
-                        $('#table-category').DataTable().ajax.reload();  //recargar tabla
+                        $('#table-provider').DataTable().ajax.reload();  //recargar tabla
 
                     }, 2000);
                     $('#btndelete').text('Eliminar');
@@ -283,37 +321,46 @@
     </script>
 
     <script>
-        function editcategory(id){
-            $.get('categories/edit/'+id, function(category){
+        function editprovider(id){
+            $.get('providers/edit/'+id, function(provider){
                 //asignar los datos recuperados en la ventana modal
-                $('#txtId2').val(category[0].idcategoria);
-                $('#txtidcat2').val(category[0].idlcategoria);
-                $('#txtname2').val(category[0].descripcion);
+                $('#txtId2').val(provider[0].idproveedor);
+                $('#txtidprov2').val(provider[0].idlproveedor);
+                $('#txtname2').val(provider[0].nombreproveedor);
+                $('#txttelefono2').val(provider[0].telefono);
+                $('#txtaddress2').val(provider[0].direccion);
+                $('#txtemail2').val(provider[0].email);
                 $("input[name=_token]").val();
 
-                $('#category_edit_modal').modal('toggle');
+                $('#provider_edit_modal').modal('toggle');
             })
         }
     </script>
 
     <script>
 
-        $('#category-edit-form').submit(function(e){
+        $('#provider-edit-form').submit(function(e){
 
             e.preventDefault();
 
-            var idcategoria2 = $('#txtId2').val(); //Agregado
-            var idlcategoria2 = $('#txtidcat2').val();
-            var descripcion2 = $('#txtname2').val();
+            var idproveedor2 = $('#txtId2').val(); //Agregado
+            var idlproveedor2 = $('#txtidprov2').val();
+            var nombre2 = $('#txtname2').val();
+            var telefono2 = $('#txttelefono2').val();
+            var direccion2 = $('#txtaddress2').val();
+            var email2 = $('#txtemail2').val();
             var _token2 = $("input[name=_token]").val();
 
             $.ajax({
-                url: "{{ route('categories.update') }}",
+                url: "{{ route('providers.update') }}",
                 type: "POST",
                 data:{
-                    idcategoria: idcategoria2,
-                    idlcategoria: idlcategoria2,
-                    descripcion: descripcion2,
+                    idproveedor: idproveedor2,
+                    idlproveedor: idlproveedor2,
+                    nombreproveedor: nombre2,
+                    telefono: telefono2,
+                    direccion: direccion2,
+                    email: email2,
                     _token:_token2
                 },
                 success:function(response)
@@ -321,9 +368,9 @@
                     if(response)
                     {
 
-                        $('#category_edit_modal').modal('hide');
+                        $('#provider_edit_modal').modal('hide');
                         toastr.info('El Registro fue actualizado Correctamente.', 'Actualizar Registro', {timeOut:3000});
-                        $('#table-category').DataTable().ajax.reload();  //recargar tabla
+                        $('#table-provider').DataTable().ajax.reload();  //recargar tabla
                     }
                 }
             })
@@ -333,4 +380,3 @@
 
 </body>
 </html>
-

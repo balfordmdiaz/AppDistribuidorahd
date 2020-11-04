@@ -3,83 +3,81 @@
 namespace App\Http\Controllers;
 
 use App\Models\ProductStock;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class ProductStockController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    public function index(Request $request)
     {
         //
+        if($request->ajax())
+        {
+            $category = DB::select('CALL spsel_categoria()');
+            return DataTables::of($category)
+                    ->addColumn('action', function($category)
+                    {
+                        $acciones = '<a href="javascript:void(0)" onclick="editcategory('.$category->idcategoria.')" class="btn btn-info btn-sm"> Editar </a>';
+                        $acciones .= '&nbsp;&nbsp;<button type="button" name="delete" id="'.$category->idcategoria.'" class="delete btn btn-danger btn-sm"> Eliminar </button>';
+                        return $acciones;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+        }
+
+        return view('productstock.indexprodstock');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         //
+        $category = DB::select('call spstore_categoria(?,?)',
+                        [$request->idlcategoria,
+                        $request->descripcion]);
+
+        return back();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\ProductStock  $productStock
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(ProductStock $productStock)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\ProductStock  $productStock
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ProductStock $productStock)
+
+    public function edit($id)
     {
         //
+        $category = DB::select('call spedit_categoria(?)', [$id]);
+        return response()->json($category);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ProductStock  $productStock
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, ProductStock $productStock)
+
+    public function update(Request $request)
     {
         //
+        $category = DB::select('call spupdate_categoria(?,?,?)',
+                        [$request->idcategoria,
+                        $request->idlcategoria,
+                        $request->descripcion]);
+
+        return back();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\ProductStock  $productStock
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(ProductStock $productStock)
+
+    public function destroy($id)
     {
         //
+        $category = DB::select('call spdel_categoria(?)', [$id]);
+        return back();
     }
 }

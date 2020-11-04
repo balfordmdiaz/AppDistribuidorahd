@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class ProductStock extends Model
 {
     use HasFactory;
+
+    protected $table='tbl_articulostock';
+    protected $primaryKey = 'idarticulostock';
+
+    protected $fillable = ['idlarticulostock','nombrearticulo','cantidadexistente','idcategoria'];
+
+    public $timestamps = false;
 }
