@@ -12,7 +12,7 @@ class ProductStock extends Model
     protected $table='tbl_articulostock';
     protected $primaryKey = 'idarticulostock';
 
-    protected $fillable = ['idlarticulostock','nombrearticulo','cantidadexistente','idcategoria'];
+    protected $fillable = ['idlarticulos','nombrearticulo','cantidadexistente','idcategoria'];
 
     public $timestamps = false;
 }

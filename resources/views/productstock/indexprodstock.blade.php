@@ -77,19 +77,21 @@
 
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Lista de Categorias</a>
+              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Productos Stock</a>
             </li>
             <li class="nav-item" role="presentation">
-              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Nueva Categoria</a>
+              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Nuevo Stock</a>
             </li>
         </ul>
-        <div class="tab-content" id="ListaCategoria">
+        <div class="tab-content" id="ListaStock">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                <h3>Lista Categoria</h3>
+                <h3>Lista Stock</h3>
 
-                <table id="table-category" class="table table-hover">
+                <table id="table-prodstock" class="table table-hover">
                     <thead>
                         <td>Id</td>
+                        <td>Producto</td>
+                        <td>Cantidad Existente</td>
                         <td>Categoria</td>
                         <td>Acciones</td>
                     </thead>
@@ -97,24 +99,32 @@
 
             </div>
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                <h3>Nueva Categoria</h3>
+                <h3>Nuevo Stock</h3>
 
-                <form id="store-category" method="" action="">
+                <form id="store-prodstock" method="" action="">
                 @csrf
                 <div class="form-group">
-                    <label for="exampleFormControlInput1">Codigo Categoria</label>
-                    <input type="text" class="form-control" id="txtidcat" name="txtidcat" placeholder="ex:CAT001">
-
+                    <label for="exampleFormControlInput1">Codigo Stock</label>
+                    <input type="text" class="form-control" id="txtidcat" name="txtidcat" placeholder="ex:PRS001">
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlInput1">Categoria</label>
+                    <label for="exampleFormControlInput1">Producto</label>
                     <input type="text" class="form-control" id="txtname" name="txtname">
-
                 </div>
-
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Cantidad Existente</label>
+                    <input type="text" class="form-control" id="txtcant" name="txtcant">
+                </div>
+                <div class="form-group">
+                    <label for="xampleFormControlSelect1">Categoria</label>
+                    <select class="form-control" id="selcategory" name="selcategory">
+                        @foreach($categoria as $categoryItem)
+                          <option value="{{ $categoryItem->idcategoria }}">{{ $categoryItem->descripcion }}</option>
+                        @endforeach
+                    </select>
+                </div>
                 <button type="submit" class="btn btn-primary">Agregar</button>
                 </form>
-
                 <div id="result"><!-- Respuesta AJAX (¡IMPORTANTE!) --></div>
             </div>
 
@@ -125,28 +135,40 @@
     <!-- Button trigger modal -->
 
 <!-- Modal -->
-<div class="modal fade" id="category_edit_modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="prodstock_edit_modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 <div class="modal-dialog">
     <div class="modal-content">
     <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Editar Categoria</h5>
+        <h5 class="modal-title" id="staticBackdropLabel">Editar Stock</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
         </button>
     </div>
 
-    <form id="category-edit-form">
+    <form id="prodstock-edit-form">
     <div class="modal-body">
 
             @csrf
             <input type="hidden" id="txtId2" name="txtId2">
-            <div class="form-group">
-                <label for="exampleFormControlInput1">Codigo Categoria</label>
-                <input type="text" class="form-control" id="txtidcat2" name="txtidcat2" placeholder="ex:CAT001">
+            <<div class="form-group">
+                <label for="exampleFormControlInput1">Codigo Stock</label>
+                <input type="text" class="form-control" id="txtidcat2" name="txtidcat2" placeholder="ex:PRS001">
             </div>
             <div class="form-group">
-                <label for="exampleFormControlInput1">Categoria</label>
+                <label for="exampleFormControlInput1">Producto</label>
                 <input type="text" class="form-control" id="txtname2" name="txtname2">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Cantidad Existente</label>
+                <input type="text" class="form-control" id="txtcant2" name="txtcant2">
+            </div>
+            <div class="form-group">
+                <label for="xampleFormControlSelect1">Categoria</label>
+                <select class="form-control" id="selcategory2" name="selcategory2">
+                    @foreach($categoria as $categoryItem)
+                      <option value="{{ $categoryItem->idcategoria }}">{{ $categoryItem->descripcion }}</option>
+                    @endforeach
+                </select>
             </div>
 
     </div>
@@ -188,18 +210,20 @@
     <script>//LISTAR REGISTROS CON DATATABLE
         $(document).ready(function()
         {
-            var tablecategory = $('#table-category').DataTable(
+            var tableprodstock = $('#table-prodstock').DataTable(
                 {
                     processing:true,
                     serverside:true,
                     ajax:
                     {
-                        url:"{{ route('categories.index') }}",
+                        url:"{{ route('productstock.index') }}",
                     },
                     columns:
                     [
-                        {data: 'idlcategoria'},
-                        {data: 'descripcion'},
+                        {data: 'idlarticulos'},
+                        {data: 'nombrearticulo'},
+                        {data: 'cantidadexistente'},
+                        {data: 'idcategoria'},
                         {data: 'action', orderable: false},
                     ]
                 }
@@ -209,12 +233,14 @@
 
     <script> //AGREGAR DATOS A LA TABLA CATEGORIA
 
-        $('#store-category').submit(function(e)
+        $('#store-prodstock').submit(function(e)
         {
             e.preventDefault();
 
-            var idlcategoria = $('#txtidcat').val();  //(names de los input)
-            var descripcion = $('#txtname').val();
+            var idlarticulos = $('#txtidcat').val();  //(names de los input)
+            var nombre = $('#txtname').val();
+            var cantidad = $('#txtcant').val();
+            var idcategoria = $('#selcategory').val();
             var _token = $("input[name=_token]").val();
 
 
@@ -225,20 +251,22 @@
             //else
             //{
             $.ajax({
-                url: "{{ route('categories.store') }}",   //ruta del post donde almacenara
+                url: "{{ route('productstock.store') }}",   //ruta del post donde almacenara
                 type: "POST",
                 data:{
-                    idlcategoria: idlcategoria,
-                    descripcion: descripcion,
+                    idlarticulos: idlarticulos,
+                    nombrearticulo: nombre,
+                    cantidadexistente: cantidad,
+                    idcategoria: idcategoria,
                     _token:_token
                 },
                 success:function(response)
                 {
                     if(response)
                     {
-                        $('#store-category')[0].reset();   //limpiar campos del formulario luego de agregarlos
+                        $('#store-prodstock')[0].reset();   //limpiar campos del formulario luego de agregarlos
                         toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});
-                        $('#table-category').DataTable().ajax.reload();  //recargar tabla
+                        $('#table-prodstock').DataTable().ajax.reload();  //recargar tabla
                     }
                 }
             });
@@ -252,10 +280,10 @@
 
     <script>//ELIMINAR DATOS EN LA TABLA CATEGORIA
 
-        var cat_id;
+        var prs_id;
 
         $(document).on('click', '.delete', function(){
-            cat_id = $(this).attr('id');
+            prs_id = $(this).attr('id');
 
             $('#confirmModal').modal('show');
 
@@ -263,7 +291,7 @@
 
         $('#btndelete').click(function(){
             $.ajax({
-                url:"categories/destroy/"+cat_id,
+                url:"productstock/destroy/"+prs_id,
                 beforeSend:function(){
                     $('#btndelete').text('Eliminando...');
                 },
@@ -271,7 +299,7 @@
                     setTimeout(function(){
                         $('#confirmModal').modal('hide');
                         toastr.warning('El Registro fue eliminado Correctamente.', 'Eliminar Registro', {timeOut:3000});
-                        $('#table-category').DataTable().ajax.reload();  //recargar tabla
+                        $('#table-prodstock').DataTable().ajax.reload();  //recargar tabla
 
                     }, 2000);
                     $('#btndelete').text('Eliminar');
@@ -282,37 +310,43 @@
     </script>
 
     <script>
-        function editcategory(id){
-            $.get('categories/edit/'+id, function(category){
+        function editprodstock(id){
+            $.get('productstock/edit/'+id, function(prodstock){
                 //asignar los datos recuperados en la ventana modal
-                $('#txtId2').val(category[0].idcategoria);
-                $('#txtidcat2').val(category[0].idlcategoria);
-                $('#txtname2').val(category[0].descripcion);
+                $('#txtId2').val(prodstock[0].idarticulostock);
+                $('#txtidcat2').val(prodstock[0].idlarticulos);
+                $('#txtname2').val(prodstock[0].nombrearticulo);
+                $('#txtcant2').val(prodstock[0].cantidadexistente);
+                $('#selcategory2').val(prodstock[0].idcategoria);
                 $("input[name=_token]").val();
 
-                $('#category_edit_modal').modal('toggle');
+                $('#prodstock_edit_modal').modal('toggle');
             })
         }
     </script>
 
     <script>
 
-        $('#category-edit-form').submit(function(e){
+        $('#prodstock-edit-form').submit(function(e){
 
             e.preventDefault();
 
-            var idcategoria2 = $('#txtId2').val(); //Agregado
-            var idlcategoria2 = $('#txtidcat2').val();
-            var descripcion2 = $('#txtname2').val();
+            var idarts2 = $('#txtId2').val(); //Agregado
+            var idlarts2 = $('#txtidcat2').val();
+            var nombre2 = $('#txtname2').val();
+            var cantidad2 = $('#txtcant2').val();
+            var idcategoria2 = $('#selcategory2').val();
             var _token2 = $("input[name=_token]").val();
 
             $.ajax({
-                url: "{{ route('categories.update') }}",
+                url: "{{ route('productstock.update') }}",
                 type: "POST",
                 data:{
+                    idarticulostock: idarts2,
+                    idlarticulos: idlarts2,
+                    nombrearticulo: nombre2,
+                    cantidadexistente: cantidad2,
                     idcategoria: idcategoria2,
-                    idlcategoria: idlcategoria2,
-                    descripcion: descripcion2,
                     _token:_token2
                 },
                 success:function(response)
@@ -320,9 +354,9 @@
                     if(response)
                     {
 
-                        $('#category_edit_modal').modal('hide');
+                        $('#prodstock_edit_modal').modal('hide');
                         toastr.info('El Registro fue actualizado Correctamente.', 'Actualizar Registro', {timeOut:3000});
-                        $('#table-category').DataTable().ajax.reload();  //recargar tabla
+                        $('#table-prodstock').DataTable().ajax.reload();  //recargar tabla
                     }
                 }
             })

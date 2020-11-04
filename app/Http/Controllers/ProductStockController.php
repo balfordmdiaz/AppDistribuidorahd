@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categories;
 use App\Models\ProductStock;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -15,12 +16,12 @@ class ProductStockController extends Controller
         //
         if($request->ajax())
         {
-            $category = DB::select('CALL spsel_categoria()');
-            return DataTables::of($category)
-                    ->addColumn('action', function($category)
+            $prodstock = DB::select('CALL spsel_articulostock()');
+            return DataTables::of($prodstock)
+                    ->addColumn('action', function($prodstock)
                     {
-                        $acciones = '<a href="javascript:void(0)" onclick="editcategory('.$category->idcategoria.')" class="btn btn-info btn-sm"> Editar </a>';
-                        $acciones .= '&nbsp;&nbsp;<button type="button" name="delete" id="'.$category->idcategoria.'" class="delete btn btn-danger btn-sm"> Eliminar </button>';
+                        $acciones = '<a href="javascript:void(0)" onclick="editprodstock('.$prodstock->idarticulostock.')" class="btn btn-info btn-sm"> Editar </a>';
+                        $acciones .= '&nbsp;&nbsp;<button type="button" name="delete" id="'.$prodstock->idarticulostock.'" class="delete btn btn-danger btn-sm"> Eliminar </button>';
                         return $acciones;
                     })
                     ->rawColumns(['action'])
@@ -31,18 +32,22 @@ class ProductStockController extends Controller
     }
 
 
-    public function create()
+    public function create($categoria)
     {
         //
+        $categoria = Categories::get();
+        return view('productstock.create', compact('categoria'));
     }
 
 
     public function store(Request $request)
     {
         //
-        $category = DB::select('call spstore_categoria(?,?)',
-                        [$request->idlcategoria,
-                        $request->descripcion]);
+        $prodstock = DB::select('call spstore_articulostock(?,?,?,?)',
+                        [$request->idlarticulos,
+                        $request->nombrearticulo,
+                        $request->cantidadexistente,
+                        $request->idcategoria]);
 
         return back();
     }
@@ -57,18 +62,20 @@ class ProductStockController extends Controller
     public function edit($id)
     {
         //
-        $category = DB::select('call spedit_categoria(?)', [$id]);
-        return response()->json($category);
+        $prodstock = DB::select('call spedit_articulostock(?)', [$id]);
+        return response()->json($prodstock);
     }
 
 
     public function update(Request $request)
     {
         //
-        $category = DB::select('call spupdate_categoria(?,?,?)',
-                        [$request->idcategoria,
-                        $request->idlcategoria,
-                        $request->descripcion]);
+        $prodstock = DB::select('call spupdate_articulostock(?,?,?,?,?)',
+                        [$request->idarticulostock,
+                        $request->idlarticulos,
+                        $request->nombrearticulo,
+                        $request->cantidadexistente,
+                        $request->idcategoria]);
 
         return back();
     }
@@ -77,7 +84,7 @@ class ProductStockController extends Controller
     public function destroy($id)
     {
         //
-        $category = DB::select('call spdel_categoria(?)', [$id]);
+        $prodstock = DB::select('call spdel_articulostock(?)', [$id]);
         return back();
     }
 }
