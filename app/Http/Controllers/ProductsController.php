@@ -3,83 +3,89 @@
 namespace App\Http\Controllers;
 
 use App\Models\Products;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class ProductsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    public function index(Request $request)
     {
         //
+        if($request->ajax())
+        {
+            $product = DB::select('CALL spsel_articulo()');
+            return DataTables::of($product)
+
+                    ->addColumn('action', function($product)
+                    {
+                        $acciones = '<a href="javascript:void(0)" onclick="editproduct('.$product->idarticulo.')" class="btn btn-info btn-sm"> Editar </a>';
+                        $acciones .= '&nbsp;&nbsp;<button type="button" name="delete" id="'.$product->idarticulo.'" class="delete btn btn-danger btn-sm"> Eliminar </button>';
+                        return $acciones;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+        }
+
+        return view('products.indexproduct');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         //
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         //
+        $product = DB::select('call spstore_articulo(?,?,?,?,?)',
+                        [$request->idlarticulo,
+                        $request->descripcion,
+                        $request->cantidad,
+                        $request->precio,
+                        $request->idarticulostock]);
+
+        return back();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Products  $products
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(Products $products)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Products  $products
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Products $products)
+
+    public function edit($id)
     {
         //
+        $product = DB::select('call spedit_articulo(?)', [$id]);
+        return response()->json($product);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Products  $products
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Products $products)
+
+    public function update(Request $request)
     {
         //
+        $product = DB::select('call spupdate_articulo(?,?,?,?,?,?)',
+                        [$request->idarticulo,
+                        $request->idlarticulo,
+                        $request->descripcion,
+                        $request->cantidad,
+                        $request->precio,
+                        $request->idarticulostock]);
+
+        return back();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Products  $products
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Products $products)
+
+    public function destroy($id)
     {
         //
+        $product = DB::select('call spdel_articulo(?)', [$id]);
+        return back();
     }
 }
