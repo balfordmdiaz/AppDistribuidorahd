@@ -59,7 +59,6 @@ Route::post('categories/update', [CategoriesController::class, 'update'])->name(
 Route::resource('productstock','App\Http\Controllers\ProductStockController');
 Route::post('productstock', [ProductStockController::class, 'store'])->name('productstock.store');
 Route::get('productstock/destroy/{idarticulostock}', [ProductStockController::class, 'destroy'])->name('productstock.destroy');
-Route::get('productstock/create', [ProductStockController::class, 'create'])->name('productstock.create');
 Route::get('productstock/edit/{idarticulostock}', [ProductStockController::class, 'edit'])->name('productstock.edit');
 Route::post('productstock/update', [ProductStockController::class, 'update'])->name('productstock.update');
 

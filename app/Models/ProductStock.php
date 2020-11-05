@@ -15,4 +15,6 @@ class ProductStock extends Model
     protected $fillable = ['idlarticulos','nombrearticulo','cantidadexistente','idcategoria'];
 
     public $timestamps = false;
+
+
 }

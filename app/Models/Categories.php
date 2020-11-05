@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\ProductStock;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,4 +16,6 @@ class Categories extends Model
     protected $fillable = ['idlcategoria','descripcion'];
 
     public $timestamps = false;
+
+
 }

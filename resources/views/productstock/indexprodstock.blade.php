@@ -84,7 +84,7 @@
             </li>
         </ul>
         <div class="tab-content" id="ListaStock">
-            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" align="center">
                 <h3>Lista Stock</h3>
 
                 <table id="table-prodstock" class="table table-hover">
@@ -99,7 +99,7 @@
 
             </div>
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                <h3>Nuevo Stock</h3>
+                <h3 align="center">Nuevo Stock</h3>
 
                 <form id="store-prodstock" method="" action="">
                 @csrf
@@ -116,11 +116,14 @@
                     <input type="text" class="form-control" id="txtcant" name="txtcant">
                 </div>
                 <div class="form-group">
-                    <label for="xampleFormControlSelect1">Categoria</label>
+                    <label for="exampleFormControlSelect1">Categoria</label>
                     <select class="form-control" id="selcategory" name="selcategory">
-                        @foreach($categoria as $categoryItem)
-                          <option value="{{ $categoryItem->idcategoria }}">{{ $categoryItem->descripcion }}</option>
-                        @endforeach
+                        <option value="">--Categorias--</option>
+                        @forelse($categoria = DB::table('tbl_categoria')->get() as $categoriaItem)
+                            <option value="{{ $categoriaItem->idcategoria }}">{{ $categoriaItem->descripcion }}</option>
+                        @empty
+                            <option value="">No hay categoria</option>
+                        @endforelse
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary">Agregar</button>
@@ -150,7 +153,7 @@
 
             @csrf
             <input type="hidden" id="txtId2" name="txtId2">
-            <<div class="form-group">
+            <div class="form-group">
                 <label for="exampleFormControlInput1">Codigo Stock</label>
                 <input type="text" class="form-control" id="txtidcat2" name="txtidcat2" placeholder="ex:PRS001">
             </div>
@@ -163,11 +166,13 @@
                 <input type="text" class="form-control" id="txtcant2" name="txtcant2">
             </div>
             <div class="form-group">
-                <label for="xampleFormControlSelect1">Categoria</label>
+                <label for="exampleFormControlSelect1">Categoria</label>
                 <select class="form-control" id="selcategory2" name="selcategory2">
-                    @foreach($categoria as $categoryItem)
-                      <option value="{{ $categoryItem->idcategoria }}">{{ $categoryItem->descripcion }}</option>
-                    @endforeach
+                    @forelse($categoria = DB::table('tbl_categoria')->get() as $categoriaItem)
+                            <option value="{{ $categoriaItem->idcategoria }}">{{ $categoriaItem->descripcion }}</option>
+                        @empty
+                            <option value="">No hay categoria</option>
+                        @endforelse
                 </select>
             </div>
 

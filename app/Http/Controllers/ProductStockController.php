@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Categories;
+
 use App\Models\ProductStock;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -18,6 +18,7 @@ class ProductStockController extends Controller
         {
             $prodstock = DB::select('CALL spsel_articulostock()');
             return DataTables::of($prodstock)
+
                     ->addColumn('action', function($prodstock)
                     {
                         $acciones = '<a href="javascript:void(0)" onclick="editprodstock('.$prodstock->idarticulostock.')" class="btn btn-info btn-sm"> Editar </a>';
@@ -32,11 +33,9 @@ class ProductStockController extends Controller
     }
 
 
-    public function create($categoria)
+    public function create()
     {
         //
-        $categoria = Categories::get();
-        return view('productstock.create', compact('categoria'));
     }
 
 
