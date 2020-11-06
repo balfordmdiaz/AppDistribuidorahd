@@ -7,6 +7,7 @@ use App\Http\Controllers\ProvidersController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ProductStockController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\BillsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,6 +65,12 @@ Route::post('productstock/update', [ProductStockController::class, 'update'])->n
 
 //PRODUCTOS
 Route::resource('products','App\Http\Controllers\ProductsController');
+Route::post('products', [ProductsController::class, 'store'])->name('products.store');
+Route::get('products/destroy/{idarticulo}', [ProductsController::class, 'destroy'])->name('products.destroy');
+Route::get('products/edit/{idarticulo}', [ProductsController::class, 'edit'])->name('products.edit');
+Route::post('products/update', [ProductsController::class, 'update'])->name('products.update');
+
+Route::resource('bills','App\Http\Controllers\BillsController');
 Route::post('products', [ProductsController::class, 'store'])->name('products.store');
 Route::get('products/destroy/{idarticulo}', [ProductsController::class, 'destroy'])->name('products.destroy');
 Route::get('products/edit/{idarticulo}', [ProductsController::class, 'edit'])->name('products.edit');

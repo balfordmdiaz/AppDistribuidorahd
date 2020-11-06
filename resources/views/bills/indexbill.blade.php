@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Empleados</title>
+    <title>Facturas</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.css"/>
@@ -62,7 +62,7 @@
                   <a class="dropdown-item" href="#">Facturas del Dia</a>
                   <a class="dropdown-item" href="#">Facturas del Mes</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Facturas del Año</a>
+                  <a class="dropdown-item" href="/bills">Facturas del Año</a>
                 </div>
               </li>
           </ul>
@@ -77,73 +77,66 @@
 
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Lista de Empleados</a>
+              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Lista de Facturas</a>
             </li>
             <li class="nav-item" role="presentation">
-              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Nuevo Empleado</a>
+              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Nuevo Articulo</a>
             </li>
         </ul>
-        <div class="tab-content" id="ListaEmpleado">
-            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                <h3>Lista Empleado</h3>
+        <div class="tab-content" id="ListaBill">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" align="center">
+                <h3>Facturas del Año</h3>
 
-                <table id="table-employee" class="table table-hover">
+                <table id="table-bill" class="table table-hover">
                     <thead>
                         <td>Id</td>
-                        <td>Nombre</td>
-                        <td>Apellido</td>
-                        <td>Cedula</td>
-                        <td>Telefono</td>
-                        <td>Direccion</td>
-                        <td>Correo</td>
+                        <td>Fecha</td>
+                        <td>Cantidad</td>
+                        <td>Precio</td>
+                        <td>Subtotal</td>
+                        <td>Iva</td>
+                        <td>Descuento</td>
+                        <td>Total</td>
+                        <td>Cliente</td>
                         <td>Acciones</td>
                     </thead>
                 </table>
 
             </div>
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                <h3>Nuevo Empleado</h3>
+                <h3 align="center">Nuevo Articulo</h3>
 
-                <form id="store-employee" method="" action="">
+                <form id="store-product" method="" action="">
                 @csrf
                 <div class="form-group">
-                    <label for="exampleFormControlInput1">Codigo Empleado</label>
-                    <input type="text" class="form-control"  name="txtcodeemp" placeholder="ex:EMP001">
-
+                    <label for="exampleFormControlInput1">Codigo Articulo</label>
+                    <input type="text" class="form-control" id="txtidcat" name="txtidcat" placeholder="ex:AR001">
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlInput1">Nombre</label>
+                    <label for="exampleFormControlInput1">Descripcion</label>
                     <input type="text" class="form-control" id="txtname" name="txtname">
-
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlInput1">Apellido</label>
-                    <input type="text" class="form-control" id="txtlastname" name="txtlastname">
-
+                    <label for="exampleFormControlInput1">Cantidad</label>
+                    <input type="text" class="form-control" id="txtcant" name="txtcant">
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlInput1">Cedula</label>
-                    <input type="text" class="form-control" id="txtidentif" name="txtidentif" placeholder="ex: 000-000000-0000A">
-
+                    <label for="exampleFormControlInput1">Precio</label>
+                    <input type="text" class="form-control" id="txtprice" name="txtprice">
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlInput1">Telefono</label>
-                    <input type="text" class="form-control" id="txttelefono" name="txttelefono">
-
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Direccion</label>
-                    <input type="text" class="form-control" id="txtaddress" name="txtaddress">
-
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Correo</label>
-                    <input type="text" class="form-control" id="txtemail" name="txtemail">
-
+                    <label for="exampleFormControlSelect1">Stock</label>
+                    <select class="form-control" id="selstock" name="selstock">
+                        <option value="">--Stock--</option>
+                        @forelse($stock = DB::table('tbl_articulostock')->get() as $stockItem)
+                            <option value="{{ $stockItem->idarticulostock }}">{{ $stockItem->nombrearticulo }}</option>
+                        @empty
+                            <option value="">No hay stock</option>
+                        @endforelse
+                    </select>
                 </div>
                 <button type="submit" class="btn btn-primary">Agregar</button>
                 </form>
-
                 <div id="result"><!-- Respuesta AJAX (¡IMPORTANTE!) --></div>
             </div>
 
@@ -154,50 +147,48 @@
     <!-- Button trigger modal -->
 
 <!-- Modal -->
-<div class="modal fade" id="employee_edit_modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="product_edit_modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 <div class="modal-dialog">
     <div class="modal-content">
     <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Editar Empleado</h5>
+        <h5 class="modal-title" id="staticBackdropLabel">Editar Stock</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
         </button>
     </div>
 
-    <form id="employee-edit-form">
+    <form id="product-edit-form">
     <div class="modal-body">
 
             @csrf
             <input type="hidden" id="txtId2" name="txtId2">
             <div class="form-group">
-                <label for="exampleFormControlInput1">Codigo Empleado</label>
-                <input type="text" class="form-control" id="txtcodeemp2" name="txtcodeemp2" placeholder="ex:EMP001">
+                <label for="exampleFormControlInput1">Codigo Articulo</label>
+                <input type="text" class="form-control" id="txtidcat2" name="txtidcat2" placeholder="ex:AR001">
             </div>
             <div class="form-group">
-                <label for="exampleFormControlInput1">Nombre</label>
+                <label for="exampleFormControlInput1">Descripcion</label>
                 <input type="text" class="form-control" id="txtname2" name="txtname2">
             </div>
             <div class="form-group">
-                <label for="exampleFormControlInput1">Apellido</label>
-                <input type="text" class="form-control" id="txtlastname2" name="txtlastname2">
+                <label for="exampleFormControlInput1">Cantidad</label>
+                <input type="text" class="form-control" id="txtcant2" name="txtcant2">
             </div>
             <div class="form-group">
-                <label for="exampleFormControlInput1">Cedula</label>
-                <input type="text" class="form-control" id="txtidentif2" name="txtidentif2" placeholder="ex: 000-000000-0000A">
+                <label for="exampleFormControlInput1">Precio</label>
+                <input type="text" class="form-control" id="txtprice2" name="txtprice2">
             </div>
             <div class="form-group">
-                <label for="exampleFormControlInput1">Telefono</label>
-                <input type="text" class="form-control" id="txttelefono2" name="txttelefono2">
+                <label for="exampleFormControlSelect1">Stock</label>
+                <select class="form-control" id="selstock2" name="selstock2">
+                    <option value="">--Stock--</option>
+                    @forelse($stock = DB::table('tbl_articulostock')->get() as $stockItem)
+                        <option value="{{ $stockItem->idarticulostock }}">{{ $stockItem->nombrearticulo }}</option>
+                    @empty
+                        <option value="">No hay stock</option>
+                    @endforelse
+                </select>
             </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput1">Direccion</label>
-                <input type="text" class="form-control" id="txtaddress2" name="txtaddress2">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput1">Correo</label>
-                <input type="text" class="form-control" id="txtemail2" name="txtemail2">
-            </div>
-
 
     </div>
     <div class="modal-footer">
@@ -238,24 +229,26 @@
     <script>//LISTAR REGISTROS CON DATATABLE
         $(document).ready(function()
         {
-            var tableemployee = $('#table-employee').DataTable(
+            var tablebill = $('#table-bill').DataTable(
                 {
                     "language": espanol,
                     processing:true,
                     serverside:true,
                     ajax:
                     {
-                        url:"{{ route('employees.index' )}}",
+                        url:"{{ route('bills.index') }}",
                     },
                     columns:
                     [
-                        {data: 'idlempleado'},
-                        {data: 'nombre'},
-                        {data: 'apellido'},
-                        {data: 'cedula'},
-                        {data: 'telefono'},
-                        {data: 'direccion'},
-                        {data: 'email'},
+                        {data: 'idlfactura'},
+                        {data: 'fechafactura'},
+                        {data: 'cantidad'},
+                        {data: 'precio'},
+                        {data: 'subtotal'},
+                        {data: 'iva'},
+                        {data: 'descuento'},
+                        {data: 'total'},
+                        {data: 'idcliente'},
                         {data: 'action', orderable: false},
                     ]
                 }
@@ -291,52 +284,48 @@
 };
     </script>
 
-    <script> //AGREGAR DATOS A LA TABLA EMPLEADO
+    <script> //AGREGAR DATOS A LA TABLA CATEGORIA
 
-        $('#store-employee').submit(function(e)
+        $('#store-product').submit(function(e)
         {
             e.preventDefault();
 
-            var idlempleado = $('#txtcodeemp').val();  //(names de los input)
-            var nombre = $('#txtname').val();
-            var apellido = $('#txtlastname').val();
-            var cedula = $('#txtidentif').val();
-            var telefono = $('#txttelefono').val();
-            var direccion = $('#txtaddress').val();
-            var email = $('#txtemail').val();
+            var idlarticulo = $('#txtidcat').val();  //(names de los input)
+            var descripcion = $('#txtname').val();
+            var cantidad = $('#txtcant').val();
+            var precio = $('#txtprice').val();
+            var idarticulos = $('#selstock').val();
             var _token = $("input[name=_token]").val();
 
 
-            if(idlempleado==null || nombre==null || apellido==null || cedula==null || telefono==null || direccion==null || email==null )
-            {
-                toastr.error('Llene todos los campos.', 'Error', {timeOut:3000});
-            }
-            else
-            {
+            //if(idlcategoria==null || descripcion==null  )
+            //{
+            //    toastr.error('Llene todos los campos.', 'Error', {timeOut:3000});
+            //}
+            //else
+            //{
             $.ajax({
-                url: "{{ route('employees.store') }}",   //ruta del post donde almacenara
+                url: "{{ route('products.store') }}",   //ruta del post donde almacenara
                 type: "POST",
                 data:{
-                    idlempleado: idlempleado,
-                    nombre: nombre,
-                    apellido: apellido,
-                    cedula: cedula,
-                    telefono: telefono,
-                    direccion: direccion,
-                    email: email,
+                    idlarticulo: idlarticulo,
+                    descripcion: descripcion,
+                    cantidad: cantidad,
+                    precio: precio,
+                    idarticulostock: idarticulos,
                     _token:_token
                 },
                 success:function(response)
                 {
                     if(response)
                     {
-                        $('#store-employee')[0].reset();   //limpiar campos del formulario luego de agregarlos
+                        $('#store-product')[0].reset();   //limpiar campos del formulario luego de agregarlos
                         toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});
-                        $('#table-employee').DataTable().ajax.reload();  //recargar tabla
+                        $('#table-product').DataTable().ajax.reload();  //recargar tabla
                     }
                 }
             });
-            }
+            //}
 
         });
 
@@ -344,12 +333,12 @@
 
     </script>
 
-    <script>//ELIMINAR DATOS EN LA TABLA EMPLEADO
+    <script>//ELIMINAR DATOS EN LA TABLA CATEGORIA
 
-        var emp_id;
+        var pro_id;
 
         $(document).on('click', '.delete', function(){
-            emp_id = $(this).attr('id');
+            pro_id = $(this).attr('id');
 
             $('#confirmModal').modal('show');
 
@@ -357,7 +346,7 @@
 
         $('#btndelete').click(function(){
             $.ajax({
-                url:"employees/destroy/"+emp_id,
+                url:"products/destroy/"+pro_id,
                 beforeSend:function(){
                     $('#btndelete').text('Eliminando...');
                 },
@@ -365,7 +354,7 @@
                     setTimeout(function(){
                         $('#confirmModal').modal('hide');
                         toastr.warning('El Registro fue eliminado Correctamente.', 'Eliminar Registro', {timeOut:3000});
-                        $('#table-employee').DataTable().ajax.reload();  //recargar tabla
+                        $('#table-product').DataTable().ajax.reload();  //recargar tabla
 
                     }, 2000);
                     $('#btndelete').text('Eliminar');
@@ -376,52 +365,46 @@
     </script>
 
     <script>
-        function editemployee(id){
-            $.get('employees/edit/'+id, function(employee){
+        function editproduct(id){
+            $.get('products/edit/'+id, function(product){
                 //asignar los datos recuperados en la ventana modal
-                $('#txtId2').val(employee[0].idempleado);
-                $('#txtcodeemp2').val(employee[0].idlempleado);
-                $('#txtname2').val(employee[0].nombre);
-                $('#txtlastname2').val(employee[0].apellido);
-                $('#txtidentif2').val(employee[0].cedula);
-                $('#txttelefono2').val(employee[0].telefono);
-                $('#txtaddress2').val(employee[0].direccion);
-                $('#txtemail2').val(employee[0].email);
+                $('#txtId2').val(product[0].idarticulo);
+                $('#txtidcat2').val(product[0].idlarticulo);
+                $('#txtname2').val(product[0].descripcion);
+                $('#txtcant2').val(product[0].cantidad);
+                $('#txtprice2').val(product[0].precio);
+                $('#selstock2').val(product[0].idarticulostock);
                 $("input[name=_token]").val();
 
-                $('#employee_edit_modal').modal('toggle');
+                $('#product_edit_modal').modal('toggle');
             })
         }
     </script>
 
     <script>
 
-        $('#employee-edit-form').submit(function(e){
+        $('#product-edit-form').submit(function(e){
 
             e.preventDefault();
 
-            var idempleado2 = $('#txtId2').val(); //Agregado
-            var idlempleado2 = $('#txtcodeemp2').val();
-            var nombre2 = $('#txtname2').val();
-            var apellido2 = $('#txtlastname2').val();
-            var cedula2 = $('#txtidentif2').val();
-            var telefono2 = $('#txttelefono2').val();
-            var direccion2 = $('#txtaddress2').val();
-            var email2 = $('#txtemail2').val();
+            var idart2 = $('#txtId2').val(); //Agregado
+            var idlart2 = $('#txtidcat2').val();
+            var descripcion2 = $('#txtname2').val();
+            var cantidad2 = $('#txtcant2').val();
+            var precio2 = $('#txtprice2').val();
+            var idartstock2 = $('#selstock2').val();
             var _token2 = $("input[name=_token]").val();
 
             $.ajax({
-                url: "{{ route('employees.update') }}",
+                url: "{{ route('products.update') }}",
                 type: "POST",
                 data:{
-                    idempleado: idempleado2,
-                    idlempleado: idlempleado2,
-                    nombre: nombre2,
-                    apellido: apellido2,
-                    cedula: cedula2,
-                    telefono: telefono2,
-                    direccion: direccion2,
-                    email: email2,
+                    idarticulo: idart2,
+                    idlarticulo: idlart2,
+                    descripcion: descripcion2,
+                    cantidad: cantidad2,
+                    precio: precio2,
+                    idarticulostock: idartstock2,
                     _token:_token2
                 },
                 success:function(response)
@@ -429,9 +412,9 @@
                     if(response)
                     {
 
-                        $('#employee_edit_modal').modal('hide');
+                        $('#product_edit_modal').modal('hide');
                         toastr.info('El Registro fue actualizado Correctamente.', 'Actualizar Registro', {timeOut:3000});
-                        $('#table-employee').DataTable().ajax.reload();  //recargar tabla
+                        $('#table-product').DataTable().ajax.reload();  //recargar tabla
                     }
                 }
             })
