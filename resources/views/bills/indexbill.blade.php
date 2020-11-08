@@ -47,11 +47,11 @@
                 </li>
               <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Proveedor
+                    Inventario
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="/providers">Proveedor</a>
-                    <a class="dropdown-item" href="#">Pedidos</a>
+                    <a class="dropdown-item" href="/stocks">Inventario</a>
                   </div>
                 </li>
               <li class="nav-item dropdown">
@@ -79,9 +79,6 @@
             <li class="nav-item" role="presentation">
               <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Lista de Facturas</a>
             </li>
-            <li class="nav-item" role="presentation">
-              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Nuevo Articulo</a>
-            </li>
         </ul>
         <div class="tab-content" id="ListaBill">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" align="center">
@@ -91,54 +88,18 @@
                     <thead>
                         <td>Id</td>
                         <td>Fecha</td>
-                        <td>Cantidad</td>
-                        <td>Precio</td>
                         <td>Subtotal</td>
                         <td>Iva</td>
                         <td>Descuento</td>
                         <td>Total</td>
                         <td>Cliente</td>
+                        <td>Empleado</td>
                         <td>Acciones</td>
                     </thead>
                 </table>
 
             </div>
-            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                <h3 align="center">Nuevo Articulo</h3>
 
-                <form id="store-product" method="" action="">
-                @csrf
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Codigo Articulo</label>
-                    <input type="text" class="form-control" id="txtidcat" name="txtidcat" placeholder="ex:AR001">
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Descripcion</label>
-                    <input type="text" class="form-control" id="txtname" name="txtname">
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Cantidad</label>
-                    <input type="text" class="form-control" id="txtcant" name="txtcant">
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Precio</label>
-                    <input type="text" class="form-control" id="txtprice" name="txtprice">
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlSelect1">Stock</label>
-                    <select class="form-control" id="selstock" name="selstock">
-                        <option value="">--Stock--</option>
-                        @forelse($stock = DB::table('tbl_articulostock')->get() as $stockItem)
-                            <option value="{{ $stockItem->idarticulostock }}">{{ $stockItem->nombrearticulo }}</option>
-                        @empty
-                            <option value="">No hay stock</option>
-                        @endforelse
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary">Agregar</button>
-                </form>
-                <div id="result"><!-- Respuesta AJAX (¡IMPORTANTE!) --></div>
-            </div>
 
         </div>
 
@@ -226,7 +187,7 @@
     </div><!--fin container-->
 
 
-    <script>//LISTAR REGISTROS CON DATATABLE
+    <script>//LISTAR FACTURAS
         $(document).ready(function()
         {
             var tablebill = $('#table-bill').DataTable(
@@ -242,13 +203,12 @@
                     [
                         {data: 'idlfactura'},
                         {data: 'fechafactura'},
-                        {data: 'cantidad'},
-                        {data: 'precio'},
                         {data: 'subtotal'},
                         {data: 'iva'},
                         {data: 'descuento'},
                         {data: 'total'},
                         {data: 'idcliente'},
+                        {data: 'idempleado'},
                         {data: 'action', orderable: false},
                     ]
                 }
@@ -284,61 +244,13 @@
 };
     </script>
 
-    <script> //AGREGAR DATOS A LA TABLA CATEGORIA
 
-        $('#store-product').submit(function(e)
-        {
-            e.preventDefault();
+    <script>//ELIMINAR FACTURA
 
-            var idlarticulo = $('#txtidcat').val();  //(names de los input)
-            var descripcion = $('#txtname').val();
-            var cantidad = $('#txtcant').val();
-            var precio = $('#txtprice').val();
-            var idarticulos = $('#selstock').val();
-            var _token = $("input[name=_token]").val();
-
-
-            //if(idlcategoria==null || descripcion==null  )
-            //{
-            //    toastr.error('Llene todos los campos.', 'Error', {timeOut:3000});
-            //}
-            //else
-            //{
-            $.ajax({
-                url: "{{ route('products.store') }}",   //ruta del post donde almacenara
-                type: "POST",
-                data:{
-                    idlarticulo: idlarticulo,
-                    descripcion: descripcion,
-                    cantidad: cantidad,
-                    precio: precio,
-                    idarticulostock: idarticulos,
-                    _token:_token
-                },
-                success:function(response)
-                {
-                    if(response)
-                    {
-                        $('#store-product')[0].reset();   //limpiar campos del formulario luego de agregarlos
-                        toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});
-                        $('#table-product').DataTable().ajax.reload();  //recargar tabla
-                    }
-                }
-            });
-            //}
-
-        });
-
-
-
-    </script>
-
-    <script>//ELIMINAR DATOS EN LA TABLA CATEGORIA
-
-        var pro_id;
+        var bill_id;
 
         $(document).on('click', '.delete', function(){
-            pro_id = $(this).attr('id');
+            bill_id = $(this).attr('id');
 
             $('#confirmModal').modal('show');
 
@@ -346,7 +258,7 @@
 
         $('#btndelete').click(function(){
             $.ajax({
-                url:"products/destroy/"+pro_id,
+                url:"bills/destroy/"+bill_id,
                 beforeSend:function(){
                     $('#btndelete').text('Eliminando...');
                 },
@@ -354,9 +266,9 @@
                     setTimeout(function(){
                         $('#confirmModal').modal('hide');
                         toastr.warning('El Registro fue eliminado Correctamente.', 'Eliminar Registro', {timeOut:3000});
-                        $('#table-product').DataTable().ajax.reload();  //recargar tabla
+                        $('#table-bill').DataTable().ajax.reload();  //recargar tabla
 
-                    }, 2000);
+                    }, 1000);
                     $('#btndelete').text('Eliminar');
                 }
                 });
@@ -364,7 +276,7 @@
 
     </script>
 
-    <script>
+    <script>// VER DETALLES DE FACTURA
         function editproduct(id){
             $.get('products/edit/'+id, function(product){
                 //asignar los datos recuperados en la ventana modal
@@ -379,47 +291,6 @@
                 $('#product_edit_modal').modal('toggle');
             })
         }
-    </script>
-
-    <script>
-
-        $('#product-edit-form').submit(function(e){
-
-            e.preventDefault();
-
-            var idart2 = $('#txtId2').val(); //Agregado
-            var idlart2 = $('#txtidcat2').val();
-            var descripcion2 = $('#txtname2').val();
-            var cantidad2 = $('#txtcant2').val();
-            var precio2 = $('#txtprice2').val();
-            var idartstock2 = $('#selstock2').val();
-            var _token2 = $("input[name=_token]").val();
-
-            $.ajax({
-                url: "{{ route('products.update') }}",
-                type: "POST",
-                data:{
-                    idarticulo: idart2,
-                    idlarticulo: idlart2,
-                    descripcion: descripcion2,
-                    cantidad: cantidad2,
-                    precio: precio2,
-                    idarticulostock: idartstock2,
-                    _token:_token2
-                },
-                success:function(response)
-                {
-                    if(response)
-                    {
-
-                        $('#product_edit_modal').modal('hide');
-                        toastr.info('El Registro fue actualizado Correctamente.', 'Actualizar Registro', {timeOut:3000});
-                        $('#table-product').DataTable().ajax.reload();  //recargar tabla
-                    }
-                }
-            })
-        });
-
     </script>
 
 </body>

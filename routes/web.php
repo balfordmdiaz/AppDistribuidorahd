@@ -71,8 +71,6 @@ Route::get('products/edit/{idarticulo}', [ProductsController::class, 'edit'])->n
 Route::post('products/update', [ProductsController::class, 'update'])->name('products.update');
 
 Route::resource('bills','App\Http\Controllers\BillsController');
-Route::post('products', [ProductsController::class, 'store'])->name('products.store');
-Route::get('products/destroy/{idarticulo}', [ProductsController::class, 'destroy'])->name('products.destroy');
-Route::get('products/edit/{idarticulo}', [ProductsController::class, 'edit'])->name('products.edit');
-Route::post('products/update', [ProductsController::class, 'update'])->name('products.update');
+Route::get('bills/destroy/{idfactura}', [BillsController::class, 'destroy'])->name('bills.destroy');
+Route::get('bills/edit/{idfactura}', [BillsController::class, 'edit'])->name('bills.edit');
 
