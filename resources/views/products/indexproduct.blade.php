@@ -40,7 +40,6 @@
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="/categories">Categoria</a>
-                    <a class="dropdown-item" href="/productstock">Stock</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="/products">Articulo</a>
                   </div>
@@ -79,9 +78,6 @@
             <li class="nav-item" role="presentation">
               <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Lista de Articulos</a>
             </li>
-            <li class="nav-item" role="presentation">
-              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Nuevo Articulo</a>
-            </li>
         </ul>
         <div class="tab-content" id="ListaProduct">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" align="center">
@@ -89,51 +85,19 @@
 
                 <table id="table-product" class="table table-hover">
                     <thead>
-                        <td>Id</td>
-                        <td>Descripcion</td>
+                        <td>Codigo</td>
+                        <td>Articulo</td>
+                        <td>Talla</td>
+                        <td>Color</td>
                         <td>Cantidad</td>
                         <td>Precio</td>
-                        <td>Stock</td>
                         <td>Acciones</td>
                     </thead>
                 </table>
 
             </div>
-            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                <h3 align="center">Nuevo Articulo</h3>
 
-                <form id="store-product" method="" action="">
-                @csrf
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Codigo Articulo</label>
-                    <input type="text" class="form-control" id="txtidcat" name="txtidcat" placeholder="ex:AR001">
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Descripcion</label>
-                    <input type="text" class="form-control" id="txtname" name="txtname">
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Cantidad</label>
-                    <input type="text" class="form-control" id="txtcant" name="txtcant">
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Precio</label>
-                    <input type="text" class="form-control" id="txtprice" name="txtprice">
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlSelect1">Stock</label>
-                    <select class="form-control" id="selstock" name="selstock">
-                        <option value="">--Stock--</option>
-                        @forelse($stock = DB::table('tbl_articulostock')->get() as $stockItem)
-                            <option value="{{ $stockItem->idarticulostock }}">{{ $stockItem->nombrearticulo }}</option>
-                        @empty
-                            <option value="">No hay stock</option>
-                        @endforelse
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary">Agregar</button>
-                </form>
-                <div id="result"><!-- Respuesta AJAX (¡IMPORTANTE!) --></div>
+
             </div>
 
         </div>
@@ -147,7 +111,7 @@
 <div class="modal-dialog">
     <div class="modal-content">
     <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Editar Stock</h5>
+        <h5 class="modal-title" id="staticBackdropLabel">Editar Articulo</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
         </button>
@@ -160,11 +124,33 @@
             <input type="hidden" id="txtId2" name="txtId2">
             <div class="form-group">
                 <label for="exampleFormControlInput1">Codigo Articulo</label>
-                <input type="text" class="form-control" id="txtidcat2" name="txtidcat2" placeholder="ex:AR001">
+                <select class="form-control" id="txtidcat2" name="txtidcat2">
+                    <option value="">--Articulo--</option>
+                    @forelse($stock = DB::table('tbl_articulostock')->get() as $stockItem)
+                        <option value="{{ $stockItem->idarticulos }}">{{ $stockItem->idlarticulos }}</option>
+                    @empty
+                        <option value="">No hay Articulo</option>
+                    @endforelse
+                </select>
             </div>
             <div class="form-group">
-                <label for="exampleFormControlInput1">Descripcion</label>
-                <input type="text" class="form-control" id="txtname2" name="txtname2">
+                <label for="exampleFormControlSelect1">Articulo</label>
+                <select class="form-control" id="selstock2" name="selstock2">
+                    <option value="">--Articulo--</option>
+                    @forelse($stock = DB::table('tbl_articulostock')->get() as $stockItem)
+                        <option value="{{ $stockItem->idarticulos }}">{{ $stockItem->nombrearticulo }}</option>
+                    @empty
+                        <option value="">No hay Articulo</option>
+                    @endforelse
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Talla</label>
+                <input type="text" class="form-control" id="txtsize2" name="txtsize2">
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Color</label>
+                <input type="text" class="form-control" id="txtcol2" name="txtcol2">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Cantidad</label>
@@ -173,17 +159,6 @@
             <div class="form-group">
                 <label for="exampleFormControlInput1">Precio</label>
                 <input type="text" class="form-control" id="txtprice2" name="txtprice2">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlSelect1">Stock</label>
-                <select class="form-control" id="selstock2" name="selstock2">
-                    <option value="">--Stock--</option>
-                    @forelse($stock = DB::table('tbl_articulostock')->get() as $stockItem)
-                        <option value="{{ $stockItem->idarticulostock }}">{{ $stockItem->nombrearticulo }}</option>
-                    @empty
-                        <option value="">No hay stock</option>
-                    @endforelse
-                </select>
             </div>
 
     </div>
@@ -236,11 +211,12 @@
                     },
                     columns:
                     [
-                        {data: 'idlarticulo'},
-                        {data: 'descripcion'},
+                        {data: 'idlarticulos'},
+                        {data: 'idarticulos'},
+                        {data: 'talla'},
+                        {data: 'color'},
                         {data: 'cantidad'},
                         {data: 'precio'},
-                        {data: 'idarticulostock'},
                         {data: 'action', orderable: false},
                     ]
                 }
@@ -276,56 +252,7 @@
 };
     </script>
 
-    <script> //AGREGAR DATOS A LA TABLA CATEGORIA
-
-        $('#store-product').submit(function(e)
-        {
-            e.preventDefault();
-
-            var idlarticulo = $('#txtidcat').val();  //(names de los input)
-            var descripcion = $('#txtname').val();
-            var cantidad = $('#txtcant').val();
-            var precio = $('#txtprice').val();
-            var idarticulos = $('#selstock').val();
-            var _token = $("input[name=_token]").val();
-
-
-            //if(idlcategoria==null || descripcion==null  )
-            //{
-            //    toastr.error('Llene todos los campos.', 'Error', {timeOut:3000});
-            //}
-            //else
-            //{
-            $.ajax({
-                url: "{{ route('products.store') }}",   //ruta del post donde almacenara
-                type: "POST",
-                data:{
-                    idlarticulo: idlarticulo,
-                    descripcion: descripcion,
-                    cantidad: cantidad,
-                    precio: precio,
-                    idarticulostock: idarticulos,
-                    _token:_token
-                },
-                success:function(response)
-                {
-                    if(response)
-                    {
-                        $('#store-product')[0].reset();   //limpiar campos del formulario luego de agregarlos
-                        toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});
-                        $('#table-product').DataTable().ajax.reload();  //recargar tabla
-                    }
-                }
-            });
-            //}
-
-        });
-
-
-
-    </script>
-
-    <script>//ELIMINAR DATOS EN LA TABLA CATEGORIA
+     <script>//ELIMINAR DATOS EN LA TABLA CATEGORIA
 
         var pro_id;
 
@@ -356,16 +283,17 @@
 
     </script>
 
-    <script>
+    <script>//EDITAR
         function editproduct(id){
             $.get('products/edit/'+id, function(product){
                 //asignar los datos recuperados en la ventana modal
-                $('#txtId2').val(product[0].idarticulo);
-                $('#txtidcat2').val(product[0].idlarticulo);
-                $('#txtname2').val(product[0].descripcion);
+                $('#txtId2').val(product[0].idarticulov);
+                $('#txtidcat2').val(product[0].idlarticulos);
+                $('#selstock2').val(product[0].nombrearticulo);
+                $('#txtsize2').val(product[0].talla);
+                $('#txtcol2').val(product[0].color);
                 $('#txtcant2').val(product[0].cantidad);
                 $('#txtprice2').val(product[0].precio);
-                $('#selstock2').val(product[0].idarticulostock);
                 $("input[name=_token]").val();
 
                 $('#product_edit_modal').modal('toggle');
@@ -373,14 +301,13 @@
         }
     </script>
 
-    <script>
+    <script>//ACTUALIZAR
 
         $('#product-edit-form').submit(function(e){
 
             e.preventDefault();
 
-            var idart2 = $('#txtId2').val(); //Agregado
-            var idlart2 = $('#txtidcat2').val();
+            var idart2 = $('#txtId2').val();
             var descripcion2 = $('#txtname2').val();
             var cantidad2 = $('#txtcant2').val();
             var precio2 = $('#txtprice2').val();

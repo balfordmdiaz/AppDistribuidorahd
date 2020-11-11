@@ -20,8 +20,8 @@ class ProductsController extends Controller
 
                     ->addColumn('action', function($product)
                     {
-                        $acciones = '<a href="javascript:void(0)" onclick="editproduct('.$product->idarticulo.')" class="btn btn-info btn-sm"> Editar </a>';
-                        $acciones .= '&nbsp;&nbsp;<button type="button" name="delete" id="'.$product->idarticulo.'" class="delete btn btn-danger btn-sm"> Eliminar </button>';
+                        $acciones = '<a href="javascript:void(0)" onclick="editproduct('.$product->idarticulov.')" class="btn btn-info btn-sm"> Editar </a>';
+                        $acciones .= '&nbsp;&nbsp;<button type="button" name="delete" id="'.$product->idarticulov.'" class="delete btn btn-danger btn-sm"> Eliminar </button>';
                         return $acciones;
                     })
                     ->rawColumns(['action'])
@@ -42,14 +42,15 @@ class ProductsController extends Controller
     public function store(Request $request)
     {
         //
-        $product = DB::select('call spstore_articulo(?,?,?,?,?)',
-                        [$request->idlarticulo,
-                        $request->descripcion,
-                        $request->cantidad,
-                        $request->precio,
-                        $request->idarticulostock]);
-
-        return back();
+//        $product = DB::select('call spstore_articulo(?,?,?,?,?,?)',
+//                        [$request->idlarticulov,
+//                        $request->talla,
+//                        $request->color,
+//                        $request->cantidad,
+//                        $request->precio,
+//                        $request->idarticulos]);
+//
+//        return back();
     }
 
 
@@ -70,13 +71,14 @@ class ProductsController extends Controller
     public function update(Request $request)
     {
         //
-        $product = DB::select('call spupdate_articulo(?,?,?,?,?,?)',
-                        [$request->idarticulo,
-                        $request->idlarticulo,
-                        $request->descripcion,
+        $product = DB::select('call spupdate_articulo(?,?,?,?,?,?,?)',
+                        [$request->idarticulov,
+                        $request->idlarticulov,
+                        $request->talla,
+                        $request->color,
                         $request->cantidad,
                         $request->precio,
-                        $request->idarticulostock]);
+                        $request->idarticulos]);
 
         return back();
     }

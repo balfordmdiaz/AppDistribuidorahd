@@ -9,10 +9,10 @@ class Products extends Model
 {
     use HasFactory;
 
-    protected $table='tbl_articulo';
-    protected $primaryKey = 'idarticulo';
+    protected $table='tbl_articulovariante';
+    protected $primaryKey = 'idarticulov';
 
-    protected $fillable = ['idlarticulo','descripcion','cantidad','precio','idarticulostock'];
+    protected $fillable = ['idlarticulov','talla','color','cantidad','precio','idarticulos'];
 
     public $timestamps = false;
 }
