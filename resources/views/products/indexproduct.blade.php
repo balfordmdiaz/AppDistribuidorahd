@@ -91,6 +91,7 @@
                         <td>Color</td>
                         <td>Cantidad</td>
                         <td>Precio</td>
+                        <td>Categoria</td>
                         <td>Acciones</td>
                     </thead>
                 </table>
@@ -121,7 +122,7 @@
     <div class="modal-body">
 
             @csrf
-            <input type="hidden" id="txtId2" name="txtId">
+            <input type="hidden" id="txtId" name="txtId">
             <div class="form-group">
                 <label for="exampleFormControlInput1">Codigo Articulo</label>
                 <input class="form-control" id="txtcode" name="txtcode">
@@ -145,6 +146,10 @@
             <div class="form-group">
                 <label for="exampleFormControlInput1">Precio</label>
                 <input type="text" class="form-control" id="txtprice" name="txtprice">
+            </div>
+            <div class="form-group">
+                    <label for="exampleFormControlSelect1">Categoria</label>
+                    <input type="text" class="form-control" id="txtcategory" name="txtcategory">
             </div>
 
     </div>
@@ -203,6 +208,7 @@
                         {data: 'color'},
                         {data: 'cantidad'},
                         {data: 'precio'},
+                        {data: 'idcategoria'},
                         {data: 'action', orderable: false},
                     ]
                 }
@@ -249,6 +255,7 @@
                 $('#txtcol').val(product[0].color);
                 $('#txtcant').val(product[0].cantidad);
                 $('#txtprice').val(product[0].precio);
+                $('#txtcategory').val(product[0].descripcion);
                 $("input[name=_token]").val();
 
                 $('#product_edit_modal').modal('toggle');
