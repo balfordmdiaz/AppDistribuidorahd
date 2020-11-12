@@ -21,7 +21,6 @@ class ProductsController extends Controller
                     ->addColumn('action', function($product)
                     {
                         $acciones = '<a href="javascript:void(0)" onclick="editproduct('.$product->idarticulov.')" class="btn btn-info btn-sm"> Editar </a>';
-                        $acciones .= '&nbsp;&nbsp;<button type="button" name="delete" id="'.$product->idarticulov.'" class="delete btn btn-danger btn-sm"> Eliminar </button>';
                         return $acciones;
                     })
                     ->rawColumns(['action'])
@@ -73,12 +72,12 @@ class ProductsController extends Controller
         //
         $product = DB::select('call spupdate_articulo(?,?,?,?,?,?,?)',
                         [$request->idarticulov,
-                        $request->idlarticulov,
+                        $request->idlarticulos,
+                        $request->nombrearticulo,
                         $request->talla,
                         $request->color,
                         $request->cantidad,
-                        $request->precio,
-                        $request->idarticulos]);
+                        $request->precio]);
 
         return back();
     }
@@ -87,7 +86,5 @@ class ProductsController extends Controller
     public function destroy($id)
     {
         //
-        $product = DB::select('call spdel_articulo(?)', [$id]);
-        return back();
     }
 }

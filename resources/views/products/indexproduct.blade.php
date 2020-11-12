@@ -83,7 +83,7 @@
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" align="center">
                 <h3>Lista Articulos</h3>
 
-                <table id="table-product" class="table table-hover">
+                <table id="table-product" class="table table-hover" >
                     <thead>
                         <td>Codigo</td>
                         <td>Articulo</td>
@@ -121,44 +121,30 @@
     <div class="modal-body">
 
             @csrf
-            <input type="hidden" id="txtId2" name="txtId2">
+            <input type="hidden" id="txtId2" name="txtId">
             <div class="form-group">
                 <label for="exampleFormControlInput1">Codigo Articulo</label>
-                <select class="form-control" id="txtidcat2" name="txtidcat2">
-                    <option value="">--Articulo--</option>
-                    @forelse($stock = DB::table('tbl_articulostock')->get() as $stockItem)
-                        <option value="{{ $stockItem->idarticulos }}">{{ $stockItem->idlarticulos }}</option>
-                    @empty
-                        <option value="">No hay Articulo</option>
-                    @endforelse
-                </select>
+                <input class="form-control" id="txtcode" name="txtcode">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Articulo</label>
-                <select class="form-control" id="selstock2" name="selstock2">
-                    <option value="">--Articulo--</option>
-                    @forelse($stock = DB::table('tbl_articulostock')->get() as $stockItem)
-                        <option value="{{ $stockItem->idarticulos }}">{{ $stockItem->nombrearticulo }}</option>
-                    @empty
-                        <option value="">No hay Articulo</option>
-                    @endforelse
-                </select>
+                <input class="form-control" id="txtname" name="txtname">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Talla</label>
-                <input type="text" class="form-control" id="txtsize2" name="txtsize2">
+                <input type="text" class="form-control" id="txtsize" name="txtsize">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Color</label>
-                <input type="text" class="form-control" id="txtcol2" name="txtcol2">
+                <input type="text" class="form-control" id="txtcol" name="txtcol">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Cantidad</label>
-                <input type="text" class="form-control" id="txtcant2" name="txtcant2">
+                <input type="text" class="form-control" id="txtcant" name="txtcant">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Precio</label>
-                <input type="text" class="form-control" id="txtprice2" name="txtprice2">
+                <input type="text" class="form-control" id="txtprice" name="txtprice">
             </div>
 
     </div>
@@ -252,48 +238,17 @@
 };
     </script>
 
-     <script>//ELIMINAR DATOS EN LA TABLA CATEGORIA
-
-        var pro_id;
-
-        $(document).on('click', '.delete', function(){
-            pro_id = $(this).attr('id');
-
-            $('#confirmModal').modal('show');
-
-        });
-
-        $('#btndelete').click(function(){
-            $.ajax({
-                url:"products/destroy/"+pro_id,
-                beforeSend:function(){
-                    $('#btndelete').text('Eliminando...');
-                },
-                success:function(data){
-                    setTimeout(function(){
-                        $('#confirmModal').modal('hide');
-                        toastr.warning('El Registro fue eliminado Correctamente.', 'Eliminar Registro', {timeOut:3000});
-                        $('#table-product').DataTable().ajax.reload();  //recargar tabla
-
-                    }, 2000);
-                    $('#btndelete').text('Eliminar');
-                }
-                });
-        });
-
-    </script>
-
     <script>//EDITAR
         function editproduct(id){
             $.get('products/edit/'+id, function(product){
                 //asignar los datos recuperados en la ventana modal
-                $('#txtId2').val(product[0].idarticulov);
-                $('#txtidcat2').val(product[0].idlarticulos);
-                $('#selstock2').val(product[0].nombrearticulo);
-                $('#txtsize2').val(product[0].talla);
-                $('#txtcol2').val(product[0].color);
-                $('#txtcant2').val(product[0].cantidad);
-                $('#txtprice2').val(product[0].precio);
+                $('#txtId').val(product[0].idarticulov);
+                $('#txtcode').val(product[0].idlarticulos);
+                $('#txtname').val(product[0].nombrearticulo);
+                $('#txtsize').val(product[0].talla);
+                $('#txtcol').val(product[0].color);
+                $('#txtcant').val(product[0].cantidad);
+                $('#txtprice').val(product[0].precio);
                 $("input[name=_token]").val();
 
                 $('#product_edit_modal').modal('toggle');
@@ -307,24 +262,27 @@
 
             e.preventDefault();
 
-            var idart2 = $('#txtId2').val();
-            var descripcion2 = $('#txtname2').val();
-            var cantidad2 = $('#txtcant2').val();
-            var precio2 = $('#txtprice2').val();
-            var idartstock2 = $('#selstock2').val();
-            var _token2 = $("input[name=_token]").val();
+            var id = $('#txtId').val();
+            var codigo = $('#txtcode').val();
+            var nombre = $('#txtname').val();
+            var size = $('#txtsize').val();
+            var color = $('#txtcol').val();
+            var cantidad = $('#txtcant').val();
+            var precio = $('#txtprice').val();
+            var _token = $("input[name=_token]").val();
 
             $.ajax({
                 url: "{{ route('products.update') }}",
                 type: "POST",
                 data:{
-                    idarticulo: idart2,
-                    idlarticulo: idlart2,
-                    descripcion: descripcion2,
-                    cantidad: cantidad2,
-                    precio: precio2,
-                    idarticulostock: idartstock2,
-                    _token:_token2
+                    idarticulov: id,
+                    idlarticulos: codigo,
+                    nombrearticulo: nombre,
+                    talla: size,
+                    color: color,
+                    cantidad: cantidad,
+                    precio: precio,
+                    _token:_token
                 },
                 success:function(response)
                 {
