@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Articulo</title>
+    <title>Productos</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.css"/>
@@ -41,7 +41,7 @@
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="/categories">Categoria</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/products">Articulo</a>
+                    <a class="dropdown-item" href="/products">Productos</a>
                   </div>
                 </li>
               <li class="nav-item dropdown">
@@ -50,6 +50,7 @@
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="/providers">Proveedor</a>
+                    <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="/stocks">Inventario</a>
                   </div>
                 </li>
@@ -59,9 +60,8 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="#">Facturas del Dia</a>
-                  <a class="dropdown-item" href="#">Facturas del Mes</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="/bills">Facturas del Año</a>
+                  <a class="dropdown-item" href="/bills">Facturas</a>
                 </div>
               </li>
           </ul>
@@ -76,12 +76,12 @@
 
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Lista de Articulos</a>
+              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Lista de Productos</a>
             </li>
         </ul>
         <div class="tab-content" id="ListaProduct">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" align="center">
-                <h3>Lista Articulos</h3>
+                <h3>Lista Productos</h3>
 
                 <table id="table-product" class="table table-hover" >
                     <thead>

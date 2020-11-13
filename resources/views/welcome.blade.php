@@ -35,36 +35,35 @@
                   <a class="nav-link" href="/clients">Clientes</a>
               </li>
               <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Producto
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/categories">Categoria</a>
-                    <a class="dropdown-item" href="/productstock">Stock</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/products">Articulo</a>
-                  </div>
-                </li>
-              <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Inventario
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/providers">Proveedor</a>
-                    <a class="dropdown-item" href="/stocks">Inventario</a>
-                  </div>
-                </li>
-              <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Facturas
+                  Producto
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="#">Facturas del Dia</a>
-                  <a class="dropdown-item" href="#">Facturas del Mes</a>
+                  <a class="dropdown-item" href="/categories">Categoria</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Facturas del Año</a>
+                  <a class="dropdown-item" href="/products">Productos</a>
                 </div>
               </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Inventario
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/providers">Proveedor</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="/stocks">Inventario</a>
+                </div>
+              </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Facturas
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Facturas del Dia</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/bills">Facturas</a>
+              </div>
+            </li>
           </ul>
           <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
