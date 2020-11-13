@@ -89,8 +89,7 @@
                 <table id="table-employee" class="table table-hover">
                     <thead>
                         <td>Id</td>
-                        <td>Nombre</td>
-                        <td>Apellido</td>
+                        <td>Empleado</td>
                         <td>Cedula</td>
                         <td>Telefono</td>
                         <td>Direccion</td>
@@ -249,8 +248,7 @@
                     columns:
                     [
                         {data: 'idlempleado'},
-                        {data: 'nombre'},
-                        {data: 'apellido'},
+                        {data: 'empleado'},
                         {data: 'cedula'},
                         {data: 'telefono'},
                         {data: 'direccion'},
