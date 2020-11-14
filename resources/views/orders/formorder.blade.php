@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Empleados</title>
+    <title>Inventario</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.css"/>
@@ -76,71 +76,99 @@
 
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Lista de Empleados</a>
+              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Orden Realizadas</a>
             </li>
             <li class="nav-item" role="presentation">
-              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Nuevo Empleado</a>
+              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Nueva Orden</a>
             </li>
         </ul>
-        <div class="tab-content" id="ListaEmpleado">
+        <div class="tab-content" id="ListaOrden">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                <h3>Lista Empleado</h3>
+                <h3 align="center">Lista de Ordenes</h3>
 
-                <table id="table-employee" class="table table-hover">
+                <table id="table-order" class="table table-hover">
                     <thead>
-                        <td>Id</td>
-                        <td>Empleado</td>
-                        <td>Cedula</td>
-                        <td>Telefono</td>
-                        <td>Direccion</td>
-                        <td>Correo</td>
+                        <td>Codigo Orden</td>
+                        <td>Fecha</td>
+                        <td>Subtotal</td>
+                        <td>Total</td>
+                        <td>Proveedor</td>
                         <td>Acciones</td>
                     </thead>
                 </table>
 
             </div>
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                <h3>Nuevo Empleado</h3>
+                <h3 align="center">Nueva Orden</h3>
 
-                <form id="store-employee" method="" action="">
-                @csrf
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Codigo Empleado</label>
-                    <input type="text" class="form-control"  name="txtcodeemp" placeholder="ex:EMP001">
+                <form id="form-order">
+                    @csrf
+                    <div class="form-row">
+                      <div class="form-group col-md-4 my-lg-3">
+                        <label for="exampleFormControlInput1">No. Orden</label>
+                        <input type="text" class="form-control" id="txtidorden">
+                      </div>
+                      <div class="form-group col-md-4 my-lg-3">
+                        <label for="exampleFormControlInput1">Fecha</label>
+                        <input type="text" class="form-control" id="txtfecha">
+                      </div>
+                      <div class="form-group col-md-4 my-lg-3">
+                        <label for="exampleFormControlInput1">Proveedor</label>
+                        <select id="selproveedor" class="form-control">
+                            <option selected>--Proveedor--</option>
+                            <option>...</option>
+                          </select>
+                      </div>
+                    </div>
+                    <div class="form-row align-items-center">
+                        <div class="col-sm-10">
+                            <label for="inputProduct">Producto</label>
+                            <select id="selproveedor" class="form-control">
+                                <option selected>--Productos--</option>
+                                <option>...</option>
+                            </select>
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-primary my-3" id="btn-newprod">Nuevo Producto</button>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group col-md-4 my-lg-3">
+                        <label for="inputcantidad">Cantidad</label>
+                        <input type="text" class="form-control" id="inputcant">
+                      </div>
+                      <div class="form-group col-md-4 my-lg-3">
+                        <label for="inputprecio">Precio</label>
+                        <input type="text" class="form-control" id="inputprec">
+                      </div>
+                      <div class="form-group col-md-4 my-lg-3">
+                        <label for="inputmonto">Monto</label>
+                        <input type="text" class="form-control" id="inputmonto">
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-lg-4" id="btn-agregar">Agregar</button>
+                  </form>
 
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Nombre</label>
-                    <input type="text" class="form-control" id="txtname" name="txtname">
+                  <div class="tab-content" id="ListaOrden">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <h3>Orden</h3>
 
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Apellido</label>
-                    <input type="text" class="form-control" id="txtlastname" name="txtlastname">
-
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Cedula</label>
-                    <input type="text" class="form-control" id="txtidentif" name="txtidentif" placeholder="ex: 000-000000-0000A">
-
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Telefono</label>
-                    <input type="text" class="form-control" id="txttelefono" name="txttelefono">
-
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Direccion</label>
-                    <input type="text" class="form-control" id="txtaddress" name="txtaddress">
-
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Correo</label>
-                    <input type="text" class="form-control" id="txtemail" name="txtemail">
-
-                </div>
-                <button type="submit" class="btn btn-primary">Agregar</button>
-                </form>
+                        <table id="table-saveorder" class="table table-striped table-active">
+                            <tr>
+                                <td>Codigo</td>
+                                <td>Producto</td>
+                                <td>Cantidad</td>
+                                <td>Precio</td>
+                                <td>Monto</td>
+                                <td>Acciones</td>
+                            </tr>
+                            <tr><td></td><td></td><td></td><td>Subtotal</td></tr>
+                            <tr><td></td><td></td><td></td><td>Total</td></tr>
+                        </table>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success" id="btn-registrar" align="center">Registrar Orden</button>
+                        </div>
+                    </div>
 
                 <div id="result"><!-- Respuesta AJAX (¡IMPORTANTE!) --></div>
             </div>
@@ -152,11 +180,11 @@
     <!-- Button trigger modal -->
 
 <!-- Modal -->
-<div class="modal fade" id="employee_edit_modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="product_edit_modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 <div class="modal-dialog">
     <div class="modal-content">
     <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Editar Empleado</h5>
+        <h5 class="modal-title" id="staticBackdropLabel">Nuevo Producto</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
         </button>
@@ -232,27 +260,25 @@
 
     </div><!--fin container-->
 
-
     <script>//LISTAR REGISTROS CON DATATABLE
         $(document).ready(function()
         {
-            var tableemployee = $('#table-employee').DataTable(
+            var tableemployee = $('#table-order').DataTable(
                 {
                     "language": espanol,
                     processing:true,
                     serverside:true,
                     ajax:
                     {
-                        url:"{{ route('employees.index' )}}",
+                        url:"{{ route('orders.index' )}}",
                     },
                     columns:
                     [
-                        {data: 'idlempleado'},
-                        {data: 'empleado'},
-                        {data: 'cedula'},
-                        {data: 'telefono'},
-                        {data: 'direccion'},
-                        {data: 'email'},
+                        {data: 'idlorden'},
+                        {data: 'fechaorden'},
+                        {data: 'subtotal'},
+                        {data: 'total'},
+                        {data: 'idproveedor'},
                         {data: 'action', orderable: false},
                     ]
                 }
@@ -288,154 +314,5 @@
 };
     </script>
 
-    <script> //AGREGAR DATOS A LA TABLA EMPLEADO
 
-        $('#store-employee').submit(function(e)
-        {
-            e.preventDefault();
-
-            var idlempleado = $('#txtcodeemp').val();  //(names de los input)
-            var nombre = $('#txtname').val();
-            var apellido = $('#txtlastname').val();
-            var cedula = $('#txtidentif').val();
-            var telefono = $('#txttelefono').val();
-            var direccion = $('#txtaddress').val();
-            var email = $('#txtemail').val();
-            var _token = $("input[name=_token]").val();
-
-
-            if(idlempleado==null || nombre==null || apellido==null || cedula==null || telefono==null || direccion==null || email==null )
-            {
-                toastr.error('Llene todos los campos.', 'Error', {timeOut:3000});
-            }
-            else
-            {
-            $.ajax({
-                url: "{{ route('employees.store') }}",   //ruta del post donde almacenara
-                type: "POST",
-                data:{
-                    idlempleado: idlempleado,
-                    nombre: nombre,
-                    apellido: apellido,
-                    cedula: cedula,
-                    telefono: telefono,
-                    direccion: direccion,
-                    email: email,
-                    _token:_token
-                },
-                success:function(response)
-                {
-                    if(response)
-                    {
-                        $('#store-employee')[0].reset();   //limpiar campos del formulario luego de agregarlos
-                        toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});
-                        $('#table-employee').DataTable().ajax.reload();  //recargar tabla
-                    }
-                }
-            });
-            }
-
-        });
-
-
-
-    </script>
-
-    <script>//ELIMINAR DATOS EN LA TABLA EMPLEADO
-
-        var emp_id;
-
-        $(document).on('click', '.delete', function(){
-            emp_id = $(this).attr('id');
-
-            $('#confirmModal').modal('show');
-
-        });
-
-        $('#btndelete').click(function(){
-            $.ajax({
-                url:"employees/destroy/"+emp_id,
-                beforeSend:function(){
-                    $('#btndelete').text('Eliminando...');
-                },
-                success:function(data){
-                    setTimeout(function(){
-                        $('#confirmModal').modal('hide');
-                        toastr.warning('El Registro fue eliminado Correctamente.', 'Eliminar Registro', {timeOut:3000});
-                        $('#table-employee').DataTable().ajax.reload();  //recargar tabla
-
-                    }, 2000);
-                    $('#btndelete').text('Eliminar');
-                }
-                });
-        });
-
-    </script>
-
-    <script>
-        function editemployee(id){
-            $.get('employees/edit/'+id, function(employee){
-                //asignar los datos recuperados en la ventana modal
-                $('#txtId2').val(employee[0].idempleado);
-                $('#txtcodeemp2').val(employee[0].idlempleado);
-                $('#txtname2').val(employee[0].nombre);
-                $('#txtlastname2').val(employee[0].apellido);
-                $('#txtidentif2').val(employee[0].cedula);
-                $('#txttelefono2').val(employee[0].telefono);
-                $('#txtaddress2').val(employee[0].direccion);
-                $('#txtemail2').val(employee[0].email);
-                $("input[name=_token]").val();
-
-                $('#employee_edit_modal').modal('toggle');
-            })
-        }
-    </script>
-
-    <script>
-
-        $('#employee-edit-form').submit(function(e){
-
-            e.preventDefault();
-
-            var idempleado2 = $('#txtId2').val(); //Agregado
-            var idlempleado2 = $('#txtcodeemp2').val();
-            var nombre2 = $('#txtname2').val();
-            var apellido2 = $('#txtlastname2').val();
-            var cedula2 = $('#txtidentif2').val();
-            var telefono2 = $('#txttelefono2').val();
-            var direccion2 = $('#txtaddress2').val();
-            var email2 = $('#txtemail2').val();
-            var _token2 = $("input[name=_token]").val();
-
-            $.ajax({
-                url: "{{ route('employees.update') }}",
-                type: "POST",
-                data:{
-                    idempleado: idempleado2,
-                    idlempleado: idlempleado2,
-                    nombre: nombre2,
-                    apellido: apellido2,
-                    cedula: cedula2,
-                    telefono: telefono2,
-                    direccion: direccion2,
-                    email: email2,
-                    _token:_token2
-                },
-                success:function(response)
-                {
-                    if(response)
-                    {
-
-                        $('#employee_edit_modal').modal('hide');
-                        toastr.info('El Registro fue actualizado Correctamente.', 'Actualizar Registro', {timeOut:3000});
-                        $('#table-employee').DataTable().ajax.reload();  //recargar tabla
-                    }
-                }
-            })
-        });
-
-    </script>
-
-</body>
-</html>
 

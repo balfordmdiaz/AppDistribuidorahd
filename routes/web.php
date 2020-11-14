@@ -8,6 +8,7 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ProductStockController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\BillsController;
+use App\Http\Controllers\OrdersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,4 +74,7 @@ Route::post('products/update', [ProductsController::class, 'update'])->name('pro
 Route::resource('bills','App\Http\Controllers\BillsController');
 Route::get('bills/destroy/{idfactura}', [BillsController::class, 'destroy'])->name('bills.destroy');
 Route::get('bills/edit/{idfactura}', [BillsController::class, 'edit'])->name('bills.edit');
+
+Route::resource('orders','App\Http\Controllers\OrdersController');
+Route::post('orders', [OrdersController::class, 'store'])->name('orders.store');
 
