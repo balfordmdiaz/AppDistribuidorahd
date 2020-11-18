@@ -7,10 +7,10 @@
     <title>Inventario</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.22/r-2.2.6/datatables.min.css"/>
 
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.22/r-2.2.6/datatables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous"></script>
 
@@ -86,16 +86,24 @@
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <h3 align="center">Lista de Ordenes</h3>
 
-                <table id="table-order" class="table table-hover">
-                    <thead>
-                        <td>Codigo Orden</td>
-                        <td>Fecha</td>
-                        <td>Subtotal</td>
-                        <td>Total</td>
-                        <td>Proveedor</td>
-                        <td>Acciones</td>
-                    </thead>
-                </table>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <table id="table-order" class="table table-hover display nowrap" cellspacing="0" width="0">
+                                <thead>
+                                    <td>Codigo Orden</td>
+                                    <td>Fecha</td>
+                                    <td>Subtotal</td>
+                                    <td>Total</td>
+                                    <td>Proveedor</td>
+                                    <td>Acciones</td>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
 
             </div>
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
@@ -106,47 +114,76 @@
                     <div class="form-row">
                       <div class="form-group col-md-4 my-lg-3">
                         <label for="exampleFormControlInput1">No. Orden</label>
-                        <input type="text" class="form-control" id="txtidorden">
+                        <input type="text" class="form-control" id="txtidorden" placeholder="Ex:ORD001">
                       </div>
                       <div class="form-group col-md-4 my-lg-3">
                         <label for="exampleFormControlInput1">Fecha</label>
-                        <input type="text" class="form-control" id="txtfecha">
+                        <input type="date" class="form-control" id="txtfecha" name="txtfecha" value="<?php echo date("Y-m-d");?>">
                       </div>
                       <div class="form-group col-md-4 my-lg-3">
                         <label for="exampleFormControlInput1">Proveedor</label>
                         <select id="selproveedor" class="form-control">
-                            <option selected>--Proveedor--</option>
-                            <option>...</option>
-                          </select>
+                            <option value=""></option>
+                                @forelse($prov = DB::table('tbl_proveedor')->get() as $prvItem)
+                                    <option value="{{ $prvItem->idproveedor }}">{{ $prvItem->nombreproveedor }}</option>
+                                @empty
+                                    <option value="">No hay Proveedores</option>
+                                @endforelse
+                        </select>
                       </div>
                     </div>
-                    <div class="form-row align-items-center">
-                        <div class="col-sm-10">
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
                             <label for="inputProduct">Producto</label>
-                            <select id="selproveedor" class="form-control">
-                                <option selected>--Productos--</option>
-                                <option>...</option>
+                            <select id="sel_prod" class="form-control">
+                                <option value=""></option>
+                                @forelse($prod = DB::table('tbl_articulostock')->get() as $prdItem)
+                                    <option value="{{ $prdItem->idarticulos }}">{{ $prdItem->idlarticulos }}  -  {{ $prdItem->nombrearticulo }}</option>
+                                @empty
+                                    <option value="">No hay Produtos</option>
+                                @endforelse
                             </select>
                         </div>
-                        <div class="col-auto">
-                            <button type="submit" class="btn btn-primary my-3" id="btn-newprod">Nuevo Producto</button>
+                        <div class="form-group col-md-4">
+                          <label for="inputtalla">Talla</label>
+                          <select id="sel_talla" class="form-control">
+                            <option value=""></option>
+                            @forelse($talla = DB::table('tbl_articulovariante')->get() as $tllItem)
+                                <option value="{{ $tllItem->idarticulov }}">{{ $tllItem->talla }}</option>
+                            @empty
+                                <option value="">No hay Tallas</option>
+                            @endforelse
+                        </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                          <label for="inputtalla">Color</label>
+                          <select id="sel_color" class="form-control">
+                            <option value=""></option>
+                            @forelse($color = DB::table('tbl_articulovariante')->get() as $colItem)
+                                <option value="{{ $colItem->idarticulov }}">{{ $tllItem->color }}</option>
+                            @empty
+                                <option value="">No hay Colores</option>
+                            @endforelse
+                        </select>
                         </div>
                     </div>
                     <div class="form-row">
                       <div class="form-group col-md-4 my-lg-3">
                         <label for="inputcantidad">Cantidad</label>
-                        <input type="text" class="form-control" id="inputcant">
+                        <input type="number" class="form-control" id="inputcant" name="inputcant" onkeyup="ShowSelected();" pattern="^[0-9]+" oninput="this.value = Math.max(this.value, 0)"/>
                       </div>
                       <div class="form-group col-md-4 my-lg-3">
                         <label for="inputprecio">Precio</label>
-                        <input type="text" class="form-control" id="inputprec">
+                        <input type="number" class="form-control" id="inputprec" name="inputprec" onkeyup="ShowSelected();" pattern="^[0-9]+" oninput="this.value = Math.max(this.value, 0)"/>
                       </div>
                       <div class="form-group col-md-4 my-lg-3">
                         <label for="inputmonto">Monto</label>
-                        <input type="text" class="form-control" id="inputmonto">
+                        <input type="number" class="form-control" id="inputmonto" name="inputmonto" step="any" readonly="readonly"/>
                       </div>
                     </div>
-                    <button type="submit" class="btn btn-primary mb-lg-4" id="btn-agregar">Agregar</button>
+
+                    <button type="button" class="btn btn-primary mb-lg-4" data-toggle="modal" data-target="#product_new_modal">Nuevo Producto</button>
+                    <button type="submit" class="btn btn-secondary mb-lg-4" id="btn-agregar">Agregar</button>
                   </form>
 
                   <div class="tab-content" id="ListaOrden">
@@ -157,13 +194,14 @@
                             <tr>
                                 <td>Codigo</td>
                                 <td>Producto</td>
+                                <td>Especificacion</td>
                                 <td>Cantidad</td>
                                 <td>Precio</td>
                                 <td>Monto</td>
                                 <td>Acciones</td>
                             </tr>
-                            <tr><td></td><td></td><td></td><td>Subtotal</td></tr>
-                            <tr><td></td><td></td><td></td><td>Total</td></tr>
+                            <tr><td></td><td></td><td></td><td></td><td>Subtotal</td></tr>
+                            <tr><td></td><td></td><td></td><td></td><td>Total</td></tr>
                         </table>
                         <div class="text-center">
                             <button type="submit" class="btn btn-success" id="btn-registrar" align="center">Registrar Orden</button>
@@ -180,8 +218,8 @@
     <!-- Button trigger modal -->
 
 <!-- Modal -->
-<div class="modal fade" id="product_edit_modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-<div class="modal-dialog">
+<div class="modal fade" id="product_new_modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal-dialog modal-dialog-scrollable modal-xl">
     <div class="modal-content">
     <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">Nuevo Producto</h5>
@@ -190,45 +228,77 @@
         </button>
     </div>
 
-    <form id="employee-edit-form">
+    <form id="product-new-form">
     <div class="modal-body">
 
             @csrf
-            <input type="hidden" id="txtId2" name="txtId2">
-            <div class="form-group">
-                <label for="exampleFormControlInput1">Codigo Empleado</label>
-                <input type="text" class="form-control" id="txtcodeemp2" name="txtcodeemp2" placeholder="ex:EMP001">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput1">Nombre</label>
-                <input type="text" class="form-control" id="txtname2" name="txtname2">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput1">Apellido</label>
-                <input type="text" class="form-control" id="txtlastname2" name="txtlastname2">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput1">Cedula</label>
-                <input type="text" class="form-control" id="txtidentif2" name="txtidentif2" placeholder="ex: 000-000000-0000A">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput1">Telefono</label>
-                <input type="text" class="form-control" id="txttelefono2" name="txttelefono2">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput1">Direccion</label>
-                <input type="text" class="form-control" id="txtaddress2" name="txtaddress2">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput1">Correo</label>
-                <input type="text" class="form-control" id="txtemail2" name="txtemail2">
-            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4 my-lg-3">
+                  <label for="inputcantidad">Codigo</label>
+                  <input type="text" class="form-control" id="txtcode" placeholder="Ex:PRD001">
+                </div>
+                <div class="form-group col-md-4 my-lg-3">
+                  <label for="inputprecio">Descripcion</label>
+                  <input type="text" class="form-control" id="txtname">
+                </div>
+                <div class="form-group col-md-4 my-lg-3">
+                    <label for="inputmonto">Categoria</label>
+                    <select class="form-control" id="selcat" name="selcat">
+                        <option value=""></option>
+                        @forelse($catego = DB::table('tbl_categoria')->get() as $catItem)
+                            <option value="{{ $catItem->idcategoria }}">{{ $catItem->descripcion }}</option>
+                        @empty
+                            <option value="">No hay Categoria</option>
+                        @endforelse
+                    </select>
 
 
-    </div>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary" id="btn-save-prd">Guardar</button>
+                </div>
+
+
+
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-3 my-lg-4">
+                    <label for="inputcantidad">Talla</label>
+                    <input type="text" class="form-control" id="txtsize" placeholder="Ex:S,M,L">
+                </div>
+                <div class="form-group col-md-3 my-lg-4">
+                    <label for="inputprecio">Color</label>
+                    <input type="text" class="form-control" id="txtcolor">
+                </div>
+                <div class="form-group col-md-3 my-lg-4">
+                    <label for="inputprecio">Cantidad</label>
+                    <input type="text" class="form-control" id="txtcantidad">
+                </div>
+                <div class="form-group col-md-3 my-lg-4">
+                    <label for="inputprecio">Precio</label>
+                    <input type="text" class="form-control" id="txtprice">
+                </div>
+                <button type="submit" class="btn btn-primary" id="btn-add-variante">Agregar</button>
+            </div>
+
+            <div class="tab-content my-lg-4" id="ListNewProd">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <table id="table-savenewprod" class="table table-striped table-active">
+                        <tr>
+                            <td>Talla</td>
+                            <td>Color</td>
+                            <td>Cantidad</td>
+                            <td>Precio</td>
+                            <td>Acciones</td>
+                        </tr>
+                    </table>
+            </div>
+
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="submit" class="btn btn-primary">Actualizar</button>
+        <button type="submit" class="btn btn-success">Registrar Producto</button>
     </div>
     </form>
     </div>
@@ -266,6 +336,7 @@
             var tableemployee = $('#table-order').DataTable(
                 {
                     "language": espanol,
+                    responsive:true,
                     processing:true,
                     serverside:true,
                     ajax:
@@ -313,6 +384,24 @@
     }
 };
     </script>
+
+<script>
+
+    function ShowSelected()
+    {
+        var cantord=document.getElementById('inputcant').value;
+        var precord=document.getElementById('inputprec').value;
+        var monto=0.00;
+        monto=precord*cantord;
+
+        document.getElementById('inputmonto').value=parseFloat(monto);
+    }
+
+
+</script>
+
+</body>
+</html>
 
 
 

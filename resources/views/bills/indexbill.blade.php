@@ -7,10 +7,10 @@
     <title>Facturas</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.22/r-2.2.6/datatables.min.css"/>
 
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.22/r-2.2.6/datatables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous"></script>
 
@@ -51,7 +51,7 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="/providers">Proveedor</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="/stocks">Inventario</a>
+                  <a class="dropdown-item" href="/orders">Inventario</a>
                 </div>
               </li>
             <li class="nav-item dropdown">
@@ -81,85 +81,32 @@
         </ul>
         <div class="tab-content" id="ListaBill">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" align="center">
-                <h3>Facturas del Año</h3>
+                <h3>Facturas</h3>
 
-                <table id="table-bill" class="table table-hover">
-                    <thead>
-                        <td>Id</td>
-                        <td>Fecha</td>
-                        <td>Subtotal</td>
-                        <td>Iva</td>
-                        <td>Descuento</td>
-                        <td>Total</td>
-                        <td>Cliente</td>
-                        <td>Empleado</td>
-                        <td>Acciones</td>
-                    </thead>
-                </table>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <table id="table-bill" class="table table-hover display nowrap" cellspacing="0" width="0">
+                                <thead>
+                                    <td>Id</td>
+                                    <td>Fecha</td>
+                                    <td>Subtotal</td>
+                                    <td>Iva</td>
+                                    <td>Descuento</td>
+                                    <td>Total</td>
+                                    <td>Cliente</td>
+                                    <td>Empleado</td>
+                                    <td>Acciones</td>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
 
             </div>
 
 
         </div>
-
-
-  <!-- Modal Para editar-->
-    <!-- Button trigger modal -->
-
-<!-- Modal -->
-<div class="modal fade" id="product_edit_modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-<div class="modal-dialog">
-    <div class="modal-content">
-    <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Editar Stock</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-
-    <form id="product-edit-form">
-    <div class="modal-body">
-
-            @csrf
-            <input type="hidden" id="txtId2" name="txtId2">
-            <div class="form-group">
-                <label for="exampleFormControlInput1">Codigo Articulo</label>
-                <input type="text" class="form-control" id="txtidcat2" name="txtidcat2" placeholder="ex:AR001">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput1">Descripcion</label>
-                <input type="text" class="form-control" id="txtname2" name="txtname2">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput1">Cantidad</label>
-                <input type="text" class="form-control" id="txtcant2" name="txtcant2">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput1">Precio</label>
-                <input type="text" class="form-control" id="txtprice2" name="txtprice2">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlSelect1">Stock</label>
-                <select class="form-control" id="selstock2" name="selstock2">
-                    <option value="">--Stock--</option>
-                    @forelse($stock = DB::table('tbl_articulostock')->get() as $stockItem)
-                        <option value="{{ $stockItem->idarticulostock }}">{{ $stockItem->nombrearticulo }}</option>
-                    @empty
-                        <option value="">No hay stock</option>
-                    @endforelse
-                </select>
-            </div>
-
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="submit" class="btn btn-primary">Actualizar</button>
-    </div>
-    </form>
-    </div>
-</div>
-</div>
-
 
 
   <!-- Modal Eliminar-->
@@ -192,6 +139,7 @@
             var tablebill = $('#table-bill').DataTable(
                 {
                     "language": espanol,
+                    responsive:true,
                     processing:true,
                     serverside:true,
                     ajax:

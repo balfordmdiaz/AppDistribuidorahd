@@ -77,4 +77,5 @@ Route::get('bills/edit/{idfactura}', [BillsController::class, 'edit'])->name('bi
 
 Route::resource('orders','App\Http\Controllers\OrdersController');
 Route::post('orders', [OrdersController::class, 'store'])->name('orders.store');
+Route::get('orders/destroy/{idorden}', [OrdersController::class, 'destroy'])->name('orders.destroy');
 

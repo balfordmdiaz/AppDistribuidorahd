@@ -51,7 +51,7 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="/providers">Proveedor</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="/stocks">Inventario</a>
+                  <a class="dropdown-item" href="/orders">Inventario</a>
                 </div>
               </li>
             <li class="nav-item dropdown">

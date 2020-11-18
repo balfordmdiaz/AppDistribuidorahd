@@ -10,9 +10,10 @@ class ProductStock extends Model
     use HasFactory;
 
     protected $table='tbl_articulostock';
-    protected $primaryKey = 'idarticulostock';
+    protected $primaryKey = 'idarticulos';
 
-    protected $fillable = ['idlarticulos','nombrearticulo','cantidadexistente','idcategoria'];
+    protected $fillable = ['idlarticulos','nombrearticulo','idcategoria'];
+
 
     public $timestamps = false;
 

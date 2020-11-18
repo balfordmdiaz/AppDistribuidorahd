@@ -12,7 +12,7 @@ class Products extends Model
     protected $table='tbl_articulovariante';
     protected $primaryKey = 'idarticulov';
 
-    protected $fillable = ['idlarticulov','talla','color','cantidad','precio','idarticulos'];
+    protected $fillable = ['talla','color','cantidad','precio','idarticulos'];
 
     public $timestamps = false;
 }
