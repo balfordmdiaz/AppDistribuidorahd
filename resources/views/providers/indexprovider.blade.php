@@ -59,7 +59,7 @@
                 Facturas
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Facturas del Dia</a>
+                <a class="dropdown-item" href="/dbills">Facturas del Dia</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="/bills">Facturas</a>
               </div>
@@ -89,14 +89,14 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12">
-                            <table id="table-provider" class="table table-hover display nowrap" cellspacing="0" width="0">
+                            <table id="table-provider" class="table table-hover display nowrap" cellspacing="0" width="100%">
                                 <thead>
-                                    <td>Id</td>
-                                    <td>Nombre</td>
-                                    <td>Telefono</td>
-                                    <td>Direccion</td>
-                                    <td>Correo</td>
-                                    <td>Acciones</td>
+                                    <th>Id</th>
+                                    <th>Nombre</th>
+                                    <th>Telefono</th>
+                                    <th>Direccion</th>
+                                    <th>Correo</th>
+                                    <th>Acciones</th>
                                 </thead>
                             </table>
                         </div>

@@ -59,7 +59,7 @@
                 Facturas
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Facturas del Dia</a>
+                <a class="dropdown-item" href="/dbills">Facturas del Dia</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="/bills">Facturas</a>
               </div>
@@ -86,20 +86,15 @@
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" align="center">
                 <h3>Lista Categoria</h3>
 
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <table id="table-category" class="table table-hover display nowrap" cellspacing="0" width="0">
-                                <thead>
-                                    <td align="center">Id</td>
-                                    <td align="center">Categoria</td>
-                                    <td align="center">Acciones</td>
-                                </thead>
-                                <tbody id="idTBody_Maltas" align="center"></tbody><!-- Centrar contenido de la tabla -->
-                            </table>
-                        </div>
-                    </div>
-                </div>
+
+                <table id="table-category" class="table table-hover display nowrap" cellspacing="0" width="100%">
+                    <thead align="center">
+                        <th>Id</th>
+                        <th>Categoria</th>
+                        <th>Acciones</th>
+                    </thead>
+                    <tbody id="idTBody_Maltas" align="center"></tbody><!-- Centrar contenido de la tabla -->
+                </table>
 
             </div>
 

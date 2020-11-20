@@ -71,10 +71,13 @@ Route::get('products/destroy/{idarticulo}', [ProductsController::class, 'destroy
 Route::get('products/edit/{idarticulo}', [ProductsController::class, 'edit'])->name('products.edit');
 Route::post('products/update', [ProductsController::class, 'update'])->name('products.update');
 
+//FACTURAS
 Route::resource('bills','App\Http\Controllers\BillsController');
+Route::get('dbills',[BillsController::class, 'billofday'])->name('dbills.billofday');
 Route::get('bills/destroy/{idfactura}', [BillsController::class, 'destroy'])->name('bills.destroy');
 Route::get('bills/edit/{idfactura}', [BillsController::class, 'edit'])->name('bills.edit');
 
+//ORDENES
 Route::resource('orders','App\Http\Controllers\OrdersController');
 Route::post('orders', [OrdersController::class, 'store'])->name('orders.store');
 Route::get('orders/destroy/{idorden}', [OrdersController::class, 'destroy'])->name('orders.destroy');

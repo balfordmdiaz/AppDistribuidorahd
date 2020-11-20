@@ -31,6 +31,27 @@ class BillsController extends Controller
         return view('bills.indexbill');
     }
 
+    public function billofday(Request $request)
+    {
+        //
+        if($request->ajax())
+        {
+            $bill2 = DB::select('CALL spsel_facturadia()');
+            return DataTables::of($bill2)
+
+                    ->addColumn('action', function($bill2)
+                    {
+                        $acciones = '<a href="javascript:void(0)" onclick="viewDetail('.$bill2->idfactura.')" class="btn btn-info btn-sm"> Detalle </a>';
+                        $acciones .= '&nbsp;&nbsp;<button type="button" name="delete" id="'.$bill2->idfactura.'" class="delete btn btn-danger btn-sm"> Eliminar </button>';
+                        return $acciones;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+        }
+
+        return view('dbills.daybills');
+    }
+
 
     public function create()
     {

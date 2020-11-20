@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Facturas</title>
+    <title>Facturas del Dia</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.22/r-2.2.6/datatables.min.css"/>
@@ -81,7 +81,7 @@
         </ul>
         <div class="tab-content" id="ListaBill">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" align="center">
-                <h3>Facturas</h3>
+                <h3>Facturas del Dia</h3>
 
                 <div class="container">
                     <div class="row">
@@ -145,7 +145,7 @@
                     serverside:true,
                     ajax:
                     {
-                        url:"{{ route('bills.index') }}",
+                        url:"{{ route('dbills.billofday') }}",
                     },
                     columns:
                     [
@@ -226,7 +226,7 @@
 
     <script>// VER DETALLES DE FACTURA
         function editproduct(id){
-            $.get('products/edit/'+id, function(product){
+            $.get('bills/edit/'+id, function(product){
                 //asignar los datos recuperados en la ventana modal
                 $('#txtId2').val(product[0].idarticulo);
                 $('#txtidcat2').val(product[0].idlarticulo);

@@ -59,7 +59,7 @@
                 Facturas
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Facturas del Dia</a>
+                <a class="dropdown-item" href="/dbills">Facturas del Dia</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="/bills">Facturas</a>
               </div>
@@ -89,14 +89,14 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12">
-                            <table id="table-order" class="table table-hover display nowrap" cellspacing="0" width="0">
+                            <table id="table-order" class="table table-hover display nowrap" cellspacing="0" width="100%">
                                 <thead>
-                                    <td>Codigo Orden</td>
-                                    <td>Fecha</td>
-                                    <td>Subtotal</td>
-                                    <td>Total</td>
-                                    <td>Proveedor</td>
-                                    <td>Acciones</td>
+                                    <th>Codigo Orden</th>
+                                    <th>Fecha</th>
+                                    <th>Subtotal</th>
+                                    <th>Total</th>
+                                    <th>Proveedor</th>
+                                    <th>Acciones</th>
                                 </thead>
                             </table>
                         </div>
@@ -173,7 +173,7 @@
                         <input type="number" class="form-control" id="inputcant" name="inputcant" onkeyup="ShowSelected();" pattern="^[0-9]+" oninput="this.value = Math.max(this.value, 0)"/>
                       </div>
                       <div class="form-group col-md-4 my-lg-3">
-                        <label for="inputprecio">Precio</label>
+                        <label for="inputprecio">Precio Compra</label>
                         <input type="number" class="form-control" id="inputprec" name="inputprec" onkeyup="ShowSelected();" pattern="^[0-9]+" oninput="this.value = Math.max(this.value, 0)"/>
                       </div>
                       <div class="form-group col-md-4 my-lg-3">
