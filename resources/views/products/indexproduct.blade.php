@@ -151,7 +151,7 @@
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Cantidad</label>
-                <input type="text" class="form-control" id="txtcant" name="txtcant">
+                <input type="text" class="form-control" id="txtcant" name="txtcant" readonly="readonly">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Precio</label>

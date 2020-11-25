@@ -168,15 +168,19 @@
                         </div>
                     </div>
                     <div class="form-row">
-                      <div class="form-group col-md-4 my-lg-3">
+                      <div class="form-group col-md-3 my-lg-3">
                         <label for="inputcantidad">Cantidad</label>
                         <input type="number" class="form-control" id="inputcant" name="inputcant" onkeyup="ShowSelected();" pattern="^[0-9]+" oninput="this.value = Math.max(this.value, 0)"/>
                       </div>
-                      <div class="form-group col-md-4 my-lg-3">
-                        <label for="inputprecio">Precio Compra</label>
-                        <input type="number" class="form-control" id="inputprec" name="inputprec" onkeyup="ShowSelected();" pattern="^[0-9]+" oninput="this.value = Math.max(this.value, 0)"/>
+                      <div class="form-group col-md-3 my-lg-3">
+                        <label for="inputprecio">Precio Venta</label>
+                        <input type="number" class="form-control" id="inputprecv" name="inputprecv">
                       </div>
-                      <div class="form-group col-md-4 my-lg-3">
+                      <div class="form-group col-md-3 my-lg-3">
+                        <label for="inputprecio">Precio Compra</label>
+                        <input type="number" class="form-control" id="inputprecc" name="inputprecc" onkeyup="ShowSelected();" pattern="^[0-9]+" oninput="this.value = Math.max(this.value, 0)"/>
+                      </div>
+                      <div class="form-group col-md-3 my-lg-3">
                         <label for="inputmonto">Monto</label>
                         <input type="number" class="form-control" id="inputmonto" name="inputmonto" step="any" readonly="readonly"/>
                       </div>
@@ -277,7 +281,7 @@
                     <input type="text" class="form-control" id="txtcantidad">
                 </div>
                 <div class="form-group col-md-3 my-lg-4">
-                    <label for="inputprecio">Precio</label>
+                    <label for="inputprecio">Precio Venta</label>
                     <input type="text" class="form-control" id="txtprice">
                 </div>
                 <button type="submit" class="btn btn-primary" id="btn-add-variante">Agregar</button>
