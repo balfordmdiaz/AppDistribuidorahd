@@ -18,7 +18,7 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Distribuidora Hermanos Diaz</a>
+        <a class="navbar-brand" href="/">Distribuidora Hermanos Diaz</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -49,20 +49,24 @@
                     Inventario
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="/providers">Proveedor</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="/orders">Inventario</a>
-                  </div>
+                  <a class="dropdown-item" href="/providers">Proveedor</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="/norders">Nueva Orden</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="/orders">Lista de Ordenes</a>
+                </div>
                 </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Facturas
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="/dbills">Facturas del Dia</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="/bills">Facturas</a>
-                </div>
+                <a class="dropdown-item" href="/dbills">Facturas del Dia</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/mbills">Facturas del Mes</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/bills">Facturas</a>
+              </div>
               </li>
           </ul>
           <form class="form-inline my-2 my-lg-0">
@@ -72,16 +76,9 @@
         </div>
       </nav>
 
-    <div class="container">
+    <div class="container"><br>
 
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item" role="presentation">
-              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Lista de Productos</a>
-            </li>
-        </ul>
-        <div class="tab-content" id="ListaProduct">
-            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" align="center">
-                <h3>Lista Productos</h3>
+                <h3 align="center">Lista de Productos</h3>
 
                 <div class="container">
                     <div class="row">
@@ -90,7 +87,7 @@
                                 <thead>
                                     <tr>
                                         <th>Codigo</th>
-                                        <th>Articulo</th>
+                                        <th>Producto</th>
                                         <th>Talla</th>
                                         <th>Color</th>
                                         <th>Cantidad</th>
@@ -122,7 +119,7 @@
 <div class="modal-dialog">
     <div class="modal-content">
     <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Editar Articulo</h5>
+        <h5 class="modal-title" id="staticBackdropLabel">Editar Producto</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
         </button>
@@ -134,11 +131,11 @@
             @csrf
             <input type="hidden" id="txtId" name="txtId">
             <div class="form-group">
-                <label for="exampleFormControlInput1">Codigo Articulo</label>
+                <label for="exampleFormControlInput1">Codigo</label>
                 <input class="form-control" id="txtcode" name="txtcode">
             </div>
             <div class="form-group">
-                <label for="exampleFormControlSelect1">Articulo</label>
+                <label for="exampleFormControlSelect1">Producto</label>
                 <input class="form-control" id="txtname" name="txtname">
             </div>
             <div class="form-group">

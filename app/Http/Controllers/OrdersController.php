@@ -31,15 +31,24 @@ class OrdersController extends Controller
     }
 
 
-    public function create()
+    public function new_orders()
     {
         //
+        return view('norders.neworder');
     }
 
 
-    public function store(Request $request)
+    public function store_newprod(Request $request)
     {
         //
+        $newprod = DB::select('call spstore_articulo(?,?,?)',
+                        [$request->idlarticulos,
+                        $request->nombrearticulo,
+                        $request->idcategoria]);
+
+        return back();
+
+
     }
 
 

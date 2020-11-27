@@ -51,7 +51,8 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="/providers">Proveedor</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="/orders">Inventario</a>
+                  <a class="dropdown-item" href="/norders">Nueva Orden</a>
+                  <a class="dropdown-item" href="/orders">Lista de Ordenes</a>
                 </div>
               </li>
             <li class="nav-item dropdown">
@@ -60,6 +61,8 @@
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="/dbills">Facturas del Dia</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/mbills">Facturas del Mes</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="/bills">Facturas</a>
               </div>

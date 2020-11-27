@@ -18,7 +18,7 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Distribuidora Hermanos Diaz</a>
+        <a class="navbar-brand" href="/">Distribuidora Hermanos Diaz</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -51,7 +51,9 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="/providers">Proveedor</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="/orders">Inventario</a>
+                  <a class="dropdown-item" href="/norders">Nueva Orden</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="/orders">Lista de Ordenes</a>
                 </div>
               </li>
             <li class="nav-item dropdown">
@@ -60,6 +62,8 @@
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="/dbills">Facturas del Dia</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/mbills">Facturas del Mes</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="/bills">Facturas</a>
               </div>
