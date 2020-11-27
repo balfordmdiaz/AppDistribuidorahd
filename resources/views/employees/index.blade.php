@@ -100,7 +100,6 @@
                                     <th>Cedula</th>
                                     <th>Telefono</th>
                                     <th>Direccion</th>
-                                    <th>Correo</th>
                                     <th>Acciones</th>
                                 </thead>
                             </table>
@@ -142,11 +141,6 @@
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Direccion</label>
                     <input type="text" class="form-control" id="txtaddress" name="txtaddress">
-
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Correo</label>
-                    <input type="text" class="form-control" id="txtemail" name="txtemail">
 
                 </div>
                 <button type="submit" class="btn btn-primary">Agregar</button>
@@ -200,10 +194,6 @@
             <div class="form-group">
                 <label for="exampleFormControlInput1">Direccion</label>
                 <input type="text" class="form-control" id="txtaddress2" name="txtaddress2">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput1">Correo</label>
-                <input type="text" class="form-control" id="txtemail2" name="txtemail2">
             </div>
 
 
@@ -263,7 +253,6 @@
                         {data: 'cedula'},
                         {data: 'telefono'},
                         {data: 'direccion'},
-                        {data: 'email'},
                         {data: 'action', orderable: false},
                     ]
                 }
@@ -311,11 +300,10 @@
             var cedula = $('#txtidentif').val();
             var telefono = $('#txttelefono').val();
             var direccion = $('#txtaddress').val();
-            var email = $('#txtemail').val();
             var _token = $("input[name=_token]").val();
 
 
-            if(idlempleado==null || nombre==null || apellido==null || cedula==null || telefono==null || direccion==null || email==null )
+            if(idlempleado==null || nombre==null || apellido==null || cedula==null || telefono==null || direccion==null  )
             {
                 toastr.error('Llene todos los campos.', 'Error', {timeOut:3000});
             }
@@ -331,7 +319,6 @@
                     cedula: cedula,
                     telefono: telefono,
                     direccion: direccion,
-                    email: email,
                     _token:_token
                 },
                 success:function(response)
@@ -394,7 +381,6 @@
                 $('#txtidentif2').val(employee[0].cedula);
                 $('#txttelefono2').val(employee[0].telefono);
                 $('#txtaddress2').val(employee[0].direccion);
-                $('#txtemail2').val(employee[0].email);
                 $("input[name=_token]").val();
 
                 $('#employee_edit_modal').modal('toggle');
@@ -415,7 +401,6 @@
             var cedula2 = $('#txtidentif2').val();
             var telefono2 = $('#txttelefono2').val();
             var direccion2 = $('#txtaddress2').val();
-            var email2 = $('#txtemail2').val();
             var _token2 = $("input[name=_token]").val();
 
             $.ajax({
@@ -429,7 +414,6 @@
                     cedula: cedula2,
                     telefono: telefono2,
                     direccion: direccion2,
-                    email: email2,
                     _token:_token2
                 },
                 success:function(response)

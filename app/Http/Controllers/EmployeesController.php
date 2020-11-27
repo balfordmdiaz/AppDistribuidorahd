@@ -53,14 +53,13 @@ class EmployeesController extends Controller
         ]);
 
         //llamar al procedimiento almacenado
-        $employee = DB::select('call spstore_empleados(?,?,?,?,?,?,?)',
+        $employee = DB::select('call spstore_empleados(?,?,?,?,?,?)',
                         [$request->idlempleado,
                         $request->nombre,
                         $request->apellido,
                         $request->cedula,
                         $request->telefono,
-                        $request->direccion,
-                        $request->email]);
+                        $request->direccion]);
 
         return back();
 
@@ -84,15 +83,14 @@ class EmployeesController extends Controller
     public function update(Request $request)
     {
         //
-        $employee = DB::select('call spupdate_empleado(?,?,?,?,?,?,?,?)',
+        $employee = DB::select('call spupdate_empleado(?,?,?,?,?,?,?)',
                         [$request->idempleado,
                         $request->idlempleado,
                         $request->nombre,
                         $request->apellido,
                         $request->cedula,
                         $request->telefono,
-                        $request->direccion,
-                        $request->email]);
+                        $request->direccion]);
 
         return back();
     }

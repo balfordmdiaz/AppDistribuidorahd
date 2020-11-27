@@ -101,15 +101,12 @@
                 </div>
         </div>
 
-            <div class="container">
-                <div class="row">
-                    <table id="table-bill-sum" class="table table-striped table-active">
-                        <thead>
-                            <tr>
-                                <th scope = "col">Total del Mes</th>
-                            </tr>
-                        </thead>
-                    </table>
+           <div class="container">
+                <div class="row d-flex justify-content-center">
+                    <div class="form-group" style="text-align: center">
+                        <label for="inputmonto">Total Vendido del Mes</label>
+                        <input type="number" class="form-control" style="text-align: center" id="inputtmes" name="inputtmes" step="any" readonly="readonly"/>
+                    </div>
                 </div>
             </div>
 
@@ -196,7 +193,7 @@
 };
     </script>
 
-       
+    
        
     <script>//ELIMINAR FACTURA
 
@@ -228,6 +225,7 @@
         });
 
     </script>
+
 
 
 

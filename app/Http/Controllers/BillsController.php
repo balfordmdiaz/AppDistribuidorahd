@@ -75,7 +75,8 @@ class BillsController extends Controller
 
     public function create()
     {
-        //
+        //return DB::select("CALL spsel_facturames_sum()");
+        
     }
 
 
