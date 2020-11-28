@@ -103,9 +103,42 @@
 
             </div>
 
+            <div class="container">
+              <div class="row d-flex justify-content-center">
+                  <div class="form-group" style="text-align: center">
+                      <label for="inputmonto">Total de todas las Facturas</label>
+                  <input type="number" class="form-control" style="text-align: center" id="inputtmes" name="inputtmes" step="any" readonly="readonly" value="{{$total_final->total_final}}"/>
+                  </div>
+              </div>
+           </div>
+
 
         </div>
 
+<!-- Modal -->
+<div class="modal fade" id="factura_detalle_modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">lista</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+
+      <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="form-group" style="text-align: center">
+                <label for="inputmonto">Codigo</label>
+                <input type="text" class="form-control" style="text-align: center" id="details_codigo" name="details_codigo" step="any" readonly="readonly"/>
+            </div>
+        </div>
+      </div>
+  
+
+      </div>
+  </div>
+  </div>
 
   <!-- Modal Eliminar-->
   <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -129,6 +162,8 @@
   </div>
 
     </div><!--fin container-->
+
+
 
 
     <script>//LISTAR FACTURAS
@@ -222,19 +257,15 @@
     </script>
 
     <script>// VER DETALLES DE FACTURA
-        function editproduct(id){
-            $.get('products/edit/'+id, function(product){
+        function viewDetail(id){
+            $.get('bills/edit/{idfactura}'+id, function(bill){
                 //asignar los datos recuperados en la ventana modal
-                $('#txtId2').val(product[0].idarticulo);
-                $('#txtidcat2').val(product[0].idlarticulo);
-                $('#txtname2').val(product[0].descripcion);
-                $('#txtcant2').val(product[0].cantidad);
-                $('#txtprice2').val(product[0].precio);
-                $('#selstock2').val(product[0].idarticulostock);
-                $("input[name=_token]").val();
+                $('#details_codigo').val(bill[0].idlfactura);
+                
+          
 
-                $('#product_edit_modal').modal('toggle');
-            })
+                $('#factura_detalle_modal').modal('toggle');
+            })     
         }
     </script>
 

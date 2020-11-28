@@ -105,7 +105,7 @@
                 <div class="row d-flex justify-content-center">
                     <div class="form-group" style="text-align: center">
                         <label for="inputmonto">Total Vendido del Mes</label>
-                        <input type="number" class="form-control" style="text-align: center" id="inputtmes" name="inputtmes" step="any" readonly="readonly"/>
+                    <input type="number" class="form-control" style="text-align: center" id="inputtmes" name="inputtmes" step="any" readonly="readonly" value="{{$total_mes->total_mes}}"/>
                     </div>
                 </div>
             </div>

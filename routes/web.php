@@ -76,7 +76,7 @@ Route::resource('bills','App\Http\Controllers\BillsController');
 Route::get('dbills',[BillsController::class, 'billofday'])->name('dbills.billofday');
 Route::get('mbills',[BillsController::class, 'billofmonth'])->name('mbills.billofmonth');
 Route::get('bills/destroy/{idfactura}', [BillsController::class, 'destroy'])->name('bills.destroy');
-Route::get('bills/edit/{idfactura}', [BillsController::class, 'edit'])->name('bills.edit');
+Route::get('bills/show/{idfactura}', [BillsController::class, 'show'])->name('bills.show');
 
 //ORDENES
 Route::resource('orders','App\Http\Controllers\OrdersController');

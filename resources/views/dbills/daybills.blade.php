@@ -103,6 +103,15 @@
 
             </div>
 
+            <div class="container">
+              <div class="row d-flex justify-content-center">
+                  <div class="form-group" style="text-align: center">
+                      <label for="inputmonto">Total Vendido del dia</label>
+                  <input type="number" class="form-control" style="text-align: center" id="inputtmes" name="inputtmes" step="any" readonly="readonly" value="{{$total_dia->total_dia}}"/>
+                  </div>
+              </div>
+           </div>
+
 
         </div>
 
