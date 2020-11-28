@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Clientes</title>
+    <title>Proveedores</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.22/r-2.2.6/datatables.min.css"/>
@@ -26,15 +26,15 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="/">Inicio <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/employees">Empleados</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="/clients">Clientes</a>
-              </li>
-              <li class="nav-item dropdown">
+              <a class="nav-link" href="/">Inicio <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/employees">Empleados</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/clients">Clientes</a>
+            </li>
+            <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Producto
                 </a>
@@ -80,26 +80,25 @@
 
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Lista de Clientes</a>
+              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Lista de Proveedores</a>
             </li>
             <li class="nav-item" role="presentation">
-              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Nuevo Cliente</a>
+              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Nuevo Proveedor</a>
             </li>
         </ul>
-        <div class="tab-content" id="ListaCliente">
+        <div class="tab-content" id="ListaProveedor">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                <h3>Lista Clientes</h3>
+                <h3 align="center">Lista Proveedores</h3>
 
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12">
-                            <table id="table-client" class="table table-hover display nowrap" cellspacing="0" width="100%">
+                            <table id="table-provider" class="table table-hover display nowrap" cellspacing="0" width="100%">
                                 <thead>
                                     <th>Id</th>
-                                    <th>Cliente</th>
-                                    <th>Cedula</th>
+                                    <th>Nombre</th>
                                     <th>Telefono</th>
-                                    <th>Departamento</th>
+                                    <th>Direccion</th>
                                     <th>Correo</th>
                                     <th>Acciones</th>
                                 </thead>
@@ -110,13 +109,13 @@
 
             </div>
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                <h3>Nuevo Cliente</h3>
+                <h3 align="center">Nuevo Proveedor</h3>
 
-                <form id="store-client" method="" action="">
+                <form id="store-provider" method="" action="">
                 @csrf
                 <div class="form-group">
-                    <label for="exampleFormControlInput1">Codigo Cliente</label>
-                    <input type="text" class="form-control" id="txtcodecli" name="txtcodecli" placeholder="ex:CL001">
+                    <label for="exampleFormControlInput1">Codigo Proveedor</label>
+                    <input type="text" class="form-control" id="txtidprov" name="txtidprov" placeholder="ex:PR001">
 
                 </div>
                 <div class="form-group">
@@ -125,23 +124,8 @@
 
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlInput1">Apellido</label>
-                    <input type="text" class="form-control" id="txtlastname" name="txtlastname">
-
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Cedula</label>
-                    <input type="text" class="form-control" id="txtidentif" name="txtidentif" placeholder="ex: 000-000000-0000A">
-
-                </div>
-                <div class="form-group">
                     <label for="exampleFormControlInput1">Telefono</label>
                     <input type="text" class="form-control" id="txttelefono" name="txttelefono">
-
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Departamento</label>
-                    <input type="text" class="form-control" id="txtdepart" name="txtdepart">
 
                 </div>
                 <div class="form-group">
@@ -167,7 +151,7 @@
     <!-- Button trigger modal -->
 
 <!-- Modal -->
-<div class="modal fade" id="client_edit_modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="provider_edit_modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 <div class="modal-dialog">
     <div class="modal-content">
     <div class="modal-header">
@@ -177,34 +161,22 @@
         </button>
     </div>
 
-    <form id="client-edit-form">
+    <form id="provider-edit-form">
     <div class="modal-body">
 
             @csrf
             <input type="hidden" id="txtId2" name="txtId2">
             <div class="form-group">
                 <label for="exampleFormControlInput1">Codigo Cliente</label>
-                <input type="text" class="form-control" id="txtcodecli2" name="txtcodecli2" placeholder="ex:CL001">
+                <input type="text" class="form-control" id="txtidprov2" name="txtidprov2" placeholder="ex:PR001">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Nombre</label>
                 <input type="text" class="form-control" id="txtname2" name="txtname2">
             </div>
             <div class="form-group">
-                <label for="exampleFormControlInput1">Apellido</label>
-                <input type="text" class="form-control" id="txtlastname2" name="txtlastname2">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput1">Cedula</label>
-                <input type="text" class="form-control" id="txtidentif2" name="txtidentif2" placeholder="ex: 000-000000-0000A">
-            </div>
-            <div class="form-group">
                 <label for="exampleFormControlInput1">Telefono</label>
                 <input type="text" class="form-control" id="txttelefono2" name="txttelefono2">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput1">Departamento</label>
-                <input type="text" class="form-control" id="txtdepart2" name="txtdepart2">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Direccion</label>
@@ -255,7 +227,7 @@
     <script>//LISTAR REGISTROS CON DATATABLE
         $(document).ready(function()
         {
-            var tableclient = $('#table-client').DataTable(
+            var tableclient = $('#table-provider').DataTable(
                 {
                     "language": espanol,
                     responsive:true,
@@ -263,15 +235,14 @@
                     serverside:true,
                     ajax:
                     {
-                        url:"{{ route('clients.index') }}",
+                        url:"{{ route('providers.index') }}",
                     },
                     columns:
                     [
-                        {data: 'idlcliente'},
-                        {data: 'cliente'},
-                        {data: 'cedula'},
+                        {data: 'idlproveedor'},
+                        {data: 'nombreproveedor'},
                         {data: 'telefono'},
-                        {data: 'departamento'},
+                        {data: 'direccion'},
                         {data: 'email'},
                         {data: 'action', orderable: false},
                     ]
@@ -310,16 +281,13 @@
 
     <script> //AGREGAR DATOS A LA TABLA CLIENTE
 
-        $('#store-client').submit(function(e)
+        $('#store-provider').submit(function(e)
         {
             e.preventDefault();
 
-            var idlcliente = $('#txtcodecli').val();  //(names de los input)
+            var idlproveedor = $('#txtidprov').val();  //(names de los input)
             var nombre = $('#txtname').val();
-            var apellido = $('#txtlastname').val();
-            var cedula = $('#txtidentif').val();
             var telefono = $('#txttelefono').val();
-            var departamento = $('#txtdepart').val();
             var direccion = $('#txtaddress').val();
             var email = $('#txtemail').val();
             var _token = $("input[name=_token]").val();
@@ -332,15 +300,12 @@
             //else
             //{
             $.ajax({
-                url: "{{ route('clients.store') }}",   //ruta del post donde almacenara
+                url: "{{ route('providers.store') }}",   //ruta del post donde almacenara
                 type: "POST",
                 data:{
-                    idlcliente: idlcliente,
-                    nombre: nombre,
-                    apellido: apellido,
-                    cedula: cedula,
+                    idlproveedor: idlproveedor,
+                    nombreproveedor: nombre,
                     telefono: telefono,
-                    departamento: departamento,
                     direccion: direccion,
                     email: email,
                     _token:_token
@@ -349,9 +314,9 @@
                 {
                     if(response)
                     {
-                        $('#store-client')[0].reset();   //limpiar campos del formulario luego de agregarlos
+                        $('#store-provider')[0].reset();   //limpiar campos del formulario luego de agregarlos
                         toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});
-                        $('#table-client').DataTable().ajax.reload();  //recargar tabla
+                        $('#table-provider').DataTable().ajax.reload();  //recargar tabla
                     }
                 }
             });
@@ -365,10 +330,10 @@
 
     <script>//ELIMINAR DATOS EN LA TABLA Cliente
 
-        var cli_id;
+        var pro_id;
 
         $(document).on('click', '.delete', function(){
-            cli_id = $(this).attr('id');
+            pro_id = $(this).attr('id');
 
             $('#confirmModal').modal('show');
 
@@ -376,7 +341,7 @@
 
         $('#btndelete').click(function(){
             $.ajax({
-                url:"clients/destroy/"+cli_id,
+                url:"providers/destroy/"+pro_id,
                 beforeSend:function(){
                     $('#btndelete').text('Eliminando...');
                 },
@@ -384,7 +349,7 @@
                     setTimeout(function(){
                         $('#confirmModal').modal('hide');
                         toastr.warning('El Registro fue eliminado Correctamente.', 'Eliminar Registro', {timeOut:3000});
-                        $('#table-client').DataTable().ajax.reload();  //recargar tabla
+                        $('#table-provider').DataTable().ajax.reload();  //recargar tabla
 
                     }, 2000);
                     $('#btndelete').text('Eliminar');
@@ -395,53 +360,44 @@
     </script>
 
     <script>
-        function editclient(id){
-            $.get('clients/edit/'+id, function(client){
+        function editprovider(id){
+            $.get('providers/edit/'+id, function(provider){
                 //asignar los datos recuperados en la ventana modal
-                $('#txtId2').val(client[0].idcliente);
-                $('#txtcodecli2').val(client[0].idlcliente);
-                $('#txtname2').val(client[0].nombre);
-                $('#txtlastname2').val(client[0].apellido);
-                $('#txtidentif2').val(client[0].cedula);
-                $('#txttelefono2').val(client[0].telefono);
-                $('#txtdepart2').val(client[0].departamento);
-                $('#txtaddress2').val(client[0].direccion);
-                $('#txtemail2').val(client[0].email);
+                $('#txtId2').val(provider[0].idproveedor);
+                $('#txtidprov2').val(provider[0].idlproveedor);
+                $('#txtname2').val(provider[0].nombreproveedor);
+                $('#txttelefono2').val(provider[0].telefono);
+                $('#txtaddress2').val(provider[0].direccion);
+                $('#txtemail2').val(provider[0].email);
                 $("input[name=_token]").val();
 
-                $('#client_edit_modal').modal('toggle');
+                $('#provider_edit_modal').modal('toggle');
             })
         }
     </script>
 
     <script>
 
-        $('#client-edit-form').submit(function(e){
+        $('#provider-edit-form').submit(function(e){
 
             e.preventDefault();
 
-            var idcliente2 = $('#txtId2').val(); //Agregado
-            var idlcliente2 = $('#txtcodecli2').val();
+            var idproveedor2 = $('#txtId2').val(); //Agregado
+            var idlproveedor2 = $('#txtidprov2').val();
             var nombre2 = $('#txtname2').val();
-            var apellido2 = $('#txtlastname2').val();
-            var cedula2 = $('#txtidentif2').val();
             var telefono2 = $('#txttelefono2').val();
-            var departamento2 = $('#txtdepart2').val();
             var direccion2 = $('#txtaddress2').val();
             var email2 = $('#txtemail2').val();
             var _token2 = $("input[name=_token]").val();
 
             $.ajax({
-                url: "{{ route('clients.update') }}",
+                url: "{{ route('providers.update') }}",
                 type: "POST",
                 data:{
-                    idcliente: idcliente2,
-                    idlcliente: idlcliente2,
-                    nombre: nombre2,
-                    apellido: apellido2,
-                    cedula: cedula2,
+                    idproveedor: idproveedor2,
+                    idlproveedor: idlproveedor2,
+                    nombreproveedor: nombre2,
                     telefono: telefono2,
-                    departamento: departamento2,
                     direccion: direccion2,
                     email: email2,
                     _token:_token2
@@ -451,9 +407,9 @@
                     if(response)
                     {
 
-                        $('#client_edit_modal').modal('hide');
+                        $('#provider_edit_modal').modal('hide');
                         toastr.info('El Registro fue actualizado Correctamente.', 'Actualizar Registro', {timeOut:3000});
-                        $('#table-client').DataTable().ajax.reload();  //recargar tabla
+                        $('#table-provider').DataTable().ajax.reload();  //recargar tabla
                     }
                 }
             })

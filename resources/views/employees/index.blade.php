@@ -7,18 +7,18 @@
     <title>Empleados</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.22/r-2.2.6/datatables.min.css"/>
 
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.22/datatables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.22/r-2.2.6/datatables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous"></script>
 
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Distribuidora Hermanos Diaz</a>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">Distribuidora Hermanos Diaz</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -26,29 +26,46 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/employees">Empleados</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/clients">Clientes</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Producto</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Proveedor</a>
-            </li>
+                <a class="nav-link" href="/">Inicio <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/employees">Empleados</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="/clients">Clientes</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Producto
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/categories">Categoria</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="/products">Productos</a>
+                </div>
+              </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Inventario
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/providers">Proveedor</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="/norders">Nueva Orden</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="/orders">Lista de Ordenes</a>
+                </div>
+              </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Facturas
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Facturas del Dia</a>
-                <a class="dropdown-item" href="#">Facturas del Mes</a>
+                <a class="dropdown-item" href="/dbills">Facturas del Dia</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Facturas del Año</a>
+                <a class="dropdown-item" href="/mbills">Facturas del Mes</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/bills">Facturas</a>
               </div>
             </li>
           </ul>
@@ -73,18 +90,22 @@
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <h3>Lista Empleado</h3>
 
-                <table id="table-employee" class="table table-hover">
-                    <thead>
-                        <td>Id</td>
-                        <td>Nombre</td>
-                        <td>Apellido</td>
-                        <td>Cedula</td>
-                        <td>Telefono</td>
-                        <td>Direccion</td>
-                        <td>Correo</td>
-                        <td>Acciones</td>
-                    </thead>
-                </table>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <table id="table-employee" class="table table-hover display nowrap" cellspacing="0" width="100%">
+                                <thead>
+                                    <th>Id</th>
+                                    <th>Empleado</th>
+                                    <th>Cedula</th>
+                                    <th>Telefono</th>
+                                    <th>Direccion</th>
+                                    <th>Acciones</th>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
 
             </div>
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
@@ -120,11 +141,6 @@
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Direccion</label>
                     <input type="text" class="form-control" id="txtaddress" name="txtaddress">
-
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Correo</label>
-                    <input type="text" class="form-control" id="txtemail" name="txtemail">
 
                 </div>
                 <button type="submit" class="btn btn-primary">Agregar</button>
@@ -179,10 +195,6 @@
                 <label for="exampleFormControlInput1">Direccion</label>
                 <input type="text" class="form-control" id="txtaddress2" name="txtaddress2">
             </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput1">Correo</label>
-                <input type="text" class="form-control" id="txtemail2" name="txtemail2">
-            </div>
 
 
     </div>
@@ -226,6 +238,8 @@
         {
             var tableemployee = $('#table-employee').DataTable(
                 {
+                    "language": espanol,
+                    responsive:true,
                     processing:true,
                     serverside:true,
                     ajax:
@@ -235,17 +249,43 @@
                     columns:
                     [
                         {data: 'idlempleado'},
-                        {data: 'nombre'},
-                        {data: 'apellido'},
+                        {data: 'empleado'},
                         {data: 'cedula'},
                         {data: 'telefono'},
                         {data: 'direccion'},
-                        {data: 'email'},
                         {data: 'action', orderable: false},
                     ]
                 }
             )
         })
+        let espanol = {
+    "sProcessing":     "Procesando...",
+    "sLengthMenu":     "Mostrar _MENU_ registros",
+    "sZeroRecords":    "No se encontraron resultados",
+    "sEmptyTable":     "Ningún dato disponible en esta tabla",
+    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+    "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+    "sInfoPostFix":    "",
+    "sSearch":         "Buscar:",
+    "sUrl":            "",
+    "sInfoThousands":  ",",
+    "sLoadingRecords": "Cargando...",
+    "oPaginate": {
+        "sFirst":    "Primero",
+        "sLast":     "Último",
+        "sNext":     "Siguiente",
+        "sPrevious": "Anterior"
+    },
+    "oAria": {
+        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+    },
+    "buttons": {
+        "copy": "Copiar",
+        "colvis": "Visibilidad"
+    }
+};
     </script>
 
     <script> //AGREGAR DATOS A LA TABLA EMPLEADO
@@ -260,11 +300,10 @@
             var cedula = $('#txtidentif').val();
             var telefono = $('#txttelefono').val();
             var direccion = $('#txtaddress').val();
-            var email = $('#txtemail').val();
             var _token = $("input[name=_token]").val();
 
 
-            if(idlempleado==null || nombre==null || apellido==null || cedula==null || telefono==null || direccion==null || email==null )
+            if(idlempleado==null || nombre==null || apellido==null || cedula==null || telefono==null || direccion==null  )
             {
                 toastr.error('Llene todos los campos.', 'Error', {timeOut:3000});
             }
@@ -280,7 +319,6 @@
                     cedula: cedula,
                     telefono: telefono,
                     direccion: direccion,
-                    email: email,
                     _token:_token
                 },
                 success:function(response)
@@ -343,7 +381,6 @@
                 $('#txtidentif2').val(employee[0].cedula);
                 $('#txttelefono2').val(employee[0].telefono);
                 $('#txtaddress2').val(employee[0].direccion);
-                $('#txtemail2').val(employee[0].email);
                 $("input[name=_token]").val();
 
                 $('#employee_edit_modal').modal('toggle');
@@ -364,7 +401,6 @@
             var cedula2 = $('#txtidentif2').val();
             var telefono2 = $('#txttelefono2').val();
             var direccion2 = $('#txtaddress2').val();
-            var email2 = $('#txtemail2').val();
             var _token2 = $("input[name=_token]").val();
 
             $.ajax({
@@ -378,7 +414,6 @@
                     cedula: cedula2,
                     telefono: telefono2,
                     direccion: direccion2,
-                    email: email2,
                     _token:_token2
                 },
                 success:function(response)

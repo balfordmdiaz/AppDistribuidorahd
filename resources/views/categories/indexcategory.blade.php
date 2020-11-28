@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Clientes</title>
+    <title>Categorias</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.22/r-2.2.6/datatables.min.css"/>
@@ -18,7 +18,7 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">Distribuidora Hermanos Diaz</a>
+        <a class="navbar-brand" href="#">Distribuidora Hermanos Diaz</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -52,7 +52,6 @@
                   <a class="dropdown-item" href="/providers">Proveedor</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="/norders">Nueva Orden</a>
-                  <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="/orders">Lista de Ordenes</a>
                 </div>
               </li>
@@ -80,80 +79,44 @@
 
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Lista de Clientes</a>
+              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Lista de Categorias</a>
             </li>
             <li class="nav-item" role="presentation">
-              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Nuevo Cliente</a>
+              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Nueva Categoria</a>
             </li>
         </ul>
-        <div class="tab-content" id="ListaCliente">
-            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                <h3>Lista Clientes</h3>
+        <div class="tab-content" id="ListaCategoria">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" align="center">
+                <h3>Lista Categoria</h3>
 
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <table id="table-client" class="table table-hover display nowrap" cellspacing="0" width="100%">
-                                <thead>
-                                    <th>Id</th>
-                                    <th>Cliente</th>
-                                    <th>Cedula</th>
-                                    <th>Telefono</th>
-                                    <th>Departamento</th>
-                                    <th>Correo</th>
-                                    <th>Acciones</th>
-                                </thead>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+
+                <table id="table-category" class="table table-hover display nowrap" cellspacing="0" width="100%">
+                    <thead align="center">
+                        <th>Id</th>
+                        <th>Categoria</th>
+                        <th>Acciones</th>
+                    </thead>
+                    <tbody id="idTBody_Maltas" align="center"></tbody><!-- Centrar contenido de la tabla -->
+                </table>
 
             </div>
-            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                <h3>Nuevo Cliente</h3>
 
-                <form id="store-client" method="" action="">
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <h3>Nueva Categoria</h3>
+
+                <form id="store-category" method="" action="">
                 @csrf
                 <div class="form-group">
-                    <label for="exampleFormControlInput1">Codigo Cliente</label>
-                    <input type="text" class="form-control" id="txtcodecli" name="txtcodecli" placeholder="ex:CL001">
+                    <label for="exampleFormControlInput1">Codigo Categoria</label>
+                    <input type="text" class="form-control" id="txtidcat" name="txtidcat" placeholder="ex:CAT001">
 
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlInput1">Nombre</label>
+                    <label for="exampleFormControlInput1">Categoria</label>
                     <input type="text" class="form-control" id="txtname" name="txtname">
 
                 </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Apellido</label>
-                    <input type="text" class="form-control" id="txtlastname" name="txtlastname">
 
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Cedula</label>
-                    <input type="text" class="form-control" id="txtidentif" name="txtidentif" placeholder="ex: 000-000000-0000A">
-
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Telefono</label>
-                    <input type="text" class="form-control" id="txttelefono" name="txttelefono">
-
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Departamento</label>
-                    <input type="text" class="form-control" id="txtdepart" name="txtdepart">
-
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Direccion</label>
-                    <input type="text" class="form-control" id="txtaddress" name="txtaddress">
-
-                </div>
-                <div class="form-group">
-                    <label for="exampleFormControlInput1">Correo</label>
-                    <input type="email" class="form-control" id="txtemail" name="txtemail">
-
-                </div>
                 <button type="submit" class="btn btn-primary">Agregar</button>
                 </form>
 
@@ -167,54 +130,29 @@
     <!-- Button trigger modal -->
 
 <!-- Modal -->
-<div class="modal fade" id="client_edit_modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="category_edit_modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 <div class="modal-dialog">
     <div class="modal-content">
     <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Editar Cliente</h5>
+        <h5 class="modal-title" id="staticBackdropLabel">Editar Categoria</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
         </button>
     </div>
 
-    <form id="client-edit-form">
+    <form id="category-edit-form">
     <div class="modal-body">
 
             @csrf
             <input type="hidden" id="txtId2" name="txtId2">
             <div class="form-group">
-                <label for="exampleFormControlInput1">Codigo Cliente</label>
-                <input type="text" class="form-control" id="txtcodecli2" name="txtcodecli2" placeholder="ex:CL001">
+                <label for="exampleFormControlInput1">Codigo Categoria</label>
+                <input type="text" class="form-control" id="txtidcat2" name="txtidcat2" placeholder="ex:CAT001">
             </div>
             <div class="form-group">
-                <label for="exampleFormControlInput1">Nombre</label>
+                <label for="exampleFormControlInput1">Categoria</label>
                 <input type="text" class="form-control" id="txtname2" name="txtname2">
             </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput1">Apellido</label>
-                <input type="text" class="form-control" id="txtlastname2" name="txtlastname2">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput1">Cedula</label>
-                <input type="text" class="form-control" id="txtidentif2" name="txtidentif2" placeholder="ex: 000-000000-0000A">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput1">Telefono</label>
-                <input type="text" class="form-control" id="txttelefono2" name="txttelefono2">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput1">Departamento</label>
-                <input type="text" class="form-control" id="txtdepart2" name="txtdepart2">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput1">Direccion</label>
-                <input type="text" class="form-control" id="txtaddress2" name="txtaddress2">
-            </div>
-            <div class="form-group">
-                <label for="exampleFormControlInput1">Correo</label>
-                <input type="email" class="form-control" id="txtemail2" name="txtemail2">
-            </div>
-
 
     </div>
     <div class="modal-footer">
@@ -255,7 +193,7 @@
     <script>//LISTAR REGISTROS CON DATATABLE
         $(document).ready(function()
         {
-            var tableclient = $('#table-client').DataTable(
+            var tablecategory = $('#table-category').DataTable(
                 {
                     "language": espanol,
                     responsive:true,
@@ -263,16 +201,12 @@
                     serverside:true,
                     ajax:
                     {
-                        url:"{{ route('clients.index') }}",
+                        url:"{{ route('categories.index') }}",
                     },
                     columns:
                     [
-                        {data: 'idlcliente'},
-                        {data: 'cliente'},
-                        {data: 'cedula'},
-                        {data: 'telefono'},
-                        {data: 'departamento'},
-                        {data: 'email'},
+                        {data: 'idlcategoria'},
+                        {data: 'descripcion'},
                         {data: 'action', orderable: false},
                     ]
                 }
@@ -308,50 +242,38 @@
 };
     </script>
 
-    <script> //AGREGAR DATOS A LA TABLA CLIENTE
+    <script> //AGREGAR DATOS A LA TABLA CATEGORIA
 
-        $('#store-client').submit(function(e)
+        $('#store-category').submit(function(e)
         {
             e.preventDefault();
 
-            var idlcliente = $('#txtcodecli').val();  //(names de los input)
-            var nombre = $('#txtname').val();
-            var apellido = $('#txtlastname').val();
-            var cedula = $('#txtidentif').val();
-            var telefono = $('#txttelefono').val();
-            var departamento = $('#txtdepart').val();
-            var direccion = $('#txtaddress').val();
-            var email = $('#txtemail').val();
+            var idlcategoria = $('#txtidcat').val();  //(names de los input)
+            var descripcion = $('#txtname').val();
             var _token = $("input[name=_token]").val();
 
 
-            //if(idlcliente==null || nombre==null || apellido==null || cedula==null || telefono==null || departamento==null || direccion==null || email==null )
+            //if(idlcategoria==null || descripcion==null  )
             //{
             //    toastr.error('Llene todos los campos.', 'Error', {timeOut:3000});
             //}
             //else
             //{
             $.ajax({
-                url: "{{ route('clients.store') }}",   //ruta del post donde almacenara
+                url: "{{ route('categories.store') }}",   //ruta del post donde almacenara
                 type: "POST",
                 data:{
-                    idlcliente: idlcliente,
-                    nombre: nombre,
-                    apellido: apellido,
-                    cedula: cedula,
-                    telefono: telefono,
-                    departamento: departamento,
-                    direccion: direccion,
-                    email: email,
+                    idlcategoria: idlcategoria,
+                    descripcion: descripcion,
                     _token:_token
                 },
                 success:function(response)
                 {
                     if(response)
                     {
-                        $('#store-client')[0].reset();   //limpiar campos del formulario luego de agregarlos
+                        $('#store-category')[0].reset();   //limpiar campos del formulario luego de agregarlos
                         toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});
-                        $('#table-client').DataTable().ajax.reload();  //recargar tabla
+                        $('#table-category').DataTable().ajax.reload();  //recargar tabla
                     }
                 }
             });
@@ -363,12 +285,12 @@
 
     </script>
 
-    <script>//ELIMINAR DATOS EN LA TABLA Cliente
+    <script>//ELIMINAR DATOS EN LA TABLA CATEGORIA
 
-        var cli_id;
+        var cat_id;
 
         $(document).on('click', '.delete', function(){
-            cli_id = $(this).attr('id');
+            cat_id = $(this).attr('id');
 
             $('#confirmModal').modal('show');
 
@@ -376,7 +298,7 @@
 
         $('#btndelete').click(function(){
             $.ajax({
-                url:"clients/destroy/"+cli_id,
+                url:"categories/destroy/"+cat_id,
                 beforeSend:function(){
                     $('#btndelete').text('Eliminando...');
                 },
@@ -384,7 +306,7 @@
                     setTimeout(function(){
                         $('#confirmModal').modal('hide');
                         toastr.warning('El Registro fue eliminado Correctamente.', 'Eliminar Registro', {timeOut:3000});
-                        $('#table-client').DataTable().ajax.reload();  //recargar tabla
+                        $('#table-category').DataTable().ajax.reload();  //recargar tabla
 
                     }, 2000);
                     $('#btndelete').text('Eliminar');
@@ -395,55 +317,37 @@
     </script>
 
     <script>
-        function editclient(id){
-            $.get('clients/edit/'+id, function(client){
+        function editcategory(id){
+            $.get('categories/edit/'+id, function(category){
                 //asignar los datos recuperados en la ventana modal
-                $('#txtId2').val(client[0].idcliente);
-                $('#txtcodecli2').val(client[0].idlcliente);
-                $('#txtname2').val(client[0].nombre);
-                $('#txtlastname2').val(client[0].apellido);
-                $('#txtidentif2').val(client[0].cedula);
-                $('#txttelefono2').val(client[0].telefono);
-                $('#txtdepart2').val(client[0].departamento);
-                $('#txtaddress2').val(client[0].direccion);
-                $('#txtemail2').val(client[0].email);
+                $('#txtId2').val(category[0].idcategoria);
+                $('#txtidcat2').val(category[0].idlcategoria);
+                $('#txtname2').val(category[0].descripcion);
                 $("input[name=_token]").val();
 
-                $('#client_edit_modal').modal('toggle');
+                $('#category_edit_modal').modal('toggle');
             })
         }
     </script>
 
     <script>
 
-        $('#client-edit-form').submit(function(e){
+        $('#category-edit-form').submit(function(e){
 
             e.preventDefault();
 
-            var idcliente2 = $('#txtId2').val(); //Agregado
-            var idlcliente2 = $('#txtcodecli2').val();
-            var nombre2 = $('#txtname2').val();
-            var apellido2 = $('#txtlastname2').val();
-            var cedula2 = $('#txtidentif2').val();
-            var telefono2 = $('#txttelefono2').val();
-            var departamento2 = $('#txtdepart2').val();
-            var direccion2 = $('#txtaddress2').val();
-            var email2 = $('#txtemail2').val();
+            var idcategoria2 = $('#txtId2').val(); //Agregado
+            var idlcategoria2 = $('#txtidcat2').val();
+            var descripcion2 = $('#txtname2').val();
             var _token2 = $("input[name=_token]").val();
 
             $.ajax({
-                url: "{{ route('clients.update') }}",
+                url: "{{ route('categories.update') }}",
                 type: "POST",
                 data:{
-                    idcliente: idcliente2,
-                    idlcliente: idlcliente2,
-                    nombre: nombre2,
-                    apellido: apellido2,
-                    cedula: cedula2,
-                    telefono: telefono2,
-                    departamento: departamento2,
-                    direccion: direccion2,
-                    email: email2,
+                    idcategoria: idcategoria2,
+                    idlcategoria: idlcategoria2,
+                    descripcion: descripcion2,
                     _token:_token2
                 },
                 success:function(response)
@@ -451,9 +355,9 @@
                     if(response)
                     {
 
-                        $('#client_edit_modal').modal('hide');
+                        $('#category_edit_modal').modal('hide');
                         toastr.info('El Registro fue actualizado Correctamente.', 'Actualizar Registro', {timeOut:3000});
-                        $('#table-client').DataTable().ajax.reload();  //recargar tabla
+                        $('#table-category').DataTable().ajax.reload();  //recargar tabla
                     }
                 }
             })
@@ -463,3 +367,4 @@
 
 </body>
 </html>
+
