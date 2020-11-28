@@ -1,0 +1,26 @@
+body
+{
+    font-size: 10pt;
+}
+
+th
+{
+    background: #83ABFF;
+    color: #fff;
+    font-size:12pt ;
+}
+
+#datos_empresa
+{
+    text-align: center;
+}
+
+#datos_factura
+{
+    text-align: center;
+}
+
+label
+{
+   font-weight: bold;
+}
