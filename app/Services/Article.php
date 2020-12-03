@@ -8,10 +8,10 @@ class Article
     public function get()
     {
         $articulostock=ProductStock::get();
-        $articulostockarray['']="Seleccione un articulo";
+        $articulostockarray['']="Seleccione un Articulo";
         foreach($articulostock as $article)
         {
-            $articulostockarray[$article->idarticulos]= $article->idlarticulos.'-'.$article->nombrearticulo;
+            $articulostockarray[$article->idarticulos]= $article->idlarticulos.' - '.$article->nombrearticulo;
         }
         return $articulostockarray;
     }

@@ -5,7 +5,6 @@ use App\Http\Controllers\EmployeesController;
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\ProvidersController;
 use App\Http\Controllers\CategoriesController;
-use App\Http\Controllers\ProductStockController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\BillsController;
 use App\Http\Controllers\OrdersController;
@@ -61,15 +60,9 @@ Route::get('home/categories/destroy/{idcategoria}', [CategoriesController::class
 Route::get('home/categories/edit/{idcategoria}', [CategoriesController::class, 'edit'])->name('categories.edit');
 Route::post('home/categories/update', [CategoriesController::class, 'update'])->name('categories.update');
 
-//Stock
-Route::resource('home/productstock','App\Http\Controllers\ProductStockController');
-Route::post('home/productstock', [ProductStockController::class, 'store'])->name('productstock.store');
-Route::get('home/productstock/destroy/{idarticulostock}', [ProductStockController::class, 'destroy'])->name('productstock.destroy');
-Route::get('home/productstock/edit/{idarticulostock}', [ProductStockController::class, 'edit'])->name('productstock.edit');
-Route::post('home/productstock/update', [ProductStockController::class, 'update'])->name('productstock.update');
-
 //PRODUCTOS
 Route::resource('home/products','App\Http\Controllers\ProductsController');
+Route::get('home/existproducts', [ProductsController::class, 'prod_existentes'])->name('existproducts.prod_existentes');
 Route::post('home/products', [ProductsController::class, 'store'])->name('products.store');
 Route::get('home/products/destroy/{idarticulo}', [ProductsController::class, 'destroy'])->name('products.destroy');
 Route::get('home/products/edit/{idarticulo}', [ProductsController::class, 'edit'])->name('products.edit');

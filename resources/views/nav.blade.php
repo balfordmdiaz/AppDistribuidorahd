@@ -41,6 +41,8 @@
                        <a class="dropdown-item" href="/home/categories">Categoria</a>
                        <div class="dropdown-divider"></div>
                        <a class="dropdown-item" href="/home/products">Productos</a>
+                       <div class="dropdown-divider"></div>
+                       <a class="dropdown-item" href="/home/existproducts">Productos Existentes</a>
                      </div>
                    </li>
                    <li class="nav-item dropdown">

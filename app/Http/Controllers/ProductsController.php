@@ -30,6 +30,19 @@ class ProductsController extends Controller
         return view('products.indexproduct');
     }
 
+    public function prod_existentes(Request $request)
+    {
+        //
+        if($request->ajax())
+        {
+            $products = DB::select('CALL spsel_articuloexist()');
+            return DataTables::of($products)
+                    ->make(true);
+        }
+
+        return view('existproducts.eproduct');
+    }
+
 
     public function create()
     {
