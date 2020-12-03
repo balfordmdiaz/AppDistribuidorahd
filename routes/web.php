@@ -5,7 +5,6 @@ use App\Http\Controllers\EmployeesController;
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\ProvidersController;
 use App\Http\Controllers\CategoriesController;
-use App\Http\Controllers\ProductStockController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\BillsController;
 use App\Http\Controllers\OrdersController;
@@ -21,66 +20,70 @@ use App\Http\Controllers\OrdersController;
 |
 */
 //INICIO
+
+Auth::routes();
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //rutas para el controlador employees
 //Route::get('employees',[EmployeesController::class, 'index'])->name('employees.index');
 
 //EMPLEADOS
-Route::resource('employees','App\Http\Controllers\EmployeesController');
-Route::post('employees', [EmployeesController::class, 'store'])->name('employees.store');
-Route::get('employees/destroy/{idempleado}', [EmployeesController::class, 'destroy'])->name('employees.destroy');
-Route::get('employees/edit/{idempleado}', [EmployeesController::class, 'edit'])->name('employees.edit');
-Route::post('employees/update', [EmployeesController::class, 'update'])->name('employees.update');
+Route::resource('home/employees','App\Http\Controllers\EmployeesController');
+Route::post('home/employees', [EmployeesController::class, 'store'])->name('employees.store');
+Route::get('home/employees/destroy/{idempleado}', [EmployeesController::class, 'destroy'])->name('employees.destroy');
+Route::get('home/employees/edit/{idempleado}', [EmployeesController::class, 'edit'])->name('employees.edit');
+Route::post('home/employees/update', [EmployeesController::class, 'update'])->name('employees.update');
 
 //CLIENTES
-Route::resource('clients','App\Http\Controllers\ClientsController');
-Route::post('clients', [ClientsController::class, 'store'])->name('clients.store');
-Route::get('clients/destroy/{idcliente}', [ClientsController::class, 'destroy'])->name('clients.destroy');
-Route::get('clients/edit/{idcliente}', [ClientsController::class, 'edit'])->name('clients.edit');
-Route::post('clients/update', [ClientsController::class, 'update'])->name('clients.update');
+Route::resource('home/clients','App\Http\Controllers\ClientsController');
+Route::post('home/clients', [ClientsController::class, 'store'])->name('clients.store');
+Route::get('home/clients/destroy/{idcliente}', [ClientsController::class, 'destroy'])->name('clients.destroy');
+Route::get('home/clients/edit/{idcliente}', [ClientsController::class, 'edit'])->name('clients.edit');
+Route::post('home/clients/update', [ClientsController::class, 'update'])->name('clients.update');
 
 //PROVEEDORES
-Route::resource('providers','App\Http\Controllers\ProvidersController');
-Route::post('providers', [ProvidersController::class, 'store'])->name('providers.store');
-Route::get('providers/destroy/{idproveedor}', [ProvidersController::class, 'destroy'])->name('providers.destroy');
-Route::get('providers/edit/{idproveedor}', [ProvidersController::class, 'edit'])->name('providers.edit');
-Route::post('providers/update', [ProvidersController::class, 'update'])->name('providers.update');
+Route::resource('home/providers','App\Http\Controllers\ProvidersController');
+Route::post('home/providers', [ProvidersController::class, 'store'])->name('providers.store');
+Route::get('home/providers/destroy/{idproveedor}', [ProvidersController::class, 'destroy'])->name('providers.destroy');
+Route::get('home/providers/edit/{idproveedor}', [ProvidersController::class, 'edit'])->name('providers.edit');
+Route::post('home/providers/update', [ProvidersController::class, 'update'])->name('providers.update');
 
 //CATEGORIAS
-Route::resource('categories','App\Http\Controllers\CategoriesController');
-Route::post('categories', [CategoriesController::class, 'store'])->name('categories.store');
-Route::get('categories/destroy/{idcategoria}', [CategoriesController::class, 'destroy'])->name('categories.destroy');
-Route::get('categories/edit/{idcategoria}', [CategoriesController::class, 'edit'])->name('categories.edit');
-Route::post('categories/update', [CategoriesController::class, 'update'])->name('categories.update');
-
-//Stock
-Route::resource('productstock','App\Http\Controllers\ProductStockController');
-Route::post('productstock', [ProductStockController::class, 'store'])->name('productstock.store');
-Route::get('productstock/destroy/{idarticulostock}', [ProductStockController::class, 'destroy'])->name('productstock.destroy');
-Route::get('productstock/edit/{idarticulostock}', [ProductStockController::class, 'edit'])->name('productstock.edit');
-Route::post('productstock/update', [ProductStockController::class, 'update'])->name('productstock.update');
+Route::resource('home/categories','App\Http\Controllers\CategoriesController');
+Route::post('home/categories', [CategoriesController::class, 'store'])->name('categories.store');
+Route::get('home/categories/destroy/{idcategoria}', [CategoriesController::class, 'destroy'])->name('categories.destroy');
+Route::get('home/categories/edit/{idcategoria}', [CategoriesController::class, 'edit'])->name('categories.edit');
+Route::post('home/categories/update', [CategoriesController::class, 'update'])->name('categories.update');
 
 //PRODUCTOS
-Route::resource('products','App\Http\Controllers\ProductsController');
-Route::post('products', [ProductsController::class, 'store'])->name('products.store');
-Route::get('products/destroy/{idarticulo}', [ProductsController::class, 'destroy'])->name('products.destroy');
-Route::get('products/edit/{idarticulo}', [ProductsController::class, 'edit'])->name('products.edit');
-Route::post('products/update', [ProductsController::class, 'update'])->name('products.update');
+Route::resource('home/products','App\Http\Controllers\ProductsController');
+Route::get('home/existproducts', [ProductsController::class, 'prod_existentes'])->name('existproducts.prod_existentes');
+Route::post('home/products', [ProductsController::class, 'store'])->name('products.store');
+Route::get('home/products/destroy/{idarticulo}', [ProductsController::class, 'destroy'])->name('products.destroy');
+Route::get('home/products/edit/{idarticulo}', [ProductsController::class, 'edit'])->name('products.edit');
+Route::post('home/products/update', [ProductsController::class, 'update'])->name('products.update');
 
 //FACTURAS
-Route::resource('bills','App\Http\Controllers\BillsController');
-Route::get('dbills',[BillsController::class, 'billofday'])->name('dbills.billofday');
-Route::get('mbills',[BillsController::class, 'billofmonth'])->name('mbills.billofmonth');
-Route::get('bills/destroy/{idfactura}', [BillsController::class, 'destroy'])->name('bills.destroy');
-Route::get('bills/show/{idfactura}', [BillsController::class, 'show'])->name('bills.show');
+Route::resource('home/bills','App\Http\Controllers\BillsController');
+Route::get('home/dbills',[BillsController::class, 'billofday'])->name('dbills.billofday');
+Route::get('home/mbills',[BillsController::class, 'billofmonth'])->name('mbills.billofmonth');
+Route::get('home/bills/destroy/{idfactura}', [BillsController::class, 'destroy'])->name('bills.destroy');
+Route::get('home/bills/show/{idfactura}', [BillsController::class, 'show'])->name('bills.show');
 
 //ORDENES
-Route::resource('orders','App\Http\Controllers\OrdersController');
-Route::get('norders',[OrdersController::class, 'new_orders'])->name('norders.new_orders');
-Route::post('orders', [OrdersController::class, 'store_newprod'])->name('orders.store_newprod');
-Route::get('orders/destroy/{idorden}', [OrdersController::class, 'destroy'])->name('orders.destroy');
+Route::resource('home/orders','App\Http\Controllers\OrdersController');
+Route::get('home/norders',[OrdersController::class, 'new_orders'])->name('norders.new_orders');
+Route::post('home/norders', [OrdersController::class, 'store_orden'])->name('norders.store_orden');
+
+Route::get('/home/norders/{id}/index',[OrdersController::class, 'detalle'])->name('norders.detalle_orden');
+Route::get('/home/norders/{id}/variante',[OrdersController::class, 'gettalla']);
+Route::get('/home/norders/{id}/colores',[OrdersController::class, 'getcolor']);
+Route::post('/home/norders/{id}/index',[OrdersController::class, 'store_detalle'])->name('norders.new_detalle');
+
+
 

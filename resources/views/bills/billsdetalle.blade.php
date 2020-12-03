@@ -8,12 +8,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.22/r-2.2.6/datatables.min.css"/>
-
+    <link href="{{ asset('../css/bills_detalle.css') }}" rel="stylesheet">
+  
+   
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.22/r-2.2.6/datatables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous"></script>
-
+    
 </head>
 
 <body>
@@ -22,60 +24,117 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
+    </nav>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="/">Inicio <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/employees">Empleados</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="/clients">Clientes</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Producto
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="/categories">Categoria</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="/products">Productos</a>
-                </div>
-              </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Inventario
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="/providers">Proveedor</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="/norders">Nueva Orden</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="/orders">Lista de Ordenes</a>
-                </div>
-              </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Facturas
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="/dbills">Facturas del Dia</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="/mbills">Facturas del Mes</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="/bills">Facturas</a>
-              </div>
-            </li>
-          </ul>
-          <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-          </form>
-        </div>
-      </nav>
+    <div id="datos_empresa">
+      <h4>Distribuidora Hermanos Diaz</h4>
+      <p>Direccion Completa</p>
+      <p>Numero de Telefono</p>
+   </div>
 
+    <div id="datos_factura" >
+      <h4>Factura</h4>
+      <label>Nro. Factura:</label>  {{$factura->idlfactura}}
+      <br>
+     <label>Fecha:</label>  {{$factura->fechafactura}}
+   </div>
+   
+    <div id="datos_cliente">
+      <h3 style="text-decoration: underline">Facturar a:</h3>
+      <p><label> Nombre cliente:</label> 
+         {{ $nombreclient = DB::table('tbl_clientes')->where('idcliente', $factura->idcliente)->value('nombre')  }} 
+         {{ $apellidoclient = DB::table('tbl_clientes')->where('idcliente', $factura->idcliente)->value('apellido') }}</p>
+      <p><label>Direccion:</label> 
+         {{ $direccionclient = DB::table('tbl_clientes')->where('idcliente', $factura->idcliente)->value('direccion') }}</p>
+      <p><label>Telefono:</label>
+         {{ $telefonoclient = DB::table('tbl_clientes')->where('idcliente', $factura->idcliente)->value('telefono') }}</p>
+      <p><label>Departemanto:</label> 
+         {{ $departamentoclient = DB::table('tbl_clientes')->where('idcliente', $factura->idcliente)->value('departamento') }}</p>
+   </div>
+
+   <div id="datos_empleado" >
+      <h3 style="text-decoration: underline">Facturado por:</h3>
+
+      <p><label>Codigo Empleado:</label> 
+         {{ $Direccionemp = DB::table('tbl_empleado')->where('idempleado', $factura->idempleado)->value('idlempleado')  }} 
+      </p>
+
+      <p><label> Nombre empleado:</label> 
+         {{ $nombreemp = DB::table('tbl_empleado')->where('idempleado', $factura->idempleado)->value('nombre')  }} 
+         {{ $apellidoemp = DB::table('tbl_empleado')->where('idempleado', $factura->idempleado)->value('apellido') }}
+      </p>
+
+      <p><label>Direccion:</label> 
+         {{ $Direccionemp = DB::table('tbl_empleado')->where('idempleado', $factura->idempleado)->value('direccion')  }} 
+      </p>
+
+      <p><label>Telefono:</label> 
+         {{ $telefonoemp = DB::table('tbl_empleado')->where('idempleado', $factura->idempleado)->value('telefono')  }} 
+      </p>
+
+   </div>
+
+    <table id="tabladetallefactura" class="table table-bordered table-hover">
+      <thead>
+           <tr>
+              <th scope="col">Art</th>
+              <th scope="col">Talla</th>
+              <th scope="col">color</th>
+              <th scope="col">Cant</th>
+              <th scope="col">Monto</th>
+           </tr>
+      </thead>
+  
+     @forelse($detalle = DB::table('tbl_facturadetalle')
+                            ->join('tbl_articulovariante', 'tbl_facturadetalle.idarticulov', '=', 'tbl_articulovariante.idarticulov')
+                            ->join('tbl_articulostock', 'tbl_articulovariante.idarticulos', '=', 'tbl_articulostock.idarticulos')
+                            ->join('tbl_factura', 'tbl_facturadetalle.idfactura', '=', 'tbl_factura.idfactura')
+                            ->select('tbl_articulostock.nombrearticulo', 'tbl_articulovariante.talla','tbl_articulovariante.color', 'tbl_facturadetalle.cantidad','tbl_facturadetalle.monto')
+                            ->where('tbl_facturadetalle.idfactura', $factura->idfactura)
+                            ->get()  as $detalleItem)
+      
+       <tbody>
+        <tr>        
+           <td>{{ $detalleItem->nombrearticulo }}</td>          
+           <td>{{ $detalleItem->talla }}</td>
+           <td>{{ $detalleItem->color }}</td>
+           <td>{{ $detalleItem->cantidad }}</td>
+           <td>{{ $detalleItem->monto }}</td>
+        </tr>
+           
+     @empty
+
+     
+      <tr>
+        <td colspan="5"><p style="text-align: center">No hay articulos para mostrar</p> </td>
+      </tr>  
+     
+      </tbody>
+
+     @endforelse
+
+     <tr>
+       <th>Subtotal</th>
+       <td colspan="4">{{ $factura->subtotal }} C$</td>
+     </tr>
+
+     <tr>    
+       <th>Iva</th>
+       <td colspan="4">{{ $factura->iva }} C$</td>
+     </tr>
+
+    <tr>   
+       <th>Descuento</th>
+       <td colspan="4">{{ $factura->descuento }} C$</td>
+    </tr>
+
+    <tr>
+       <th>Total</th>
+       <td colspan="4">{{ $factura->total }} C$</td>
+    </tr>
+
+  </table>
+    
 
 </body>
 </html>

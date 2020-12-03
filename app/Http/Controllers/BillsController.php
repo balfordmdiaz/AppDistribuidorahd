@@ -26,7 +26,7 @@ class BillsController extends Controller
 
                     ->addColumn('action', function($bill)
                     {
-                        $acciones = '<a href="" class="btn btn-info btn-sm"> Detalle </a>';
+                        $acciones = '<a href="/bills/show/'.$bill->idfactura.'" class="btn btn-info btn-sm"> Detalle </a>';
                         $acciones .= '&nbsp;&nbsp;<button type="button" name="delete" id="'.$bill->idfactura.'" class="delete btn btn-danger btn-sm"> Eliminar </button>';
                         return $acciones;
                     })
@@ -52,7 +52,7 @@ class BillsController extends Controller
 
                     ->addColumn('action', function($bill2)
                     {
-                        $acciones = '<a href="javascript:void(0)" onclick="viewDetail('.$bill2->idfactura.')" class="btn btn-info btn-sm"> Detalle </a>';
+                        $acciones = '<a href="/bills/show/'.$bill2->idfactura.'" class="btn btn-info btn-sm"> Detalle </a>';
                         $acciones .= '&nbsp;&nbsp;<button type="button" name="delete" id="'.$bill2->idfactura.'" class="delete btn btn-danger btn-sm"> Eliminar </button>';
                         return $acciones;
                     })
@@ -77,7 +77,7 @@ class BillsController extends Controller
 
                     ->addColumn('action', function($bill3)
                     {
-                        $acciones = '<a href="javascript:void(0)" onclick="viewDetail('.$bill3->idfactura.')" class="btn btn-info btn-sm"> Detalle </a>';
+                        $acciones = '<a href="/bills/show/'.$bill3->idfactura.'"  class="btn btn-info btn-sm"> Detalle </a>';
                         $acciones .= '&nbsp;&nbsp;<button type="button" name="delete" id="'.$bill3->idfactura.'" class="delete btn btn-danger btn-sm"> Eliminar </button>';
                         return $acciones;
                     })

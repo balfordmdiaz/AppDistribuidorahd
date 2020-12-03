@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ordenes</title>
+    <title>ProductosExistentes</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.22/r-2.2.6/datatables.min.css"/>
@@ -17,23 +17,23 @@
 </head>
 
 <body>
-    @include('nav')
+     @include('nav')
 
     <div class="container"><br>
-    
-                <h3 align="center">Lista de Ordenes</h3>
+
+                <h3 align="center">Productos en Existencia</h3>
 
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12">
-                            <table id="table-order" class="table table-hover display nowrap" cellspacing="0" width="100%">
+                            <table id="table-products" class="table table-hover display nowrap" cellspacing="0" width="100%">
                                 <thead>
-                                    <th>Codigo Orden</th>
-                                    <th>Fecha</th>
-                                    <th>Subtotal</th>
-                                    <th>Total</th>
-                                    <th>Proveedor</th>
-                                    <th>Acciones</th>
+                                    <tr>
+                                        <th>Codigo</th>
+                                        <th>Producto</th>
+                                        <th>Precio</th>
+                                        <th>Cantidad</th>
+                                    </tr>
                                 </thead>
                             </table>
                         </div>
@@ -43,15 +43,22 @@
 
 
             </div>
-            
 
+
+            </div>
+
+        </div>
+
+
+  
 
     </div><!--fin container-->
+
 
     <script>//LISTAR REGISTROS CON DATATABLE
         $(document).ready(function()
         {
-            var tableemployee = $('#table-order').DataTable(
+            var tableproduct = $('#table-products').DataTable(
                 {
                     "language": espanol,
                     responsive:true,
@@ -59,16 +66,14 @@
                     serverside:true,
                     ajax:
                     {
-                        url:"{{ route('orders.index' )}}",
+                        url:"{{ route('existproducts.prod_existentes') }}",
                     },
                     columns:
                     [
-                        {data: 'idlorden'},
-                        {data: 'fechaorden'},
-                        {data: 'subtotal'},
-                        {data: 'total'},
-                        {data: 'idproveedor'},
-                        {data: 'action', orderable: false},
+                        {data: 'idlarticulos'},
+                        {data: 'idarticulos'},
+                        {data: 'precio'},
+                        {data: 'cantidad'},
                     ]
                 }
             )
@@ -105,6 +110,4 @@
 
 </body>
 </html>
-
-
 
