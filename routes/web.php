@@ -80,6 +80,7 @@ Route::resource('home/orders','App\Http\Controllers\OrdersController');
 Route::get('home/norders',[OrdersController::class, 'new_orders'])->name('norders.new_orders');
 Route::post('home/norders', [OrdersController::class, 'store_orden'])->name('norders.store_orden');
 
+Route::post('/home/orders', [OrdersController::class, 'store_newprod'])->name('norders.store_newprod');
 Route::get('/home/norders/{id}/index',[OrdersController::class, 'detalle'])->name('norders.detalle_orden');
 Route::get('/home/norders/{id}/variante',[OrdersController::class, 'gettalla']);
 Route::get('/home/norders/{id}/colores',[OrdersController::class, 'getcolor']);

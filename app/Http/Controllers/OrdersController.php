@@ -74,6 +74,19 @@ class OrdersController extends Controller
         ]);
     }
 
+    public function store_newprod(Request $request)
+    {
+        //
+        $newprod = DB::select('call spstore_articulo(?,?,?)',
+                        [$request->idlarticulos,
+                        $request->nombrearticulo,
+                        $request->idcategoria]);
+
+        return back();
+
+
+    }
+
     public function gettalla(Request $request)
     {
            if($request->ajax()){

@@ -149,11 +149,61 @@
               </div>
 
               <div class="text-center">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#product_new_modal">Nuevo Producto</button>
                 <button type="submit" class="btn btn-success" name="action" id="btn-registrar" value="agregar_articulo">Agregar Articulo</button><br>
               </div>
 
             </form>
     </div>
+
+      <!-- Modal Para editar-->
+    <!-- Button trigger modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="product_new_modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Nuevo Producto</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <form id="product-new-form">
+
+    @csrf
+    <div class="modal-body">
+
+        <div class="form-group">
+          <label for="inputcantidad">Codigo</label>
+          <input type="text" class="form-control" id="txtcode" placeholder="Ex:PRS001">
+        </div>
+        <div class="form-group">
+          <label for="inputprecio">Descripcion</label>
+          <input type="text" class="form-control" id="txtname">
+        </div>
+        <div class="form-group">
+          <label for="inputmonto">Categoria</label>
+          <select class="form-control" id="selcat" name="selcat">
+              <option value=""></option>
+              @forelse($catego = DB::table('tbl_categoria')->get() as $catItem)
+                  <option value="{{ $catItem->idcategoria }}">{{ $catItem->descripcion }}</option>
+              @empty
+                  <option value="">No hay Categoria</option>
+              @endforelse
+          </select>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-success">Registrar Producto</button>
+    </div>
+    </form>
+    </div>
+</div>
+</div>
 
     <table id="tabladetallefactura" class="table table-bordered table-hover" style="margin-top: 10px">
       <thead class="thead-dark">
@@ -296,6 +346,39 @@
        });
 
    </script>
+
+  <script>//Nuevo Producto - Ventana Modal
+
+  $('#product-new-form').submit(function(e){
+
+      e.preventDefault();
+
+      var id = $('#txtcode').val();
+      var nombre = $('#txtname').val();
+      var categoria = $('#selcat').val();
+      var _token = $("input[name=_token]").val();
+
+      $.ajax({
+          url: "{{ route('norders.store_newprod') }}",
+          type: "POST",
+          data:{
+              idlarticulos: id,
+              nombrearticulo: nombre,
+              idcategoria: categoria,
+              _token:_token
+          },
+          success:function(response)
+          {
+              if(response)
+              {
+
+                  toastr.info('Nuevo Producto Registrado.', 'Nuevo Registro', {timeOut:3000});
+                  window.location.reload();
+              }
+          }
+      })
+  });
+  </script>
 
     @endsection
 
