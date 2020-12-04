@@ -108,43 +108,80 @@ class OrdersController extends Controller
         $orden = Orders::where('idlorden', $aux)->first();
         $articulo_select=Products::where('idarticulov', $aux_articulo)->first();//obtengo articulo seleccionado
 
-        $aux_disponible=$articulo_select->cantidad;//obtener cantida disponible
-        $aux_talla=$articulo_select->talla;//obtener talla
-        $aux_color=$articulo_select->color;//obtener color
-        $aux_cantidad=request('cantidad');//obtener cantidad solicitada por usuario
+        switch (request()->input('action')) {
+           case 'agregar_articulo':
 
-        OrdersDetalle::create([         
-            'cantidad' => request('cantidad'),
-            'precio' => request('precio'),
-            'monto' => request('subtotal'),
-            'idarticulov' => request('idarticulo'),
-            'idorden' => $orden->idorden,
-        ]);
+               request()->validate([
+                   'cantidad' => 'required|numeric|gt:0',
+                   'precio' => 'required',
+                   'subtotal' => 'required',
+                   'Total' => 'required|numeric|gt:0',
+               ]);
 
-        $subtotalbd = $orden->subtotal;
-        $totalbd = $orden->total;
+               $aux_disponible=$articulo_select->cantidad;//obtener cantida disponible
+               $aux_talla=$articulo_select->talla;//obtener talla
+               $aux_color=$articulo_select->color;//obtener color
+               $aux_cantidad=request('cantidad');//obtener cantidad solicitada por usuario
 
-        $montoform = request('subtotal');
-        $totalform = request('Total');
+               OrdersDetalle::create([         
+                   'cantidad' => request('cantidad'),
+                   'precio' => request('precio'),
+                   'monto' => request('subtotal'),
+                   'idarticulov' => request('idarticulo'),
+                   'idorden' => $orden->idorden,
+               ]);
 
-        $subtotalbd = $subtotalbd+$montoform;
-        $totalbd = $totalbd+$totalform;
+               $subtotalbd = $orden->subtotal;
+               $totalbd = $orden->total;
 
-        Orders::where('idorden', $orden->idorden)
-        ->update([
-            'subtotal' => $subtotalbd,
-            'total' => $totalbd,
+               $montoform = request('subtotal');
+               $totalform = request('Total');
+
+               $subtotalbd = $subtotalbd+$montoform;
+               $totalbd = $totalbd+$totalform;
+
+               Orders::where('idorden', $orden->idorden)
+               ->update([
+                   'subtotal' => $subtotalbd,
+                   'total' => $totalbd,
             
-        ]);
+               ]);
 
-        $cantidad_nueva=$aux_disponible+$aux_cantidad;
+               $cantidad_nueva=$aux_disponible+$aux_cantidad;
 
-        Products::where('idarticulov', $articulo_select->idarticulov)
-        ->update([
-            'cantidad' => $cantidad_nueva,
-        ]);
+               Products::where('idarticulov', $articulo_select->idarticulov)
+               ->update([
+                   'cantidad' => $cantidad_nueva,
+               ]);
 
-        return back()->with('mensaje'," Articulo Agregado en orden");
+               return back()->with('mensaje'," Articulo Agregado en orden");
+
+           break;
+
+           case 'precioventa':
+                 
+                $myarticulo=Products::where('idarticulov', $aux_articulo)->exists();
+                request()->validate([
+                     'precioventa' => 'required|numeric|gt:0',
+                ]);
+
+                if($myarticulo)
+                {
+                    Products::where('idarticulov', $articulo_select->idarticulov)
+                    ->update([
+                        'precio' => $precioventa,
+                
+                    ]);
+
+                    return back()->with('mensaje_precio'," Precio de venta actualizado");
+                }
+                else{
+                    return back()->with('flash'," No se ha podido realizar el cambio");
+                }
+
+           break;
+
+        }
 
     }
 

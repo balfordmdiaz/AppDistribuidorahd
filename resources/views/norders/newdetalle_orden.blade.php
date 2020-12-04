@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.22/r-2.2.6/datatables.min.css"/>
+    <link href="{{ asset('../css/style.css') }}" rel="stylesheet">
 
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.22/r-2.2.6/datatables.min.js"></script>
@@ -24,10 +25,33 @@
             <form id="form-order" method="POST" action="{{ route('norders.new_detalle',$orden->idorden,'store') }}">
               @csrf
 
+                         <!----------------------MENSAJES---------------------------->
+               <div class="form-group">
+                  @if(session('flash'))
+                      <div class="alert alert-danger" role="alert">
+                          <strong>Aviso</strong>{{ session('flash') }}
+                          <button type="button" class="close" data-dismiss="alert" alert-label="Close">
+                             <span aria-hidden="true"> &times;</span>
+                          </button>
+                      </div>
+                  @endif
+              </div>
+
               <div class="form-group">
                 @if(session('mensaje'))
                     <div class="alert alert-success" role="alert">
                         <strong>Aviso</strong>{{ session('mensaje') }}
+                        <button type="button" class="close" data-dismiss="alert" alert-label="Close">
+                           <span aria-hidden="true"> &times;</span>
+                        </button>
+                    </div>
+                @endif
+               </div>
+
+               <div class="form-group">
+                @if(session('mensaje_precio'))
+                    <div class="alert alert-info" role="alert">
+                        <strong>Aviso</strong>{{ session('mensaje_precio') }}
                         <button type="button" class="close" data-dismiss="alert" alert-label="Close">
                            <span aria-hidden="true"> &times;</span>
                         </button>
@@ -93,31 +117,91 @@
                <div class="form-group col-md-4 my-lg-3">
                    <label for="exampleFormControlInput1">Cantidad:</label>
                    <input name="cantidad" id="cantidad" type="number" class="form-control" onkeyup="loadcalculos()" pattern="^[0-9]+" oninput="this.value = Math.max(this.value, 0)"/>
+                   {!! $errors->first('cantidad','<small class="message_error">:message</small><br>') !!}
                </div>
 
                <div class="form-group col-md-4 my-lg-3" >
                    <label for="exampleFormControlInput1">Precio de compra:</label>
-                   <input name="precio" id="precio" type="number" step="any" class="form-control" onkeyup="loadcalculos()" value="{{ old('precio') }}" />        
+                   <input name="precio" id="precio" type="number" step="any" class="form-control" onkeyup="loadcalculos()" value="{{ old('precio') }}" /> 
+                   {!! $errors->first('precio','<small class="message_error">:message</small><br>') !!}       
                </div>
 
                <div class="form-group col-md-4 my-lg-3" >
                    <label for="exampleFormControlInput1">Sub total:</label>
-                   <input name="subtotal" id="subtotal" type="number" step="any" class="form-control" value="{{ old('subtotal') }}" readonly="readonly"/>        
+                   <input name="subtotal" id="subtotal" type="number" step="any" class="form-control" value="{{ old('subtotal') }}" readonly="readonly"/> 
+                   {!! $errors->first('subtotal','<small class="message_error">:message</small><br>') !!}       
                </div>
 
                <div class="form-group col-md-4 my-lg-3" style="display: none">
                   <label for="exampleFormControlInput1">Total:</label>
-                  <input name="Total" id="Total" type="number" step="any" class="form-control" value="{{ old('Total') }}" readonly="readonly"/>        
+                  <input name="Total" id="Total" type="number" step="any" class="form-control" value="{{ old('Total') }}" readonly="readonly"/>  
+                  {!! $errors->first('Total','<small class="message_error">:message</small><br>') !!}      
+               </div>
+
+               <div class="form-group col-md-4 my-lg-3 text-center">       
+                    <input name="chec" type="checkbox" id="chec_venta" onChange="comprobarprecioventa(this);" />
+                    <label for="chec">Precio Venta(opcional)</label>
+                    <input name="precioventa" id="precioventa" type="number" step="any" class="form-control" style="display:none" />
+                    {!! $errors->first('precioventa','<small class="message_error">:message</small><br>') !!}
+                    <button  type="submit" name="action" id="nuevo_precioventa" class="btn btn-primary" value="precioventa" style="display:none;margin-top:4px;">Cambiar</button>
                </div>
 
               </div>
 
               <div class="text-center">
-                <button type="submit" class="btn btn-success" id="btn-registrar" align="center">Agregar Articulo</button><br>
+                <button type="submit" class="btn btn-success" name="action" id="btn-registrar" value="agregar_articulo">Agregar Articulo</button><br>
               </div>
 
             </form>
     </div>
+
+    <table id="tabladetallefactura" class="table table-bordered table-hover" style="margin-top: 10px">
+      <thead class="thead-dark">
+        <tr>
+           <th scope="col">Art</th>
+           <th scope="col">Talla</i></th>
+           <th scope="col">Cant</th>
+           <th scope="col">Monto</th>
+        </tr>
+      </thead>
+
+     @forelse($detalle = DB::table('tbl_ordendetalle')
+                            ->join('tbl_articulovariante', 'tbl_ordendetalle.idarticulov', '=', 'tbl_articulovariante.idarticulov')
+                            ->join('tbl_articulostock', 'tbl_articulovariante.idarticulos', '=', 'tbl_articulostock.idarticulos')
+                            ->join('tbl_orden', 'tbl_ordendetalle.idorden', '=', 'tbl_orden.idorden')
+                            ->select('tbl_articulostock.nombrearticulo', 'tbl_articulovariante.talla', 'tbl_ordendetalle.cantidad','tbl_ordendetalle.monto')
+                            ->where('tbl_ordendetalle.idorden', $orden->idorden)
+                            ->get()  as $detalleItem)
+
+      <tbody>
+        <tr>        
+          <td>{{ $detalleItem->nombrearticulo }}</td>          
+          <td>{{ $detalleItem->talla }}</td>
+          <td>{{ $detalleItem->cantidad }}</td>
+          <td>{{ $detalleItem->monto }}</td>
+        </tr>
+
+     @empty
+
+     <tr>
+        <td colspan="5"><p style="text-align: center">No hay articulos para mostrar</p> </td>
+     </tr> 
+
+    </tbody>
+
+     @endforelse
+
+     <tr class="thead-dark">
+        <th>Subtotal</th>
+        <td colspan="3">{{ $orden->subtotal }} C$</td>
+     </tr>
+
+     <tr class="thead-dark">
+       <th>Total</th>
+       <td colspan="3">{{ $orden->total }} C$</td>
+     </tr>
+
+    <table>
 
     @section('script')
     <script>
@@ -192,6 +276,24 @@
         loadcolor();
         $('#idarticulov').on('change', loadcolor);
         });
+
+        function comprobarprecioventa(obj)
+        {   
+           if (obj.checked)
+           {
+              document.getElementById('precioventa').style.display = "";
+              document.getElementById('nuevo_precioventa').style.display = "";
+           } else
+           {
+              document.getElementById('precioventa').style.display = "none";
+              document.getElementById('nuevo_precioventa').style.display = "none";
+           }     
+       } 
+
+       $(document).ready(function()
+       {
+         $('#color').on('change',loadcalculos);
+       });
 
    </script>
 
