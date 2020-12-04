@@ -114,6 +114,13 @@ class OrdersController extends Controller
 
     }
 
+    public function destroy($id)
+    {
+        //
+        $order = DB::select('call spdel_orden(?)', [$id]);
+        return back();
+    }
+
     public function store_detalle()
     {
         $aux=request('idorden');

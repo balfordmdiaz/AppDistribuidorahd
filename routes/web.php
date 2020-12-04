@@ -79,6 +79,7 @@ Route::get('home/bills/show/{idfactura}', [BillsController::class, 'show'])->nam
 Route::resource('home/orders','App\Http\Controllers\OrdersController');
 Route::get('home/norders',[OrdersController::class, 'new_orders'])->name('norders.new_orders');
 Route::post('home/norders', [OrdersController::class, 'store_orden'])->name('norders.store_orden');
+Route::get('home/orders/destroy/{idorden}', [OrdersController::class, 'destroy'])->name('orders.destroy');
 
 Route::post('/home/orders', [OrdersController::class, 'store_newprod'])->name('norders.store_newprod');
 Route::get('/home/norders/{id}/index',[OrdersController::class, 'detalle'])->name('norders.detalle_orden');

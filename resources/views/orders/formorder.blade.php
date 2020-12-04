@@ -44,7 +44,26 @@
 
             </div>
             
-
+    <!-- Modal Eliminar-->
+  <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Confirmacion</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          ¿Desea ELIMINAR el registro seleccionado?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="button" id="btndelete" name="btndelete" class="btn btn-danger">Eliminar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
     </div><!--fin container-->
 
@@ -101,6 +120,37 @@
         "colvis": "Visibilidad"
     }
 };
+    </script>
+
+    <script>//ELIMINAR ORDEN
+
+    var ord_id;
+
+    $(document).on('click', '.delete', function(){
+        ord_id = $(this).attr('id');
+
+        $('#confirmModal').modal('show');
+
+    });
+
+    $('#btndelete').click(function(){
+        $.ajax({
+            url:"orders/destroy/"+ord_id,
+            beforeSend:function(){
+                $('#btndelete').text('Eliminando...');
+            },
+            success:function(data){
+                setTimeout(function(){
+                    $('#confirmModal').modal('hide');
+                    toastr.warning('El Registro fue eliminado Correctamente.', 'Eliminar Registro', {timeOut:3000});
+                    $('#table-order').DataTable().ajax.reload();  //recargar tabla
+
+                }, 1000);
+                $('#btndelete').text('Eliminar');
+            }
+            });
+    });
+
     </script>
 
 </body>
