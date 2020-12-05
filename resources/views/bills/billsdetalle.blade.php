@@ -19,21 +19,17 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">Distribuidora Hermanos Diaz</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-    </nav>
+   @include('nav')
 
     <div id="datos_empresa">
+      <br>
       <h4>Distribuidora Hermanos Diaz</h4>
-      <p>Direccion Completa</p>
-      <p>Numero de Telefono</p>
+      <br>
    </div>
 
     <div id="datos_factura" >
       <h4>Factura</h4>
+      <br>
       <label>Nro. Factura:</label>  {{$factura->idlfactura}}
       <br>
      <label>Fecha:</label>  {{$factura->fechafactura}}
@@ -41,7 +37,8 @@
    
     <div id="datos_cliente">
       <h3 style="text-decoration: underline">Facturar a:</h3>
-      <p><label> Nombre cliente:</label> 
+      <br>
+      <p><label> Cliente:</label> 
          {{ $nombreclient = DB::table('tbl_clientes')->where('idcliente', $factura->idcliente)->value('nombre')  }} 
          {{ $apellidoclient = DB::table('tbl_clientes')->where('idcliente', $factura->idcliente)->value('apellido') }}</p>
       <p><label>Direccion:</label> 
@@ -54,12 +51,12 @@
 
    <div id="datos_empleado" >
       <h3 style="text-decoration: underline">Facturado por:</h3>
-
-      <p><label>Codigo Empleado:</label> 
+      <br>
+      <p><label>Codigo Emp:</label> 
          {{ $Direccionemp = DB::table('tbl_empleado')->where('idempleado', $factura->idempleado)->value('idlempleado')  }} 
       </p>
 
-      <p><label> Nombre empleado:</label> 
+      <p><label> Empleado:</label> 
          {{ $nombreemp = DB::table('tbl_empleado')->where('idempleado', $factura->idempleado)->value('nombre')  }} 
          {{ $apellidoemp = DB::table('tbl_empleado')->where('idempleado', $factura->idempleado)->value('apellido') }}
       </p>

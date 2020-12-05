@@ -19,17 +19,10 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">Distribuidora Hermanos Diaz</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-    </nav>
+   @include('nav')
 
     <div id="datos_empresa">
-        <h4>Distribuidora Hermanos Diaz</h4>
-        <p>Direccion Completa</p>
-        <p>Numero de Telefono</p>
+        <br>
     </div>
 
     <div id="datos_orden" style="text-align: center">
@@ -41,7 +34,8 @@
 
     <div id="datos_proveedor">
         <h3 style="text-decoration: underline">Datos del proveedor:</h3>
-        <p><label> Nombre Proveedor:</label> 
+        <br>
+        <p><label> Proveedor:</label> 
            {{ $nombreprov = DB::table('tbl_proveedor')->where('idproveedor', $orden->idproveedor)->value('nombreproveedor')  }} 
         <p><label>Direccion:</label> 
            {{ $direccionprov = DB::table('tbl_proveedor')->where('idproveedor', $orden->idproveedor)->value('direccion') }}</p>
