@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Orders;
 use App\Models\OrdersDetalle;
 use App\Models\Products;
+use App\Models\ProductStock;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
@@ -21,7 +22,7 @@ class OrdersController extends Controller
             return DataTables::of($order)
                     ->addColumn('action', function($order)
                     {
-                        $acciones = '<a href="javascript:void(0)" onclick="vieworder('.$order->idorden.')" class="btn btn-info btn-sm"> Detalle </a>';
+                        $acciones = '<a href="/home/orders/show/'.$order->idorden.'" class="btn btn-info btn-sm"> Detalle </a>';
                         $acciones .= '&nbsp;&nbsp;<button type="button" name="delete" id="'.$order->idorden.'" class="delete btn btn-danger btn-sm"> Eliminar </button>';
                         return $acciones;
                     })
@@ -201,8 +202,54 @@ class OrdersController extends Controller
 
            break;
 
+           case 'nuevo_registro':
+
+                   request()->validate([
+                       'new_codigoproducto' => 'required',
+                       'new_nombreproducto' => 'required',
+                       'selcat' => 'required',
+                   ]);
+
+                   ProductStock::create([         
+                    'idlarticulos' => request('new_codigoproducto'),
+                    'nombrearticulo' => request('new_nombreproducto'),
+                    'idcategoria' => request('selcat'),
+                   ]);
+
+                   return back()->with('mensaje'," Articulo se ha Registrado");
+           break;
+
+           case 'nueva_variante':
+
+                   request()->validate([
+                       'selvariante' => 'required',
+                       'new_talla' => 'required',
+                       'new_colors' => 'required',
+                       'new_cantidad' => 'required',
+                       'new_precio' => 'required|numeric|gt:0',
+                   ]);
+
+                
+                   Products::create([         
+                       'talla' => request('new_talla'),
+                       'color' => request('new_colors'),
+                       'cantidad' => request('new_cantidad'),
+                       'precio' => request('new_precio'),
+                       'idarticulos' => request('selvariante'),
+                   ]);
+
+                   return back()->with('mensaje'," Variante Articulo agregada");
+                         
+           break; 
         }
 
+    }
+
+    public function show($id)
+    {
+        return view('norders.ordersshow',[
+            'orden'=> Orders::findOrFail($id)
+        ]); 
     }
 
 

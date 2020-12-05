@@ -25,7 +25,7 @@
             <form id="form-order" method="POST" action="{{ route('norders.new_detalle',$orden->idorden,'store') }}">
               @csrf
 
-                         <!----------------------MENSAJES---------------------------->
+               <!-------------------------------MENSAJES------------------------------------->
                <div class="form-group">
                   @if(session('flash'))
                       <div class="alert alert-danger" role="alert">
@@ -58,6 +58,7 @@
                     </div>
                 @endif
                </div>
+               <!--------------------------------------------------------------------------------------->
 
               <div class="form-row">
                 <div class="form-group col-md-4 my-lg-3">
@@ -147,44 +148,51 @@
                </div>
 
               </div>
-
-              <div class="text-center">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#product_new_modal">Nuevo Producto</button>
-                <button type="submit" class="btn btn-success" name="action" id="btn-registrar" value="agregar_articulo">Agregar Articulo</button><br>
-              </div>
+              
+              <div class="form-row">
+                  <div class="form-group col-md-4 my-lg-3 text-center">
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#product_new_modal">Nuevo Producto</button>    
+                  </div>
+                  <div class="form-group col-md-4 my-lg-3 text-center">
+                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#variante_new_modal">Nueva variante de producto</button><br>
+                  </div>
+                  <div class="form-group col-md-4 my-lg-3 text-center">
+                    <button type="submit" class="btn btn-success" name="action" id="btn-registrar" value="agregar_articulo">Agregar Articulo</button>
+                  </div>
+                </div>
 
             </form>
     </div>
 
-      <!-- Modal Para editar-->
-    <!-- Button trigger modal -->
+<!-- Modal Para agregar-->
+<!-- Button trigger modal -->
 
-<!-- Modal -->
+<!-- Modal nueva producto -->
 <div class="modal fade" id="product_new_modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-<div class="modal-dialog">
-    <div class="modal-content">
-    <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Nuevo Producto</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-
-    <form id="product-new-form">
-
-    @csrf
-    <div class="modal-body">
-
+  <div class="modal-dialog">
+      <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Nuevo Producto</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+  
+      <form id="products-new-form" method="POST" action="{{ route('norders.new_detalle',$orden->idorden,'store') }}">
+      @csrf
+      <div class="modal-body">
         <div class="form-group">
-          <label for="inputcantidad">Codigo</label>
-          <input type="text" class="form-control" id="txtcode" placeholder="Ex:PRS001">
+          <label for="inputcodigo">codigo Producto</label>
+          <input type="text" name="new_codigoproducto" class="form-control" id="new_codigoproducto" placeholder="EXP:PRS00">
+          {!! $errors->first('new_codigoproducto','<small class="message_error">:message</small><br>') !!} 
         </div>
         <div class="form-group">
-          <label for="inputprecio">Descripcion</label>
-          <input type="text" class="form-control" id="txtname">
+          <label for="inputnombre">Nombre Producto</label>
+          <input type="text" class="form-control" name="new_nombreproducto" id="new_nombreproducto" placeholder="Nombre de articulo">
+          {!! $errors->first('new_nombreproducto','<small class="message_error">:message</small><br>') !!} 
         </div>
         <div class="form-group">
-          <label for="inputmonto">Categoria</label>
+          <label for="inputcategoria">Categoria</label>
           <select class="form-control" id="selcat" name="selcat">
               <option value=""></option>
               @forelse($catego = DB::table('tbl_categoria')->get() as $catItem)
@@ -193,17 +201,84 @@
                   <option value="">No hay Categoria</option>
               @endforelse
           </select>
+          {!! $errors->first('selcat','<small class="message_error">:message</small><br>') !!} 
         </div>
     </div>
+  
+      <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-success" name="action" value="nuevo_registro">Registrar articulo</button>
+      </div>
+      </form>
+      </div>
+  </div>
+  </div>
 
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="submit" class="btn btn-success">Registrar Producto</button>
-    </div>
-    </form>
-    </div>
-</div>
-</div>
+<!--------------------------------------------------------------------------------------------------->
+
+<!-- Modal nueva variante -->
+<div class="modal fade" id="variante_new_modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+      <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Nuevo Producto variante</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+  
+      <form id="variante-new-form" method="POST" action="{{ route('norders.new_detalle',$orden->idorden,'store') }}">
+      @csrf
+      <div class="modal-body">
+  
+          <div class="form-group">
+            <label for="inputmonto">Categoria Producto variante</label>
+            <select class="form-control" id="selvariante" name="selvariante">
+                <option value=""></option>
+                @forelse($stock = DB::table('tbl_articulostock')->get() as $stockItem)
+                    <option value="{{ $stockItem->idarticulos }}">{{ $stockItem->nombrearticulo }}</option>
+                @empty
+                    <option value="">No hay Categoria</option>
+                @endforelse
+            </select>
+            {!! $errors->first('selvariante','<small class="message_error">:message</small><br>') !!} 
+          </div>
+  
+          <div class="form-group">
+            <label for="inputcantidad">Talla</label>
+            <input type="text" class="form-control" name="new_talla"  id="new_talla" placeholder="Talla de articulo">
+            {!! $errors->first('new_talla','<small class="message_error">:message</small><br>') !!} 
+          </div>
+
+          <div class="form-group">
+            <label for="inputprecio">Color</label>
+            <input type="text" class="form-control" name="new_colors" id="new_colors" placeholder="Color de articulo">
+            {!! $errors->first('new_colors','<small class="message_error">:message</small><br>') !!} 
+          </div>
+
+          <div class="form-group">
+            <label for="inputprecio">Cantidad</label>
+            <input name="new_cantidad" id="new_cantidad" type="number" class="form-control" pattern="^[0-9]+" oninput="this.value = Math.max(this.value, 0)"/>
+            {!! $errors->first('new_cantidad','<small class="message_error">:message</small><br>') !!} 
+          </div>
+
+          <div class="form-group">
+            <label for="inputprecio">Precio venta</label>
+            <input name="new_precio" id="new_precio" type="number" class="form-control" />
+            {!! $errors->first('new_precio','<small class="message_error">:message</small><br>') !!} 
+          </div>
+
+      </div>
+  
+      <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-success" name="action" value="nueva_variante">Registrar variante</button>
+      </div>
+      </form>
+      </div>
+  </div>
+  </div>
+<!--------------------------------------------------------------------------------------------------->
 
     <table id="tabladetallefactura" class="table table-bordered table-hover" style="margin-top: 10px">
       <thead class="thead-dark">
