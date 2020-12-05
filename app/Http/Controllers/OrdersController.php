@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Orders;
 use App\Models\OrdersDetalle;
 use App\Models\Products;
+use App\Models\ProductStock;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
@@ -21,7 +22,7 @@ class OrdersController extends Controller
             return DataTables::of($order)
                     ->addColumn('action', function($order)
                     {
-                        $acciones = '<a href="javascript:void(0)" onclick="vieworder('.$order->idorden.')" class="btn btn-info btn-sm"> Detalle </a>';
+                        $acciones = '<a href="/home/orders/show/'.$order->idorden.'" class="btn btn-info btn-sm"> Detalle </a>';
                         $acciones .= '&nbsp;&nbsp;<button type="button" name="delete" id="'.$order->idorden.'" class="delete btn btn-danger btn-sm"> Eliminar </button>';
                         return $acciones;
                     })
@@ -74,6 +75,19 @@ class OrdersController extends Controller
         ]);
     }
 
+    public function store_newprod(Request $request)
+    {
+        //
+        $newprod = DB::select('call spstore_articulo(?,?,?)',
+                        [$request->idlarticulos,
+                        $request->nombrearticulo,
+                        $request->idcategoria]);
+
+        return back();
+
+
+    }
+
     public function gettalla(Request $request)
     {
            if($request->ajax()){
@@ -101,6 +115,13 @@ class OrdersController extends Controller
 
     }
 
+    public function destroy($id)
+    {
+        //
+        $order = DB::select('call spdel_orden(?)', [$id]);
+        return back();
+    }
+
     public function store_detalle()
     {
         $aux=request('idorden');
@@ -108,44 +129,127 @@ class OrdersController extends Controller
         $orden = Orders::where('idlorden', $aux)->first();
         $articulo_select=Products::where('idarticulov', $aux_articulo)->first();//obtengo articulo seleccionado
 
-        $aux_disponible=$articulo_select->cantidad;//obtener cantida disponible
-        $aux_talla=$articulo_select->talla;//obtener talla
-        $aux_color=$articulo_select->color;//obtener color
-        $aux_cantidad=request('cantidad');//obtener cantidad solicitada por usuario
+        switch (request()->input('action')) {
+           case 'agregar_articulo':
 
-        OrdersDetalle::create([         
-            'cantidad' => request('cantidad'),
-            'precio' => request('precio'),
-            'monto' => request('subtotal'),
-            'idarticulov' => request('idarticulo'),
-            'idorden' => $orden->idorden,
-        ]);
+               request()->validate([
+                   'cantidad' => 'required|numeric|gt:0',
+                   'precio' => 'required',
+                   'subtotal' => 'required',
+                   'Total' => 'required|numeric|gt:0',
+               ]);
 
-        $subtotalbd = $orden->subtotal;
-        $totalbd = $orden->total;
+               $aux_disponible=$articulo_select->cantidad;//obtener cantida disponible
+               $aux_talla=$articulo_select->talla;//obtener talla
+               $aux_color=$articulo_select->color;//obtener color
+               $aux_cantidad=request('cantidad');//obtener cantidad solicitada por usuario
 
-        $montoform = request('subtotal');
-        $totalform = request('Total');
+               OrdersDetalle::create([         
+                   'cantidad' => request('cantidad'),
+                   'precio' => request('precio'),
+                   'monto' => request('subtotal'),
+                   'idarticulov' => request('idarticulo'),
+                   'idorden' => $orden->idorden,
+               ]);
 
-        $subtotalbd = $subtotalbd+$montoform;
-        $totalbd = $totalbd+$totalform;
+               $subtotalbd = $orden->subtotal;
+               $totalbd = $orden->total;
 
-        Orders::where('idorden', $orden->idorden)
-        ->update([
-            'subtotal' => $subtotalbd,
-            'total' => $totalbd,
+               $montoform = request('subtotal');
+               $totalform = request('Total');
+
+               $subtotalbd = $subtotalbd+$montoform;
+               $totalbd = $totalbd+$totalform;
+
+               Orders::where('idorden', $orden->idorden)
+               ->update([
+                   'subtotal' => $subtotalbd,
+                   'total' => $totalbd,
             
-        ]);
+               ]);
 
-        $cantidad_nueva=$aux_disponible+$aux_cantidad;
+               $cantidad_nueva=$aux_disponible+$aux_cantidad;
 
-        Products::where('idarticulov', $articulo_select->idarticulov)
-        ->update([
-            'cantidad' => $cantidad_nueva,
-        ]);
+               Products::where('idarticulov', $articulo_select->idarticulov)
+               ->update([
+                   'cantidad' => $cantidad_nueva,
+               ]);
 
-        return back()->with('mensaje'," Articulo Agregado en orden");
+               return back()->with('mensaje'," Articulo Agregado en orden");
 
+           break;
+
+           case 'precioventa':
+                 
+                $myarticulo=Products::where('idarticulov', $aux_articulo)->exists();
+                request()->validate([
+                     'precioventa' => 'required|numeric|gt:0',
+                ]);
+
+                if($myarticulo)
+                {
+                    Products::where('idarticulov', $articulo_select->idarticulov)
+                    ->update([
+                        'precio' => $precioventa,
+                
+                    ]);
+
+                    return back()->with('mensaje_precio'," Precio de venta actualizado");
+                }
+                else{
+                    return back()->with('flash'," No se ha podido realizar el cambio");
+                }
+
+           break;
+
+           case 'nuevo_registro':
+
+                   request()->validate([
+                       'new_codigoproducto' => 'required',
+                       'new_nombreproducto' => 'required',
+                       'selcat' => 'required',
+                   ]);
+
+                   ProductStock::create([         
+                    'idlarticulos' => request('new_codigoproducto'),
+                    'nombrearticulo' => request('new_nombreproducto'),
+                    'idcategoria' => request('selcat'),
+                   ]);
+
+                   return back()->with('mensaje'," Articulo se ha Registrado");
+           break;
+
+           case 'nueva_variante':
+
+                   request()->validate([
+                       'selvariante' => 'required',
+                       'new_talla' => 'required',
+                       'new_colors' => 'required',
+                       'new_cantidad' => 'required',
+                       'new_precio' => 'required|numeric|gt:0',
+                   ]);
+
+                
+                   Products::create([         
+                       'talla' => request('new_talla'),
+                       'color' => request('new_colors'),
+                       'cantidad' => request('new_cantidad'),
+                       'precio' => request('new_precio'),
+                       'idarticulos' => request('selvariante'),
+                   ]);
+
+                   return back()->with('mensaje'," Variante Articulo agregada");
+                         
+           break; 
+        }
+
+    }
+
+    public function show($id)
+    {
+        return view('norders.ordersshow',[
+            'orden'=> Orders::findOrFail($id)
+        ]); 
     }
 
 
