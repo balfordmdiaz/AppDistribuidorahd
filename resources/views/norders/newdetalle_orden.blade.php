@@ -168,12 +168,12 @@
                     <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#variante_new_modal">Nueva variante de producto</button><br>
                   </div>
                   <div class="form-group col-md-4 my-lg-3 text-center">
-                    <button type="submit" class="btn btn-success" name="action" id="btn-registrar" value="agregar_articulo">Agregar Articulo</button>
+                    <button type="submit" class="btn btn-dark" name="action" id="btn-registrar" value="agregar_articulo">Agregar Articulo</button>
                   </div>
-                  <div class="form-group col-md-4 my-lg-3 text-center">
-                    <button type="submit" class="btn btn-success" name="action" id="btn-registrar" value="finalizar">Finalizar Orden</button>
-                  </div>
+                </div>
 
+                <div class="form-group text-center">
+                  <button type="submit" class="btn btn-success" name="action" id="btn-registrar" value="finalizar">Finalizar Orden</button>
                 </div>
 
             </form>
