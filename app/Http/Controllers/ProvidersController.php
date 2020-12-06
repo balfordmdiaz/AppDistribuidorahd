@@ -12,6 +12,13 @@ class ProvidersController extends Controller
 
     public function index(Request $request)
     {
+        $proveedor=Providers::latest('idproveedor')->first();
+        $proveedor_aux=Providers::latest('idproveedor')->exists();
+        if(!$proveedor_aux)
+        {
+            $proveedor=new Providers();
+            $proveedor->idproveedor=0;
+        }
         //
         if($request->ajax())
         {
@@ -27,7 +34,7 @@ class ProvidersController extends Controller
                     ->make(true);
         }
 
-        return view('providers.indexprovider');
+        return view('providers.indexprovider',compact('proveedor'));
     }
 
 

@@ -64,7 +64,7 @@
 
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Codigo Cliente</label>
-                    <input type="text" class="form-control" id="txtcodecli" name="txtcodecli" value="EMP00{{ $id=$id+1 }}" readonly="readonly">
+                    <input type="text" class="form-control" id="txtcodecli" name="txtcodecli" value="CL00{{ $id=$id+1 }}" readonly="readonly">
 
                 </div>
                 <div class="form-group">

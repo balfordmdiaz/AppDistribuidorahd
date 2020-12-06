@@ -56,9 +56,14 @@
 
                 <form id="store-provider" method="" action="">
                 @csrf
+
+                <div class="form-group" style="display:none">
+                    <input name="id_proveedor_hidde" type="text" class="form-control" value="{{ $id=$proveedor->idproveedor }}">
+                </div>
+
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Codigo Proveedor</label>
-                    <input type="text" class="form-control" id="txtidprov" name="txtidprov" placeholder="ex:PR001">
+                    <input type="text" class="form-control" id="txtidprov" name="txtidprov" placeholder="ex:PR001" value="PR00{{ $id=$id+1 }}" readonly="readonly">
 
                 </div>
                 <div class="form-group">
