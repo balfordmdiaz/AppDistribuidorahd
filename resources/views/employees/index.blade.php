@@ -56,10 +56,15 @@
 
                 <form id="store-employee" method="" action="">
                 @csrf
+
+                <div class="form-group" style="display:none">
+                    <input name="id_empleado_hidde" type="text" class="form-control" value="{{$id=$empleado->idempleado}}">
+                </div>
+
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Codigo Empleado</label>
-                    <input type="text" class="form-control"  name="txtcodeemp" placeholder="ex:EMP001">
-
+                    <input type="text" class="form-control"  name="txtcodeemp" placeholder="ex:EMP001" value="EMP00{{ $id=$id+1 }}" readonly="readonly">
+                    
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Nombre</label>
@@ -111,13 +116,13 @@
 
     <form id="employee-edit-form">
     <div class="modal-body">
-
             @csrf
             <input type="hidden" id="txtId2" name="txtId2">
             <div class="form-group">
                 <label for="exampleFormControlInput1">Codigo Empleado</label>
-                <input type="text" class="form-control" id="txtcodeemp2" name="txtcodeemp2" placeholder="ex:EMP001">
+                <input type="text" class="form-control" id="txtcodeemp2" name="txtcodeemp2"  readonly="readonly">
             </div>
+           
             <div class="form-group">
                 <label for="exampleFormControlInput1">Nombre</label>
                 <input type="text" class="form-control" id="txtname2" name="txtname2">

@@ -13,6 +13,13 @@ class EmployeesController extends Controller
 
     public function index(Request $request)
     {
+        $empleado=Employees::latest('idempleado')->first();
+        $empleado_aux=Employees::latest('idempleado')->exists();
+        if(!$empleado_aux)
+        {
+            $empleado=new Employees();
+            $empleado->idempleado=0;
+        }
 
         if($request->ajax())
         {
@@ -28,7 +35,7 @@ class EmployeesController extends Controller
                     ->make(true);
         }
 
-        return view('employees.index');
+        return view('employees.index',compact('empleado'));
     }
 
 

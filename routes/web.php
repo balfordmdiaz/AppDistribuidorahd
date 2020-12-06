@@ -92,7 +92,9 @@ Route::middleware(['auth'])->group(function ()
     Route::get('/home/norders/{id}/index',[OrdersController::class, 'detalle'])->name('norders.detalle_orden');
     Route::get('/home/norders/{id}/variante',[OrdersController::class, 'gettalla']);
     Route::get('/home/norders/{id}/colores',[OrdersController::class, 'getcolor']);
+    Route::get('/home/norders/{id}/precio',[OrdersController::class, 'getprecio']);
     Route::post('/home/norders/{id}/index',[OrdersController::class, 'store_detalle'])->name('norders.new_detalle');
+    Route::get('/home/norders/{id}/index/details',[OrdersController::class, 'show_detalleorden'])->name('norders.showdetalle');
 
 });
 

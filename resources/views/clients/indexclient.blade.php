@@ -57,9 +57,14 @@
 
                 <form id="store-client" method="" action="">
                 @csrf
+
+                <div class="form-group" style="display:none">
+                    <input name="id_cliente_hidde" type="text" class="form-control" value="{{$id=$cliente->idcliente}}">
+                </div>
+
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Codigo Cliente</label>
-                    <input type="text" class="form-control" id="txtcodecli" name="txtcodecli" placeholder="ex:CL001">
+                    <input type="text" class="form-control" id="txtcodecli" name="txtcodecli" value="EMP00{{ $id=$id+1 }}" readonly="readonly">
 
                 </div>
                 <div class="form-group">

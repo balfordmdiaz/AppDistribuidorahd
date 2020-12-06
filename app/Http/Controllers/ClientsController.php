@@ -12,6 +12,13 @@ class ClientsController extends Controller
 
     public function index(Request $request)
     {
+        $cliente=Clients::latest('idcliente')->first();
+        $cliente_aux=Clients::latest('idcliente')->exists();
+        if(!$cliente_aux)
+        {
+            $cliente=new Clients();
+            $cliente->idcliente=0;
+        }
         //
         if($request->ajax())
         {
@@ -27,7 +34,7 @@ class ClientsController extends Controller
                     ->make(true);
         }
 
-        return view('clients.indexclient');
+        return view('clients.indexclient',compact('cliente'));
     }
 
 
