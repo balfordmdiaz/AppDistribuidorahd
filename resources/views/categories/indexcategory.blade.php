@@ -62,7 +62,7 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Categoria</label>
-                    <input type="text" class="form-control" id="txtname" name="txtname">
+                    <input type="text" class="form-control" id="txtname" name="txtname" required>
 
                 </div>
 
@@ -222,7 +222,8 @@
                     {
                         $('#store-category')[0].reset();   //limpiar campos del formulario luego de agregarlos
                         toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});
-                        $('#table-category').DataTable().ajax.reload();  //recargar tabla
+                        //$('#table-category').DataTable().ajax.reload();  //recargar tabla
+                        window.location.reload();
                     }
                 }
             });

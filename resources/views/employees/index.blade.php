@@ -68,27 +68,27 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Nombre</label>
-                    <input type="text" class="form-control" id="txtname" name="txtname">
+                    <input type="text" class="form-control" id="txtname" name="txtname" required>
 
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Apellido</label>
-                    <input type="text" class="form-control" id="txtlastname" name="txtlastname">
+                    <input type="text" class="form-control" id="txtlastname" name="txtlastname" required>
 
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Cedula</label>
-                    <input type="text" class="form-control" id="txtidentif" name="txtidentif" placeholder="ex: 000-000000-0000A">
+                    <input type="text" class="form-control" id="txtidentif" name="txtidentif" placeholder="ex: 000-000000-0000A" required>
 
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Telefono</label>
-                    <input type="text" class="form-control" id="txttelefono" name="txttelefono">
+                    <input type="text" class="form-control" id="txttelefono" name="txttelefono" required>
 
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Direccion</label>
-                    <input type="text" class="form-control" id="txtaddress" name="txtaddress">
+                    <input type="text" class="form-control" id="txtaddress" name="txtaddress" required>
 
                 </div>
                 <button type="submit" class="btn btn-primary">Agregar</button>
@@ -268,7 +268,8 @@
                     {
                         $('#store-employee')[0].reset();   //limpiar campos del formulario luego de agregarlos
                         toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});
-                        $('#table-employee').DataTable().ajax.reload();  //recargar tabla
+                        //$('#table-employee').DataTable().ajax.reload();  //recargar tabla
+                        window.location.reload();
                     }
                 }
             });

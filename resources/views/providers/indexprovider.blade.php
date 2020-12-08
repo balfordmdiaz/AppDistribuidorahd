@@ -68,17 +68,17 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Nombre</label>
-                    <input type="text" class="form-control" id="txtname" name="txtname">
+                    <input type="text" class="form-control" id="txtname" name="txtname" required>
 
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Telefono</label>
-                    <input type="text" class="form-control" id="txttelefono" name="txttelefono">
+                    <input type="text" class="form-control" id="txttelefono" name="txttelefono" required>
 
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Direccion</label>
-                    <input type="text" class="form-control" id="txtaddress" name="txtaddress">
+                    <input type="text" class="form-control" id="txtaddress" name="txtaddress" required>
 
                 </div>
                 <div class="form-group">
@@ -120,15 +120,15 @@
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Nombre</label>
-                <input type="text" class="form-control" id="txtname2" name="txtname2">
+                <input type="text" class="form-control" id="txtname2" name="txtname2" required>
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Telefono</label>
-                <input type="text" class="form-control" id="txttelefono2" name="txttelefono2">
+                <input type="text" class="form-control" id="txttelefono2" name="txttelefono2" required>
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Direccion</label>
-                <input type="text" class="form-control" id="txtaddress2" name="txtaddress2">
+                <input type="text" class="form-control" id="txtaddress2" name="txtaddress2" required>
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Correo</label>
@@ -264,7 +264,8 @@
                     {
                         $('#store-provider')[0].reset();   //limpiar campos del formulario luego de agregarlos
                         toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});
-                        $('#table-provider').DataTable().ajax.reload();  //recargar tabla
+                        //$('#table-provider').DataTable().ajax.reload();  //recargar tabla
+                        window.location.reload();
                     }
                 }
             });

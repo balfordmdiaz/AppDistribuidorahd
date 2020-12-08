@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Usuarios</title>
+    <title>Administradores</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.22/r-2.2.6/datatables.min.css"/>
@@ -23,10 +23,10 @@
 
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
-              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Lista de Usuarios</a>
+              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Lista de Administradores</a>
             </li>
             <li class="nav-item" role="presentation">
-              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Nuevo Usuario</a>
+              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Nuevo Administrador</a>
             </li>
         </ul>
         <div class="tab-content" id="ListaCategoria">
@@ -36,9 +36,9 @@
 
                 <table id="table-user" class="table table-hover display nowrap" cellspacing="0" width="100%">
                     <thead align="center">
+                        <th>Id</th>
                         <th>Usuario</th>
                         <th>Correo</th>
-                        <th>Empleado</th>
                     </thead>
                     <tbody id="idTBody_Maltas" align="center"></tbody><!-- Centrar contenido de la tabla -->
                 </table>
@@ -48,7 +48,7 @@
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <br>
 
-                <form id="store-user" method="POST" action="{{route('userfacts.store')}}">
+                <form id="store-user" method="POST" action="{{route('useradmin.store')}}">
                 @csrf
 
                 <div class="form-group">
@@ -63,19 +63,7 @@
                 </div>
                 <div class="form-group">
                     <label for="pass">Contraseña</label>
-                    <input type="text" class="form-control" id="pass" name="pass" required>
-
-                </div>
-                <div class="form-group">
-                    <label for="selempleado">Empleado</label>
-                    <select id="selempleado" name="selempleado" class="form-control" required>
-                        <option value=""></option>
-                            @forelse($emp = DB::table('tbl_empleado')->get() as $empItem)
-                                <option value="{{ $empItem->idempleado }}">{{ $empItem->nombre }} {{ $empItem->apellido }}</option>
-                            @empty
-                                <option value="">No hay Proveedores</option>
-                            @endforelse
-                    </select>
+                    <input type="password" class="form-control" id="pass" name="pass" required>
 
                 </div>
 
@@ -105,13 +93,13 @@
                     serverside:true,
                     ajax:
                     {
-                        url:"{{ route('userfacts.index') }}",
+                        url:"{{ route('useradmin.index') }}",
                     },
                     columns:
                     [
+                        {data: 'iduseradmin'},
                         {data: 'username'},
                         {data: 'email'},
-                        {data: 'idempleado'},
                     ]
                 }
             )
