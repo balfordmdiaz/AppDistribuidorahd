@@ -9,6 +9,7 @@ use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\BillsController;
 use App\Http\Controllers\OrdersController;
+use App\Http\Controllers\UserfactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -95,6 +96,11 @@ Route::middleware(['auth'])->group(function ()
     Route::get('/home/norders/{id}/precio',[OrdersController::class, 'getprecio']);
     Route::post('/home/norders/{id}/index',[OrdersController::class, 'store_detalle'])->name('norders.new_detalle');
     Route::get('/home/norders/{id}/index/details',[OrdersController::class, 'show_detalleorden'])->name('norders.showdetalle');
+
+    //Usuarios
+    Route::resource('home/userfacts','App\Http\Controllers\UserfactController');
+    Route::post('/home/userfacts', [UserfactController::class, 'store'])->name('userfacts.store');
+
 
 });
 

@@ -27,9 +27,16 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="/home">Inicio <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item">
-                       <a class="nav-link" href="/home/employees">Empleados</a>
-                    </li>
+                    <li class="nav-item dropdown">
+                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                         Empleados
+                     </a>
+                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                       <a class="dropdown-item" href="/home/employees">Empleados</a>
+                       <div class="dropdown-divider"></div>
+                       <a class="dropdown-item" href="/home/userfacts">Usuarios</a>
+                     </div>
+                   </li>
                     <li class="nav-item">
                        <a class="nav-link" href="/home/clients">Clientes</a>
                    </li>
