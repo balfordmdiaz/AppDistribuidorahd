@@ -12,6 +12,13 @@ class CategoriesController extends Controller
 
     public function index(Request $request)
     {
+        $categoria=Categories::latest('idcategoria')->first();
+        $categoria_aux=Categories::latest('idcategoria')->exists();
+        if(!$categoria_aux)
+        {
+            $categoria=new Categories();
+            $categoria->idcategoria=0;
+        }
         //
         if($request->ajax())
         {
@@ -27,7 +34,7 @@ class CategoriesController extends Controller
                     ->make(true);
         }
 
-        return view('categories.indexcategory');
+        return view('categories.indexcategory',compact('categoria'));
     }
 
 

@@ -93,6 +93,9 @@
   
       <table>
 
+         <div class="text-center" style="font-size: 12pt">
+            <a href="{{route('norders.new_orders')}}">Terminar</a>
+         </div>
 
 </body>
 </html>

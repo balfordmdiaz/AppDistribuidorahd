@@ -20,10 +20,21 @@
 <body>
     @include('nav')
     @inject('articulostock', 'App\Services\Article')
+    <?php $articulo_codigo = DB::table('tbl_articulostock')->latest('idarticulos')->first();
+    $articulo_aux=DB::table('tbl_articulostock')->latest('idarticulos')->exists();
+    if(!$articulo_aux)
+    {
+            $articulo_codigo=new stdClass();
+            $articulo_codigo->idarticulos=0;
+    }
+    
+    ?>
     <div class="container"><br>
             <h3 align="center">Detalle Orden</h3>
             <form id="form-order" method="POST" action="{{ route('norders.new_detalle',$orden->idorden,'store') }}">
               @csrf
+
+              
 
                <!-------------------------------MENSAJES------------------------------------->
                <div class="form-group">
@@ -157,8 +168,12 @@
                     <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#variante_new_modal">Nueva variante de producto</button><br>
                   </div>
                   <div class="form-group col-md-4 my-lg-3 text-center">
-                    <button type="submit" class="btn btn-success" name="action" id="btn-registrar" value="agregar_articulo">Agregar Articulo</button>
+                    <button type="submit" class="btn btn-dark" name="action" id="btn-registrar" value="agregar_articulo">Agregar Articulo</button>
                   </div>
+                </div>
+
+                <div class="form-group text-center">
+                  <button type="submit" class="btn btn-success" name="action" id="btn-registrar" value="finalizar">Finalizar Orden</button>
                 </div>
 
             </form>
@@ -180,10 +195,15 @@
   
       <form id="products-new-form" method="POST" action="{{ route('norders.new_detalle',$orden->idorden,'store') }}">
       @csrf
+
+      <div class="form-group" style="display:none">
+         <input name="id_articulo_hidde" type="text" class="form-control" value="{{ $id=$articulo_codigo->idarticulos }}">
+      </div>
+
       <div class="modal-body">
         <div class="form-group">
           <label for="inputcodigo">codigo Producto</label>
-          <input type="text" name="new_codigoproducto" class="form-control" id="new_codigoproducto" placeholder="EXP:PRS00">
+          <input type="text" name="new_codigoproducto" class="form-control" id="new_codigoproducto" value="PRS00{{ $id=$id+1 }}" readonly="readonly">
           {!! $errors->first('new_codigoproducto','<small class="message_error">:message</small><br>') !!} 
         </div>
         <div class="form-group">
@@ -254,12 +274,6 @@
             <label for="inputprecio">Color</label>
             <input type="text" class="form-control" name="new_colors" id="new_colors" placeholder="Color de articulo">
             {!! $errors->first('new_colors','<small class="message_error">:message</small><br>') !!} 
-          </div>
-
-          <div class="form-group">
-            <label for="inputprecio">Cantidad</label>
-            <input name="new_cantidad" id="new_cantidad" type="number" class="form-control" pattern="^[0-9]+" oninput="this.value = Math.max(this.value, 0)"/>
-            {!! $errors->first('new_cantidad','<small class="message_error">:message</small><br>') !!} 
           </div>
 
           <div class="form-group">
@@ -423,6 +437,34 @@
    </script>
 
   <script>//Nuevo Producto - Ventana Modal
+
+
+    function loadprecio()
+    {
+        var idarticulov=$('#color').val();
+        var idarticulos=$('#idarticulostock').val();
+        console.log("id stock:"+idarticulos);
+        console.log("id variante:"+idarticulov);
+
+        if($.trim(idarticulov) != '')
+        {
+          $.get('precio',{idarticulov: idarticulov},function(variable){
+
+          $.each(variable,function(index,value){
+             $('#precioventa').val(value);
+          })     
+        });
+
+
+        }
+
+    }
+
+    $(document).ready(function()
+    {
+         $('#color').on('change',loadprecio);
+    });
+
 
   $('#product-new-form').submit(function(e){
 

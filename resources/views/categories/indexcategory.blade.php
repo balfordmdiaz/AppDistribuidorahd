@@ -50,9 +50,14 @@
 
                 <form id="store-category" method="" action="">
                 @csrf
+
+                <div class="form-group" style="display:none">
+                    <input name="id_categoria_hidde" type="text" class="form-control" value="{{ $id=$categoria->idcategoria }}">
+                </div>
+
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Codigo Categoria</label>
-                    <input type="text" class="form-control" id="txtidcat" name="txtidcat" placeholder="ex:CAT001">
+                    <input type="text" class="form-control" id="txtidcat" name="txtidcat" placeholder="ex:CAT001" value="CAT00{{ $id=$id+1 }}" readonly="readonly">
 
                 </div>
                 <div class="form-group">

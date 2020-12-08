@@ -36,11 +36,18 @@ class OrdersController extends Controller
 
     public function new_orders()
     {
-        return view('norders.neworder');
+        $orden=Orders::latest('idorden')->first();
+        $orden_aux=Orders::latest('idorden')->exists();
+        if(!$orden_aux)
+        {
+            $orden=new Orders();
+            $orden->idorden=0;
+        }
+        return view('norders.neworder',compact('orden'));
     }
 
 
-    public function store_orden(Request $request)
+    public function store_orden()
     {
         $idorden=request('idorden');
         $auxsubtotal=0.00;
@@ -64,8 +71,6 @@ class OrdersController extends Controller
         $orden = Orders::where('idlorden', $idorden)->first();  
 
         return redirect()->route('norders.detalle_orden',$orden->idorden);
-
-
     }
 
     public function detalle($id)
@@ -112,6 +117,19 @@ class OrdersController extends Controller
             return response()->json($articuloarray);
          }
          
+
+    }
+
+    public function getprecio(Request $request)
+    {     
+        if($request->ajax()){
+            $idarticulov=Products::where('idarticulov',$request->idarticulov)->get();      
+            foreach($idarticulov as $articulo){
+                
+                $articuloarray[$articulo->idarticulov] = $articulo->precio;
+            }
+            return response()->json($articuloarray);
+         }    
 
     }
 
@@ -190,7 +208,7 @@ class OrdersController extends Controller
                 {
                     Products::where('idarticulov', $articulo_select->idarticulov)
                     ->update([
-                        'precio' => $precioventa,
+                        'precio' => request('precioventa'),
                 
                     ]);
 
@@ -220,12 +238,12 @@ class OrdersController extends Controller
            break;
 
            case 'nueva_variante':
+                   $cantidad_variante=0;
 
                    request()->validate([
                        'selvariante' => 'required',
                        'new_talla' => 'required',
                        'new_colors' => 'required',
-                       'new_cantidad' => 'required',
                        'new_precio' => 'required|numeric|gt:0',
                    ]);
 
@@ -233,7 +251,7 @@ class OrdersController extends Controller
                    Products::create([         
                        'talla' => request('new_talla'),
                        'color' => request('new_colors'),
-                       'cantidad' => request('new_cantidad'),
+                       'cantidad' => $cantidad_variante,
                        'precio' => request('new_precio'),
                        'idarticulos' => request('selvariante'),
                    ]);
@@ -241,11 +259,31 @@ class OrdersController extends Controller
                    return back()->with('mensaje'," Variante Articulo agregada");
                          
            break; 
+
+           case 'finalizar':
+                  $cant_orden=OrdersDetalle::where('idorden',$orden->idorden)->exists();
+                  if($cant_orden)
+                  {
+                    return redirect()->route('norders.showdetalle',$orden->idorden);
+                  }
+                  else
+                  {
+                    return back()->with('flash'," No se ha articulo en la orden");
+                  }
+                  
+           break;
         }
 
     }
 
     public function show($id)
+    {
+        return view('norders.ordersshow',[
+            'orden'=> Orders::findOrFail($id)
+        ]); 
+    }
+
+    public function show_detalleorden($id)
     {
         return view('norders.ordersshow',[
             'orden'=> Orders::findOrFail($id)
