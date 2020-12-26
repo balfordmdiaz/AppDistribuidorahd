@@ -126,7 +126,7 @@ class OrdersController extends Controller
             $idarticulov=Products::where('idarticulov',$request->idarticulov)->get();      
             foreach($idarticulov as $articulo){
                 
-                $articuloarray[$articulo->idarticulov] = $articulo->precio;
+                $articuloarray[$articulo->idarticulov] = $articulo->preciov;
             }
             return response()->json($articuloarray);
          }    
@@ -208,7 +208,7 @@ class OrdersController extends Controller
                 {
                     Products::where('idarticulov', $articulo_select->idarticulov)
                     ->update([
-                        'precio' => request('precioventa'),
+                        'preciov' => request('precioventa'),
                 
                     ]);
 
@@ -247,16 +247,18 @@ class OrdersController extends Controller
                        'new_precio' => 'required|numeric|gt:0',
                    ]);
 
-                
+                   
+
                    Products::create([         
                        'talla' => request('new_talla'),
                        'color' => request('new_colors'),
                        'cantidad' => $cantidad_variante,
-                       'precio' => request('new_precio'),
+                       'preciov' => request('new_precio'),
                        'idarticulos' => request('selvariante'),
                    ]);
 
                    return back()->with('mensaje'," Variante Articulo agregada");
+                   
                          
            break; 
 

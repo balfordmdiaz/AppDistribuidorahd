@@ -299,6 +299,8 @@
         <tr>
            <th scope="col">Art</th>
            <th scope="col">Talla</i></th>
+           <th scope="col">Precio Venta</th>
+           <th scope="col">Precio compra</th>
            <th scope="col">Cant</th>
            <th scope="col">Monto</th>
         </tr>
@@ -308,7 +310,7 @@
                             ->join('tbl_articulovariante', 'tbl_ordendetalle.idarticulov', '=', 'tbl_articulovariante.idarticulov')
                             ->join('tbl_articulostock', 'tbl_articulovariante.idarticulos', '=', 'tbl_articulostock.idarticulos')
                             ->join('tbl_orden', 'tbl_ordendetalle.idorden', '=', 'tbl_orden.idorden')
-                            ->select('tbl_articulostock.nombrearticulo', 'tbl_articulovariante.talla', 'tbl_ordendetalle.cantidad','tbl_ordendetalle.monto')
+                            ->select('tbl_articulostock.nombrearticulo', 'tbl_articulovariante.talla', 'tbl_ordendetalle.precio','tbl_articulovariante.preciov','tbl_ordendetalle.cantidad','tbl_ordendetalle.monto')
                             ->where('tbl_ordendetalle.idorden', $orden->idorden)
                             ->get()  as $detalleItem)
 
@@ -316,8 +318,10 @@
         <tr>        
           <td>{{ $detalleItem->nombrearticulo }}</td>          
           <td>{{ $detalleItem->talla }}</td>
+          <td>{{ $detalleItem->precio }} C$</td>
+          <td>{{ $detalleItem->preciov }} C$</td>
           <td>{{ $detalleItem->cantidad }}</td>
-          <td>{{ $detalleItem->monto }}</td>
+          <td>{{ $detalleItem->monto }} C$</td>
         </tr>
 
      @empty
@@ -332,12 +336,12 @@
 
      <tr class="thead-dark">
         <th>Subtotal</th>
-        <td colspan="3">{{ $orden->subtotal }} C$</td>
+        <td colspan="5">{{ $orden->subtotal }} C$</td>
      </tr>
 
      <tr class="thead-dark">
        <th>Total</th>
-       <td colspan="3">{{ $orden->total }} C$</td>
+       <td colspan="5">{{ $orden->total }} C$</td>
      </tr>
 
     <table>
