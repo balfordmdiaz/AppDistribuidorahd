@@ -51,7 +51,7 @@
                               ->join('tbl_ordendetalle', 'tbl_articulovariante.idarticulov', '=', 'tbl_ordendetalle.idarticulov')
                               ->join('tbl_orden', 'tbl_orden.idorden', '=', 'tbl_ordendetalle.idorden')
                               ->select('tbl_articulostock.idlarticulos', 'tbl_facturadetalle.cantidad','tbl_articulostock.nombrearticulo','tbl_articulovariante.talla','tbl_articulovariante.color','tbl_ordendetalle.precio','tbl_articulovariante.preciov','tbl_facturadetalle.monto')
-                              ->whereBetween('tbl_factura.fechafactura',[$fechaInicio,$fechaFin])
+                              ->where('tbl_factura.fechafactura','>=',$fechaInicio)
                               ->get()  as $detalleItem)
   
         <tbody>
