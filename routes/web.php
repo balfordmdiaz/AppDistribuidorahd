@@ -11,6 +11,7 @@ use App\Http\Controllers\BillsController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\UserfactController;
 use App\Http\Controllers\UseradminController;
+use App\Http\Controllers\ControllerDetalleGanancia;
 
 /*
 |--------------------------------------------------------------------------
@@ -105,6 +106,9 @@ Route::middleware(['auth'])->group(function ()
     //Usuarios Admin
     Route::resource('home/useradmin','App\Http\Controllers\UseradminController');
     Route::post('/home/useradmin', [UseradminController::class, 'store'])->name('useradmin.store');
+
+    //Detalle Compra y venta
+    Route::get('home/detalle/semanal', [ControllerDetalleGanancia::class, 'index'])->name('detalle.semana');
 
 
 });
