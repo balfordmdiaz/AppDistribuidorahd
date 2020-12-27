@@ -78,17 +78,17 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Cedula</label>
-                    <input type="text" class="form-control" id="txtidentif" name="txtidentif" placeholder="ex: 000-000000-0000A" required>
+                    <input type="text" class="form-control" id="txtidentif" name="txtidentif" placeholder="ex: 000-000000-0000A">
 
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Telefono</label>
-                    <input type="text" class="form-control" id="txttelefono" name="txttelefono" required>
+                    <input type="text" class="form-control" id="txttelefono" name="txttelefono">
 
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Direccion</label>
-                    <input type="text" class="form-control" id="txtaddress" name="txtaddress" required>
+                    <input type="text" class="form-control" id="txtaddress" name="txtaddress">
 
                 </div>
                 <button type="submit" class="btn btn-primary">Agregar</button>
