@@ -10,6 +10,8 @@ use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\BillsController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\UserfactController;
+use App\Http\Controllers\UseradminController;
+use App\Http\Controllers\ControllerDetalleGanancia;
 
 /*
 |--------------------------------------------------------------------------
@@ -97,9 +99,16 @@ Route::middleware(['auth'])->group(function ()
     Route::post('/home/norders/{id}/index',[OrdersController::class, 'store_detalle'])->name('norders.new_detalle');
     Route::get('/home/norders/{id}/index/details',[OrdersController::class, 'show_detalleorden'])->name('norders.showdetalle');
 
-    //Usuarios
+    //Usuarios Facturas
     Route::resource('home/userfacts','App\Http\Controllers\UserfactController');
     Route::post('/home/userfacts', [UserfactController::class, 'store'])->name('userfacts.store');
+
+    //Usuarios Admin
+    Route::resource('home/useradmin','App\Http\Controllers\UseradminController');
+    Route::post('/home/useradmin', [UseradminController::class, 'store'])->name('useradmin.store');
+
+    //Detalle Compra y venta
+    Route::get('home/detalle/semanal', [ControllerDetalleGanancia::class, 'index'])->name('detalle.semana');
 
 
 });

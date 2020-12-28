@@ -69,12 +69,12 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Nombre</label>
-                    <input type="text" class="form-control" id="txtname" name="txtname">
+                    <input type="text" class="form-control" id="txtname" name="txtname" required>
 
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Apellido</label>
-                    <input type="text" class="form-control" id="txtlastname" name="txtlastname">
+                    <input type="text" class="form-control" id="txtlastname" name="txtlastname" required>
 
                 </div>
                 <div class="form-group">
@@ -89,7 +89,7 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Departamento</label>
-                    <input type="text" class="form-control" id="txtdepart" name="txtdepart">
+                    <input type="text" class="form-control" id="txtdepart" name="txtdepart" required>
 
                 </div>
                 <div class="form-group">
@@ -299,7 +299,8 @@
                     {
                         $('#store-client')[0].reset();   //limpiar campos del formulario luego de agregarlos
                         toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});
-                        $('#table-client').DataTable().ajax.reload();  //recargar tabla
+                        //$('#table-client').DataTable().ajax.reload();  //recargar tabla
+                        window.location.reload();
                     }
                 }
             });

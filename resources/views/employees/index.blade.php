@@ -63,17 +63,17 @@
 
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Codigo Empleado</label>
-                    <input type="text" class="form-control"  name="txtcodeemp" placeholder="ex:EMP001" value="EMP00{{ $id=$id+1 }}" readonly="readonly">
+                    <input type="text" class="form-control"  name="txtcodeemp" id="txtcodeemp" placeholder="ex:EMP001" value="EMP00{{ $id=$id+1 }}" readonly="readonly">
                     
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Nombre</label>
-                    <input type="text" class="form-control" id="txtname" name="txtname">
+                    <input type="text" class="form-control" id="txtname" name="txtname" required>
 
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Apellido</label>
-                    <input type="text" class="form-control" id="txtlastname" name="txtlastname">
+                    <input type="text" class="form-control" id="txtlastname" name="txtlastname" required>
 
                 </div>
                 <div class="form-group">
@@ -249,14 +249,7 @@
             var telefono = $('#txttelefono').val();
             var direccion = $('#txtaddress').val();
             var _token = $("input[name=_token]").val();
-
-
-            if(idlempleado==null || nombre==null || apellido==null || cedula==null || telefono==null || direccion==null  )
-            {
-                toastr.error('Llene todos los campos.', 'Error', {timeOut:3000});
-            }
-            else
-            {
+            console.log('Hello');
             $.ajax({
                 url: "{{ route('employees.store') }}",   //ruta del post donde almacenara
                 type: "POST",
@@ -275,11 +268,11 @@
                     {
                         $('#store-employee')[0].reset();   //limpiar campos del formulario luego de agregarlos
                         toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});
-                        $('#table-employee').DataTable().ajax.reload();  //recargar tabla
+                        //$('#table-employee').DataTable().ajax.reload();  //recargar tabla
+                        window.location.reload();
                     }
                 }
             });
-            }
 
         });
 

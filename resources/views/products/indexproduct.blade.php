@@ -34,7 +34,7 @@
                                         <th>Talla</th>
                                         <th>Color</th>
                                         <th>Cantidad</th>
-                                        <th>Precio</th>
+                                        <th>Precio Venta</th>
                                         <th>Categoria</th>
                                         <th>Acciones</th>
                                     </tr>
@@ -158,7 +158,7 @@
                         {data: 'talla'},
                         {data: 'color'},
                         {data: 'cantidad'},
-                        {data: 'precio'},
+                        {data: 'preciov'},
                         {data: 'idcategoria'},
                         {data: 'action', orderable: false},
                     ]
@@ -205,7 +205,7 @@
                 $('#txtsize').val(product[0].talla);
                 $('#txtcol').val(product[0].color);
                 $('#txtcant').val(product[0].cantidad);
-                $('#txtprice').val(product[0].precio);
+                $('#txtprice').val(product[0].preciov);
                 $('#txtcategory').val(product[0].descripcion);
                 $("input[name=_token]").val();
 
@@ -239,7 +239,7 @@
                     talla: size,
                     color: color,
                     cantidad: cantidad,
-                    precio: precio,
+                    preciov: precio,
                     _token:_token
                 },
                 success:function(response)

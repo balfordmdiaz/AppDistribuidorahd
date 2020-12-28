@@ -152,7 +152,7 @@
 
                <div class="form-group col-md-4 my-lg-3 text-center">       
                     <input name="chec" type="checkbox" id="chec_venta" onChange="comprobarprecioventa(this);" />
-                    <label for="chec">Precio Venta(opcional)</label>
+                    <label for="chec">Precio Venta(Cambiar)</label>
                     <input name="precioventa" id="precioventa" type="number" step="any" class="form-control" style="display:none" />
                     {!! $errors->first('precioventa','<small class="message_error">:message</small><br>') !!}
                     <button  type="submit" name="action" id="nuevo_precioventa" class="btn btn-primary" value="precioventa" style="display:none;margin-top:4px;">Cambiar</button>
@@ -202,12 +202,12 @@
 
       <div class="modal-body">
         <div class="form-group">
-          <label for="inputcodigo">codigo Producto</label>
-          <input type="text" name="new_codigoproducto" class="form-control" id="new_codigoproducto" value="PRS00{{ $id=$id+1 }}" readonly="readonly">
+          <label for="inputcodigo">Codigo Producto</label>
+          <input type="text" name="new_codigoproducto" class="form-control" id="new_codigoproducto" placeholder="Codigo">
           {!! $errors->first('new_codigoproducto','<small class="message_error">:message</small><br>') !!} 
         </div>
         <div class="form-group">
-          <label for="inputnombre">Nombre Producto</label>
+          <label for="inputnombre">Descripcion</label>
           <input type="text" class="form-control" name="new_nombreproducto" id="new_nombreproducto" placeholder="Nombre de articulo">
           {!! $errors->first('new_nombreproducto','<small class="message_error">:message</small><br>') !!} 
         </div>
@@ -252,7 +252,7 @@
       <div class="modal-body">
   
           <div class="form-group">
-            <label for="inputmonto">Categoria Producto variante</label>
+            <label for="inputmonto">Producto</label>
             <select class="form-control" id="selvariante" name="selvariante">
                 <option value=""></option>
                 @forelse($stock = DB::table('tbl_articulostock')->get() as $stockItem)
@@ -299,6 +299,8 @@
         <tr>
            <th scope="col">Art</th>
            <th scope="col">Talla</i></th>
+           <th scope="col">Precio Venta</th>
+           <th scope="col">Precio compra</th>
            <th scope="col">Cant</th>
            <th scope="col">Monto</th>
         </tr>
@@ -308,7 +310,7 @@
                             ->join('tbl_articulovariante', 'tbl_ordendetalle.idarticulov', '=', 'tbl_articulovariante.idarticulov')
                             ->join('tbl_articulostock', 'tbl_articulovariante.idarticulos', '=', 'tbl_articulostock.idarticulos')
                             ->join('tbl_orden', 'tbl_ordendetalle.idorden', '=', 'tbl_orden.idorden')
-                            ->select('tbl_articulostock.nombrearticulo', 'tbl_articulovariante.talla', 'tbl_ordendetalle.cantidad','tbl_ordendetalle.monto')
+                            ->select('tbl_articulostock.nombrearticulo', 'tbl_articulovariante.talla', 'tbl_ordendetalle.precio','tbl_articulovariante.preciov','tbl_ordendetalle.cantidad','tbl_ordendetalle.monto')
                             ->where('tbl_ordendetalle.idorden', $orden->idorden)
                             ->get()  as $detalleItem)
 
@@ -316,8 +318,10 @@
         <tr>        
           <td>{{ $detalleItem->nombrearticulo }}</td>          
           <td>{{ $detalleItem->talla }}</td>
+          <td>{{ $detalleItem->precio }} C$</td>
+          <td>{{ $detalleItem->preciov }} C$</td>
           <td>{{ $detalleItem->cantidad }}</td>
-          <td>{{ $detalleItem->monto }}</td>
+          <td>{{ $detalleItem->monto }} C$</td>
         </tr>
 
      @empty
@@ -332,12 +336,12 @@
 
      <tr class="thead-dark">
         <th>Subtotal</th>
-        <td colspan="3">{{ $orden->subtotal }} C$</td>
+        <td colspan="5">{{ $orden->subtotal }} C$</td>
      </tr>
 
      <tr class="thead-dark">
        <th>Total</th>
-       <td colspan="3">{{ $orden->total }} C$</td>
+       <td colspan="5">{{ $orden->total }} C$</td>
      </tr>
 
     <table>
