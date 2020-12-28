@@ -152,7 +152,7 @@
 
                <div class="form-group col-md-4 my-lg-3 text-center">       
                     <input name="chec" type="checkbox" id="chec_venta" onChange="comprobarprecioventa(this);" />
-                    <label for="chec">Precio Venta(opcional)</label>
+                    <label for="chec">Precio Venta(Cambiar)</label>
                     <input name="precioventa" id="precioventa" type="number" step="any" class="form-control" style="display:none" />
                     {!! $errors->first('precioventa','<small class="message_error">:message</small><br>') !!}
                     <button  type="submit" name="action" id="nuevo_precioventa" class="btn btn-primary" value="precioventa" style="display:none;margin-top:4px;">Cambiar</button>
@@ -202,12 +202,12 @@
 
       <div class="modal-body">
         <div class="form-group">
-          <label for="inputcodigo">codigo Producto</label>
-          <input type="text" name="new_codigoproducto" class="form-control" id="new_codigoproducto" value="PRS00{{ $id=$id+1 }}" readonly="readonly">
+          <label for="inputcodigo">Codigo Producto</label>
+          <input type="text" name="new_codigoproducto" class="form-control" id="new_codigoproducto" placeholder="Codigo">
           {!! $errors->first('new_codigoproducto','<small class="message_error">:message</small><br>') !!} 
         </div>
         <div class="form-group">
-          <label for="inputnombre">Nombre Producto</label>
+          <label for="inputnombre">Descripcion</label>
           <input type="text" class="form-control" name="new_nombreproducto" id="new_nombreproducto" placeholder="Nombre de articulo">
           {!! $errors->first('new_nombreproducto','<small class="message_error">:message</small><br>') !!} 
         </div>
@@ -252,7 +252,7 @@
       <div class="modal-body">
   
           <div class="form-group">
-            <label for="inputmonto">Categoria Producto variante</label>
+            <label for="inputmonto">Producto</label>
             <select class="form-control" id="selvariante" name="selvariante">
                 <option value=""></option>
                 @forelse($stock = DB::table('tbl_articulostock')->get() as $stockItem)
