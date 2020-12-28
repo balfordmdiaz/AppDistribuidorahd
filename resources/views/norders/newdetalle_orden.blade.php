@@ -299,8 +299,8 @@
         <tr>
            <th scope="col">Art</th>
            <th scope="col">Talla</i></th>
+           <th scope="col">Precio Compra</th>
            <th scope="col">Precio Venta</th>
-           <th scope="col">Precio compra</th>
            <th scope="col">Cant</th>
            <th scope="col">Monto</th>
         </tr>
