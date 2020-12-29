@@ -163,7 +163,7 @@ class OrdersController extends Controller
                $aux_cantidad=request('cantidad');//obtener cantidad solicitada por usuario
 
                OrdersDetalle::create([         
-                   'cantidad' => request('cantidad'),
+                   'cantidadorden' => request('cantidad'),
                    'precio' => request('precio'),
                    'monto' => request('subtotal'),
                    'idarticulov' => request('idarticulo'),
