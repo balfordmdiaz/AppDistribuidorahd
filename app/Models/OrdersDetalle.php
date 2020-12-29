@@ -12,7 +12,7 @@ class OrdersDetalle extends Model
     protected $table='tbl_ordendetalle';
     protected $primaryKey = 'idordendetalle';
 
-    protected $fillable = ['cantidad','precio','monto','idarticulov','idorden'];
+    protected $fillable = ['cantidadorden','precio','monto','idarticulov','idorden'];
 
     public $timestamps = false;
 }

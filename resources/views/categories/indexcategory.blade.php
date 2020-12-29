@@ -223,11 +223,14 @@
                         $('#store-category')[0].reset();   //limpiar campos del formulario luego de agregarlos
                         toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});
                         //$('#table-category').DataTable().ajax.reload();  //recargar tabla
-                        window.location.reload();
+                        //window.location.reload();
+                        
                     }
                 }
             });
             //}
+
+            location.reload();
 
         });
 
