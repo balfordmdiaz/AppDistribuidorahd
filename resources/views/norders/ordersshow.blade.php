@@ -21,85 +21,94 @@
 <body>
    @include('nav')
 
-    <div id="datos_empresa">
-        <br>
-    </div>
+   <div class="container">
 
-    <div id="datos_orden" style="text-align: center">
-        <h4>Orden</h4>
-        <label>Nro. orden:</label>  {{$orden->idlorden}}
-        <br>
-       <label>Fecha:</label>  {{$orden->fechaorden}}
-    </div>
+      <div id="datos_empresa">
+         <br>
+      </div>
 
-    <div id="datos_proveedor">
-        <h3 style="text-decoration: underline">Datos del proveedor:</h3>
-        <br>
-        <p><label> Proveedor:</label> 
-           {{ $nombreprov = DB::table('tbl_proveedor')->where('idproveedor', $orden->idproveedor)->value('nombreproveedor')  }} 
-        <p><label>Direccion:</label> 
-           {{ $direccionprov = DB::table('tbl_proveedor')->where('idproveedor', $orden->idproveedor)->value('direccion') }}</p>
-        <p><label>Telefono:</label>
-           {{ $telefonoprov = DB::table('tbl_proveedor')->where('idproveedor', $orden->idproveedor)->value('telefono') }}</p>
-        <p><label>Correo:</label> 
-           {{ $correoprov = DB::table('tbl_proveedor')->where('idproveedor', $orden->idproveedor)->value('email') }}</p>
-     </div>
+      <div id="datos_orden" style="text-align: center">
+         <h4>Orden</h4>
+         <label>Nro. orden:</label>  {{$orden->idlorden}}
+         <br>
+         <label>Fecha:</label>  {{$orden->fechaorden}}
+      </div>
 
-    <table id="tabladetallefactura" class="table table-bordered table-hover" style="margin-top: 10px">
-        <thead class="thead-dark">
-          <tr>
-             <th scope="col">Art</th>
-             <th scope="col">Talla</i></th>
-             <th scope="col">Precio Compra</th>
-             <th scope="col">Precio Venta</th>
-             <th scope="col">Cant</th>
-             <th scope="col">Monto</th>
-          </tr>
-        </thead>
-  
-       @forelse($detalle = DB::table('tbl_ordendetalle')
-                              ->join('tbl_articulovariante', 'tbl_ordendetalle.idarticulov', '=', 'tbl_articulovariante.idarticulov')
-                              ->join('tbl_articulostock', 'tbl_articulovariante.idarticulos', '=', 'tbl_articulostock.idarticulos')
-                              ->join('tbl_orden', 'tbl_ordendetalle.idorden', '=', 'tbl_orden.idorden')
-                              ->select('tbl_articulostock.nombrearticulo', 'tbl_articulovariante.talla', 'tbl_ordendetalle.precio','tbl_articulovariante.preciov','tbl_ordendetalle.cantidadorden','tbl_ordendetalle.monto')
-                              ->where('tbl_ordendetalle.idorden', $orden->idorden)
-                              ->get()  as $detalleItem)
-  
-        <tbody>
-          <tr>        
-            <td>{{ $detalleItem->nombrearticulo }}</td>          
-            <td>{{ $detalleItem->talla }}</td>
-            <td>{{ $detalleItem->precio }} C$</td>
-            <td>{{ $detalleItem->preciov }} C$</td>
-            <td>{{ $detalleItem->cantidadorden }}</td>
-            <td>{{ $detalleItem->monto }} C$</td>
-          </tr>
-  
-       @empty
-  
-       <tr>
-          <td colspan="5"><p style="text-align: center">No hay articulos para mostrar</p> </td>
-       </tr> 
-  
-      </tbody>
-  
-       @endforelse
-  
-       <tr class="thead-dark">
-          <th>Subtotal</th>
-          <td colspan="5">{{ $orden->subtotal }} C$</td>
-       </tr>
-  
-       <tr class="thead-dark">
-         <th>Total</th>
-         <td colspan="5">{{ $orden->total }} C$</td>
-       </tr>
-  
-      <table>
+      <div id="datos_proveedor" style="text-align: center">
+         <h3 style="text-decoration: underline">Datos del Proveedor:</h3>
+         <br>
+         <p><label> Proveedor:</label> 
+            {{ $nombreprov = DB::table('tbl_proveedor')->where('idproveedor', $orden->idproveedor)->value('nombreproveedor')  }} 
+         <p><label>Direccion:</label> 
+            {{ $direccionprov = DB::table('tbl_proveedor')->where('idproveedor', $orden->idproveedor)->value('direccion') }}</p>
+         <p><label>Telefono:</label>
+            {{ $telefonoprov = DB::table('tbl_proveedor')->where('idproveedor', $orden->idproveedor)->value('telefono') }}</p>
+         <p><label>Correo:</label> 
+            {{ $correoprov = DB::table('tbl_proveedor')->where('idproveedor', $orden->idproveedor)->value('email') }}</p>
+      </div>
 
-         <div class="text-center" style="font-size: 12pt">
-            <a href="{{route('norders.new_orders')}}">Terminar</a>
-         </div>
+
+      <div class="table-responsive">
+            <table id="tabladetallefactura" class="table table-bordered table-hover" cellspacing="0" width="100%">
+               <thead class="thead-dark">
+                  <tr>
+                     <th scope="col">Art</th>
+                     <th scope="col">Talla</i></th>
+                     <th scope="col">Precio Compra</th>
+                     <th scope="col">Precio Venta</th>
+                     <th scope="col">Cant</th>
+                     <th scope="col">Monto</th>
+                  </tr>
+               </thead>
+         
+               @forelse($detalle = DB::table('tbl_ordendetalle')
+                                       ->join('tbl_articulovariante', 'tbl_ordendetalle.idarticulov', '=', 'tbl_articulovariante.idarticulov')
+                                       ->join('tbl_articulostock', 'tbl_articulovariante.idarticulos', '=', 'tbl_articulostock.idarticulos')
+                                       ->join('tbl_orden', 'tbl_ordendetalle.idorden', '=', 'tbl_orden.idorden')
+                                       ->select('tbl_articulostock.nombrearticulo', 'tbl_articulovariante.talla', 'tbl_ordendetalle.precio','tbl_articulovariante.preciov','tbl_ordendetalle.cantidadorden','tbl_ordendetalle.monto')
+                                       ->where('tbl_ordendetalle.idorden', $orden->idorden)
+                                       ->get()  as $detalleItem)
+         
+               <tbody>
+                  <tr>        
+                     <td>{{ $detalleItem->nombrearticulo }}</td>          
+                     <td>{{ $detalleItem->talla }}</td>
+                     <td>{{ $detalleItem->precio }} C$</td>
+                     <td>{{ $detalleItem->preciov }} C$</td>
+                     <td>{{ $detalleItem->cantidadorden }}</td>
+                     <td>{{ $detalleItem->monto }} C$</td>
+                  </tr>
+         
+               @empty
+         
+               <tr>
+                  <td colspan="5"><p style="text-align: center">No hay articulos para mostrar</p> </td>
+               </tr> 
+         
+               </tbody>
+         
+               @endforelse
+         
+               <tr class="thead-dark">
+                  <th>Subtotal</th>
+                  <td colspan="5">{{ $orden->subtotal }} C$</td>
+               </tr>
+         
+               <tr class="thead-dark">
+                  <th>Total</th>
+                  <td colspan="5">{{ $orden->total }} C$</td>
+               </tr>
+         
+            </table>
+      </div>
+                  
+
+            <div class="text-center" style="font-size: 12pt">
+               <a href="{{route('norders.new_orders')}}">Terminar</a>
+            </div>
+            <br>
+
+   </div><!--Fin container-->
 
 </body>
 </html>
