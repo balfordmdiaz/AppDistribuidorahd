@@ -76,7 +76,13 @@
                         Detalle
                       </a>
                       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/home/detalle/semanal">Semanal</a>
+                        <a class="dropdown-item" href="/home/detalle/semanal">Semanal Actual</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/home/detalle/semanaante">Semana Pasada</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/home/detalle/semanaante_pasada">Semana Antepasada</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/home/detalle/general">General</a>
                       </div>
                     </li>
 

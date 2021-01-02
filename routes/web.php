@@ -109,6 +109,9 @@ Route::middleware(['auth'])->group(function ()
 
     //Detalle Compra y venta
     Route::get('home/detalle/semanal', [ControllerDetalleGanancia::class, 'index'])->name('detalle.semana');
+    Route::get('home/detalle/semanaante', [ControllerDetalleGanancia::class, 'anterior'])->name('detalle.semanaante');
+    Route::get('home/detalle/semanaante_pasada', [ControllerDetalleGanancia::class, 'ante_pasada'])->name('detalle.semanaante_pasada');
+    Route::get('home/detalle/general', [ControllerDetalleGanancia::class, 'general'])->name('detalle.general');
 
 
 });

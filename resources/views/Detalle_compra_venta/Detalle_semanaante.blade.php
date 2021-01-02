@@ -22,7 +22,7 @@
   
     <br>
     <h4 align="center">Detalle compra y venta - Semanal</h4>
-    <h5 align="center" style="color:blue">{{$fechaInicio}} hasta el {{$fechaFin}}</h5>
+    <h5 align="center" style="color:blue">{{$fechaInicio_a}} hasta el {{$fechaFin_a}}</h5>
     <br>
 
     <?php
@@ -59,7 +59,8 @@
                                                     ->join('tbl_ordendetalle', 'tbl_articulovariante.idarticulov', '=', 'tbl_ordendetalle.idarticulov')
                                                     ->join('tbl_orden', 'tbl_orden.idorden', '=', 'tbl_ordendetalle.idorden')
                                                     ->select('tbl_articulostock.idlarticulos','tbl_articulostock.nombrearticulo','tbl_articulovariante.talla','tbl_articulovariante.color','tbl_facturadetalle.cantidad','tbl_ordendetalle.cantidadorden','tbl_ordendetalle.precio','tbl_articulovariante.preciov','tbl_facturadetalle.monto')
-                                                    ->where('tbl_factura.fechafactura','>=',$fechaInicio)
+                                                    ->where('tbl_factura.fechafactura','>=',$fechaInicio_a)
+                                                    ->where('tbl_factura.fechafactura','<=',$fechaFin_a)
                                                     ->get()  as $detalleItem)
                         
                               <tbody>

@@ -63,7 +63,7 @@
 
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Codigo Proveedor</label>
-                    <input type="text" class="form-control" id="txtidprov" name="txtidprov" placeholder="ex:PR001" value="PR00{{ $id=$id+1 }}" readonly="readonly">
+                    <input type="text" class="form-control" id="txtidprov" name="txtidprov" value="PRV{{ $id=$id+1 }}" readonly="readonly">
 
                 </div>
                 <div class="form-group">
@@ -78,7 +78,7 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Direccion</label>
-                    <input type="text" class="form-control" id="txtaddress" name="txtaddress" required>
+                    <input type="text" class="form-control" id="txtaddress" name="txtaddress">
 
                 </div>
                 <div class="form-group">
@@ -86,7 +86,7 @@
                     <input type="email" class="form-control" id="txtemail" name="txtemail">
 
                 </div>
-                <button type="submit" class="btn btn-primary">Agregar</button>
+                <button type="submit" class="btn btn-primary" onclick="toastr.success('El registro se ingreso correctamente','Nuevo Registro',{timeOut:3000});">Agregar</button>
                 </form>
 
                 <div id="result"><!-- Respuesta AJAX (¡IMPORTANTE!) --></div>
@@ -116,7 +116,7 @@
             <input type="hidden" id="txtId2" name="txtId2">
             <div class="form-group">
                 <label for="exampleFormControlInput1">Codigo Cliente</label>
-                <input type="text" class="form-control" id="txtidprov2" name="txtidprov2" placeholder="ex:PR001">
+                <input type="text" class="form-control" id="txtidprov2" name="txtidprov2" readonly="readonly">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Nombre</label>
@@ -124,11 +124,11 @@
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Telefono</label>
-                <input type="text" class="form-control" id="txttelefono2" name="txttelefono2" required>
+                <input type="text" class="form-control" id="txttelefono2" name="txttelefono2">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Direccion</label>
-                <input type="text" class="form-control" id="txtaddress2" name="txtaddress2" required>
+                <input type="text" class="form-control" id="txtaddress2" name="txtaddress2">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Correo</label>
@@ -263,14 +263,14 @@
                     if(response)
                     {
                         $('#store-provider')[0].reset();   //limpiar campos del formulario luego de agregarlos
-                        toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});
+                        //toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});
                         //$('#table-provider').DataTable().ajax.reload();  //recargar tabla
-                        window.location.reload();
+                        
                     }
                 }
             });
             //}
-
+            window.location.reload();
         });
 
 
