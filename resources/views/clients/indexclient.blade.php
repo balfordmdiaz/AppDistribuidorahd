@@ -64,7 +64,7 @@
 
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Codigo Cliente</label>
-                    <input type="text" class="form-control" id="txtcodecli" name="txtcodecli" value="CL00{{ $id=$id+1 }}" readonly="readonly">
+                    <input type="text" class="form-control" id="txtcodecli" name="txtcodecli" value="CLI{{ $id=$id+1 }}" readonly="readonly">
 
                 </div>
                 <div class="form-group">
@@ -102,7 +102,7 @@
                     <input type="email" class="form-control" id="txtemail" name="txtemail">
 
                 </div>
-                <button type="submit" class="btn btn-primary">Agregar</button>
+                <button type="submit" class="btn btn-primary" onclick="toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});">Agregar</button>
                 </form>
 
                 <div id="result"><!-- Respuesta AJAX (¡IMPORTANTE!) --></div>
@@ -132,7 +132,7 @@
             <input type="hidden" id="txtId2" name="txtId2">
             <div class="form-group">
                 <label for="exampleFormControlInput1">Codigo Cliente</label>
-                <input type="text" class="form-control" id="txtcodecli2" name="txtcodecli2" placeholder="ex:CL001">
+                <input type="text" class="form-control" id="txtcodecli2" name="txtcodecli2" readonly="readonly">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Nombre</label>
@@ -300,12 +300,12 @@
                         $('#store-client')[0].reset();   //limpiar campos del formulario luego de agregarlos
                         toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});
                         //$('#table-client').DataTable().ajax.reload();  //recargar tabla
-                        window.location.reload();
+                        
                     }
                 }
             });
             //}
-
+            location.reload();
         });
 
 

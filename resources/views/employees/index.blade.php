@@ -63,7 +63,7 @@
 
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Codigo Empleado</label>
-                    <input type="text" class="form-control"  name="txtcodeemp" id="txtcodeemp" placeholder="ex:EMP001" value="EMP00{{ $id=$id+1 }}" readonly="readonly">
+                    <input type="text" class="form-control"  name="txtcodeemp" id="txtcodeemp" placeholder="ex:EMP001" value="EMP{{ $id=$id+1 }}" readonly="readonly">
                     
                 </div>
                 <div class="form-group">
@@ -91,7 +91,7 @@
                     <input type="text" class="form-control" id="txtaddress" name="txtaddress">
 
                 </div>
-                <button type="submit" class="btn btn-primary">Agregar</button>
+                <button type="submit" class="btn btn-primary" onclick="toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});">Agregar</button>
                 </form>
 
                 <div id="result"><!-- Respuesta AJAX (¡IMPORTANTE!) --></div>
@@ -267,13 +267,13 @@
                     if(response)
                     {
                         $('#store-employee')[0].reset();   //limpiar campos del formulario luego de agregarlos
-                        toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});
+                        //toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});
                         //$('#table-employee').DataTable().ajax.reload();  //recargar tabla
-                        window.location.reload();
+                        
                     }
                 }
             });
-
+            window.location.reload();
         });
 
 

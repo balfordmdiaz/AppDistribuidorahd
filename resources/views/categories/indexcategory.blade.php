@@ -57,7 +57,7 @@
 
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Codigo Categoria</label>
-                    <input type="text" class="form-control" id="txtidcat" name="txtidcat" placeholder="ex:CAT001" value="CAT00{{ $id=$id+1 }}" readonly="readonly">
+                    <input type="text" class="form-control" id="txtidcat" name="txtidcat" value="CAT{{ $id=$id+1 }}" readonly="readonly">
 
                 </div>
                 <div class="form-group">
@@ -66,7 +66,7 @@
 
                 </div>
 
-                <button type="submit" class="btn btn-primary">Agregar</button>
+                <button type="submit" class="btn btn-primary" onclick="toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});">Agregar</button>
                 </form>
 
                 <div id="result"><!-- Respuesta AJAX (¡IMPORTANTE!) --></div>
@@ -96,7 +96,7 @@
             <input type="hidden" id="txtId2" name="txtId2">
             <div class="form-group">
                 <label for="exampleFormControlInput1">Codigo Categoria</label>
-                <input type="text" class="form-control" id="txtidcat2" name="txtidcat2" placeholder="ex:CAT001">
+                <input type="text" class="form-control" id="txtidcat2" name="txtidcat2" readonly="readonly">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Categoria</label>
@@ -221,7 +221,7 @@
                     if(response)
                     {
                         $('#store-category')[0].reset();   //limpiar campos del formulario luego de agregarlos
-                        toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});
+                        //toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});
                         //$('#table-category').DataTable().ajax.reload();  //recargar tabla
                         //window.location.reload();
                         
@@ -230,7 +230,7 @@
             });
             //}
 
-            location.reload();
+            window.location.reload();
 
         });
 
