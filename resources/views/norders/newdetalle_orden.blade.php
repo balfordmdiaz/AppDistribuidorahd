@@ -134,13 +134,13 @@
 
                <div class="form-group col-md-4 my-lg-3" >
                    <label for="exampleFormControlInput1">Precio de compra:</label>
-                   <input name="precio" id="precio" type="number" step="any" class="form-control" onkeyup="loadcalculos()" value="{{ old('precio') }}" /> 
+                   <input name="precio" id="precio" type="number" step="0.01" class="form-control" onkeyup="loadcalculos()" value="{{ old('precio') }}" /> 
                    {!! $errors->first('precio','<small class="message_error">:message</small><br>') !!}       
                </div>
 
                <div class="form-group col-md-4 my-lg-3" >
-                   <label for="exampleFormControlInput1">Sub total:</label>
-                   <input name="subtotal" id="subtotal" type="number" step="any" class="form-control" value="{{ old('subtotal') }}" readonly="readonly"/> 
+                   <label for="exampleFormControlInput1">Subtotal:</label>
+                   <input name="subtotal" id="subtotal" type="number" step="0.01" class="form-control" value="{{ old('subtotal') }}" readonly="readonly"/> 
                    {!! $errors->first('subtotal','<small class="message_error">:message</small><br>') !!}       
                </div>
 
@@ -153,7 +153,7 @@
                <div class="form-group col-md-4 my-lg-3 text-center">       
                     <input name="chec" type="checkbox" id="chec_venta" onChange="comprobarprecioventa(this);" />
                     <label for="chec">Precio Venta(Cambiar)</label>
-                    <input name="precioventa" id="precioventa" type="number" step="any" class="form-control" style="display:none" />
+                    <input name="precioventa" id="precioventa" type="number" step="0.01" class="form-control" style="display:none" />
                     {!! $errors->first('precioventa','<small class="message_error">:message</small><br>') !!}
                     <button  type="submit" name="action" id="nuevo_precioventa" class="btn btn-primary" value="precioventa" style="display:none;margin-top:4px;">Cambiar</button>
                </div>
@@ -278,7 +278,7 @@
 
           <div class="form-group">
             <label for="inputprecio">Precio venta</label>
-            <input name="new_precio" id="new_precio" type="number" class="form-control" />
+            <input name="new_precio" id="new_precio" type="number" step="0.01" class="form-control" />
             {!! $errors->first('new_precio','<small class="message_error">:message</small><br>') !!} 
           </div>
 
