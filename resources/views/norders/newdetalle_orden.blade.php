@@ -274,7 +274,7 @@
   
           <div class="form-group">
             <label for="inputcantidad">Talla</label>
-            <input type="text" class="form-control" name="new_talla"  id="new_talla" placeholder="Talla de articulo">
+            <input type="text" class="form-control" name="new_talla" maxlength="4"  id="new_talla" placeholder="Talla de articulo">
             {!! $errors->first('new_talla','<small class="message_error">:message</small><br>') !!} 
           </div>
 
