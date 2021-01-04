@@ -242,6 +242,7 @@ class OrdersController extends Controller
 
                    request()->validate([
                        'selvariante' => 'required',
+                       'new_tipo'=>'required',
                        'new_talla' => 'required',
                        'new_colors' => 'required',
                        'new_precio' => 'required|numeric|gt:0',
@@ -249,7 +250,8 @@ class OrdersController extends Controller
 
                    
 
-                   Products::create([         
+                   Products::create([ 
+                       'tipov'=>  request('new_tipo'),      
                        'talla' => request('new_talla'),
                        'color' => request('new_colors'),
                        'cantidad' => $cantidad_variante,

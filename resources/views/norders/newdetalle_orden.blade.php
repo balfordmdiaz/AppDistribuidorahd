@@ -128,7 +128,7 @@
 
                <div class="form-group col-md-4 my-lg-3">
                    <label for="exampleFormControlInput1">Cantidad:</label>
-                   <input name="cantidad" id="cantidad" type="number" class="form-control" onkeyup="loadcalculos()" pattern="^[0-9]+" oninput="this.value = Math.max(this.value, 0)"/>
+                   <input name="cantidad" id="cantidad" type="number" step="any" class="form-control" onkeyup="loadcalculos()"/>
                    {!! $errors->first('cantidad','<small class="message_error">:message</small><br>') !!}
                </div>
 
@@ -263,6 +263,14 @@
             </select>
             {!! $errors->first('selvariante','<small class="message_error">:message</small><br>') !!} 
           </div>
+
+          <div class="form-group">
+            <label for="inputtipov">Tipo</label>
+            <select class="form-control" id="new_tipo" name="new_tipo">
+                 <option value="UNIDADES">Unidad</option>
+                 <option value="DOCENA">Docena</option>
+            </select>
+          </div>
   
           <div class="form-group">
             <label for="inputcantidad">Talla</label>
@@ -282,6 +290,8 @@
             {!! $errors->first('new_precio','<small class="message_error">:message</small><br>') !!} 
           </div>
 
+
+
       </div>
   
       <div class="modal-footer">
@@ -299,6 +309,7 @@
         <thead class="thead-dark">
           <tr>
             <th scope="col">Art</th>
+            <th scope="col">Tipo</i></th>
             <th scope="col">Talla</i></th>
             <th scope="col">Precio Compra</th>
             <th scope="col">Precio Venta</th>
@@ -311,13 +322,14 @@
                               ->join('tbl_articulovariante', 'tbl_ordendetalle.idarticulov', '=', 'tbl_articulovariante.idarticulov')
                               ->join('tbl_articulostock', 'tbl_articulovariante.idarticulos', '=', 'tbl_articulostock.idarticulos')
                               ->join('tbl_orden', 'tbl_ordendetalle.idorden', '=', 'tbl_orden.idorden')
-                              ->select('tbl_articulostock.nombrearticulo', 'tbl_articulovariante.talla', 'tbl_ordendetalle.precio','tbl_articulovariante.preciov','tbl_ordendetalle.cantidadorden','tbl_ordendetalle.monto')
+                              ->select('tbl_articulostock.nombrearticulo', 'tbl_articulovariante.tipov','tbl_articulovariante.talla', 'tbl_ordendetalle.precio','tbl_articulovariante.preciov','tbl_ordendetalle.cantidadorden','tbl_ordendetalle.monto')
                               ->where('tbl_ordendetalle.idorden', $orden->idorden)
                               ->get()  as $detalleItem)
 
         <tbody>
           <tr>        
-            <td>{{ $detalleItem->nombrearticulo }}</td>          
+            <td>{{ $detalleItem->nombrearticulo }}</td>  
+            <td>{{ $detalleItem->tipov }}</td>        
             <td>{{ $detalleItem->talla }}</td>
             <td>{{ $detalleItem->precio }} C$</td>
             <td>{{ $detalleItem->preciov }} C$</td>
@@ -337,12 +349,12 @@
 
       <tr class="thead-dark">
           <th>Subtotal</th>
-          <td colspan="5">{{ $orden->subtotal }} C$</td>
+          <td colspan="6">{{ $orden->subtotal }} C$</td>
       </tr>
 
       <tr class="thead-dark">
         <th>Total</th>
-        <td colspan="5">{{ $orden->total }} C$</td>
+        <td colspan="6">{{ $orden->total }} C$</td>
       </tr>
 
       </table>
