@@ -31,6 +31,7 @@
                                     <tr>
                                         <th>Codigo</th>
                                         <th>Producto</th>
+                                        <th>Tipo</th>
                                         <th>Precio Venta</th>
                                         <th>Cantidad</th>
                                     </tr>
@@ -72,6 +73,7 @@
                     [
                         {data: 'idlarticulos'},
                         {data: 'idarticulos'},
+                        {data: 'tipov'},
                         {data: 'preciov'},
                         {data: 'cantidad'},
                     ]
