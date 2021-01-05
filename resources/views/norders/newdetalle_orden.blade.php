@@ -132,6 +132,11 @@
                    {!! $errors->first('cantidad','<small class="message_error">:message</small><br>') !!}
                </div>
 
+              <div class="form-group col-md-4 my-lg-3"">
+                <label for="exampleFormControlInput1">Tipo:</label>
+                <input name="Tipov" id="Tipov" type="text" class="form-control" value="" readonly="readonly"/>  
+              </div>
+
                <div class="form-group col-md-4 my-lg-3" >
                    <label for="exampleFormControlInput1">Precio de compra:</label>
                    <input name="precio" id="precio" type="number" step="0.01" class="form-control" onkeyup="loadcalculos()" value="{{ old('precio') }}" /> 
@@ -157,6 +162,8 @@
                     {!! $errors->first('precioventa','<small class="message_error">:message</small><br>') !!}
                     <button  type="submit" name="action" id="nuevo_precioventa" class="btn btn-primary" value="precioventa" style="display:none;margin-top:4px;">Cambiar</button>
                </div>
+
+
 
               </div>
               
@@ -479,9 +486,32 @@
 
     }
 
+
+    function loadtipo()
+    {
+        var idarticulov=$('#color').val();
+        var idarticulos=$('#idarticulostock').val();
+        console.log("id stock:"+idarticulos);
+        console.log("id variante:"+idarticulov);
+
+        if($.trim(idarticulov) != '')
+        {
+          $.get('tipo',{idarticulov: idarticulov},function(variable){
+
+          $.each(variable,function(index,value){
+             $('#Tipov').val(value);
+          })     
+        });
+
+
+        }
+
+    }
+
     $(document).ready(function()
     {
          $('#color').on('change',loadprecio);
+         $('#color').on('change',loadtipo);
     });
 
 
