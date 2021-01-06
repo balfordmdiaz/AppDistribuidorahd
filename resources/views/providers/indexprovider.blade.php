@@ -73,7 +73,7 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Telefono</label>
-                    <input type="number" class="form-control" id="txttelefono" name="txttelefono" max="15" required>
+                    <input type="text" class="form-control" id="txttelefono" name="txttelefono" maxlength="15">
 
                 </div>
                 <div class="form-group">
@@ -124,7 +124,7 @@
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Telefono</label>
-                <input type="number" class="form-control" id="txttelefono2" name="txttelefono2" max="15">
+                <input type="text" class="form-control" id="txttelefono2" name="txttelefono2" maxlength="15">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Direccion</label>

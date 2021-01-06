@@ -83,7 +83,7 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Telefono</label>
-                    <input type="number" class="form-control" id="txttelefono" name="txttelefono" max="10">
+                    <input type="text" class="form-control" id="txttelefono" name="txttelefono" maxlength="10">
 
                 </div>
                 <div class="form-group">
@@ -137,7 +137,7 @@
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Telefono</label>
-                <input type="number" class="form-control" id="txttelefono2" name="txttelefono2" max="10">
+                <input type="text" class="form-control" id="txttelefono2" name="txttelefono2" maxlength="10">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Direccion</label>
@@ -267,12 +267,12 @@
                     if(response)
                     {
                         $('#store-employee')[0].reset();   //limpiar campos del formulario luego de agregarlos
-                        //toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});
+                        toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});
                         //$('#table-employee').DataTable().ajax.reload();  //recargar tabla
                         
                     }
                 }
-            });
+            })
             window.location.reload();
         });
 
