@@ -35,10 +35,12 @@
                         <input type="text" class="form-control" name="idorden" id="txtidorden"  value="ORD00{{ $id=$id+1 }}" readonly="readonly">
                         {!! $errors->first('idorden','<small class="message_error">:message</small><br>') !!}
                       </div>
+
                       <div class="form-group col-md-4 my-lg-3">
                         <label for="exampleFormControlInput1">Fecha</label>
-                        <input type="date" class="form-control" id="txtfecha" name="txtfecha" value="<?php echo date("Y-m-d");?>">
+                        <input type="text" class="form-control" id="txtfecha" name="txtfecha" value="{{$date}}" readonly="readonly">
                       </div>
+
                       <div class="form-group col-md-4 my-lg-3">
                         <label for="exampleFormControlInput1">Proveedor</label>
                         <select id="selproveedor" name="idproveedor" class="form-control">

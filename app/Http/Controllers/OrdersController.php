@@ -43,7 +43,10 @@ class OrdersController extends Controller
             $orden=new Orders();
             $orden->idorden=0;
         }
-        return view('norders.neworder',compact('orden'));
+        date_default_timezone_set("America/Managua");
+        $date=date("Y-m-d");
+
+        return view('norders.neworder',compact('orden','date'));
     }
 
 
@@ -59,9 +62,13 @@ class OrdersController extends Controller
             
         ]);
 
+        date_default_timezone_set("America/Managua");
+        $date=date("Y-m-d");
+
+        
         Orders::create([
             'idlorden' => $idorden,
-            'fechaorden' => request('txtfecha'),
+            'fechaorden' => $date,
             'subtotal' => $auxsubtotal,
             'total' => $auxtotal,
             'idproveedor' => request('idproveedor'),
@@ -127,6 +134,19 @@ class OrdersController extends Controller
             foreach($idarticulov as $articulo){
                 
                 $articuloarray[$articulo->idarticulov] = $articulo->preciov;
+            }
+            return response()->json($articuloarray);
+         }    
+
+    }
+
+    public function gettipo(Request $request)
+    {     
+        if($request->ajax()){
+            $idarticulov=Products::where('idarticulov',$request->idarticulov)->get();      
+            foreach($idarticulov as $articulo){
+                
+                $articuloarray[$articulo->idarticulov] = $articulo->tipov;
             }
             return response()->json($articuloarray);
          }    
@@ -242,6 +262,7 @@ class OrdersController extends Controller
 
                    request()->validate([
                        'selvariante' => 'required',
+                       'new_tipo'=>'required',
                        'new_talla' => 'required',
                        'new_colors' => 'required',
                        'new_precio' => 'required|numeric|gt:0',
@@ -249,7 +270,8 @@ class OrdersController extends Controller
 
                    
 
-                   Products::create([         
+                   Products::create([ 
+                       'tipov'=>  request('new_tipo'),      
                        'talla' => request('new_talla'),
                        'color' => request('new_colors'),
                        'cantidad' => $cantidad_variante,

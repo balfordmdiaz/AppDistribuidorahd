@@ -63,32 +63,32 @@
 
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Codigo Empleado</label>
-                    <input type="text" class="form-control"  name="txtcodeemp" id="txtcodeemp" placeholder="ex:EMP001" value="EMP{{ $id=$id+1 }}" readonly="readonly">
+                    <input type="text" class="form-control"  name="txtcodeemp" id="txtcodeemp" value="EMP{{ $id=$id+1 }}" readonly="readonly">
                     
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Nombre</label>
-                    <input type="text" class="form-control" id="txtname" name="txtname" required>
+                    <input type="text" class="form-control" id="txtname" name="txtname" maxlength="20" required>
 
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Apellido</label>
-                    <input type="text" class="form-control" id="txtlastname" name="txtlastname" required>
+                    <input type="text" class="form-control" id="txtlastname" name="txtlastname" maxlength="20" required>
 
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Cedula</label>
-                    <input type="text" class="form-control" id="txtidentif" name="txtidentif" placeholder="ex: 000-000000-0000A">
+                    <input type="text" class="form-control" id="txtidentif" name="txtidentif" maxlength="16" placeholder="ex: 000-000000-0000A">
 
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Telefono</label>
-                    <input type="text" class="form-control" id="txttelefono" name="txttelefono">
+                    <input type="number" class="form-control" id="txttelefono" name="txttelefono" max="10">
 
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Direccion</label>
-                    <input type="text" class="form-control" id="txtaddress" name="txtaddress">
+                    <input type="text" class="form-control" id="txtaddress" name="txtaddress" maxlength="50">
 
                 </div>
                 <button type="submit" class="btn btn-primary" onclick="toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});">Agregar</button>
@@ -125,23 +125,23 @@
            
             <div class="form-group">
                 <label for="exampleFormControlInput1">Nombre</label>
-                <input type="text" class="form-control" id="txtname2" name="txtname2">
+                <input type="text" class="form-control" id="txtname2" name="txtname2" maxlength="20" required>
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Apellido</label>
-                <input type="text" class="form-control" id="txtlastname2" name="txtlastname2">
+                <input type="text" class="form-control" id="txtlastname2" name="txtlastname2" maxlength="20" required>
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Cedula</label>
-                <input type="text" class="form-control" id="txtidentif2" name="txtidentif2" placeholder="ex: 000-000000-0000A">
+                <input type="text" class="form-control" id="txtidentif2" name="txtidentif2" maxlength="16" placeholder="ex: 000-000000-0000A">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Telefono</label>
-                <input type="text" class="form-control" id="txttelefono2" name="txttelefono2">
+                <input type="number" class="form-control" id="txttelefono2" name="txttelefono2" max="10">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Direccion</label>
-                <input type="text" class="form-control" id="txtaddress2" name="txtaddress2">
+                <input type="text" class="form-control" id="txtaddress2" name="txtaddress2" maxlength="50">
             </div>
 
 

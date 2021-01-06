@@ -31,6 +31,7 @@
                                     <tr>
                                         <th>Codigo</th>
                                         <th>Producto</th>
+                                        <th>Tipo</th>
                                         <th>Talla</th>
                                         <th>Color</th>
                                         <th>Cantidad</th>
@@ -155,6 +156,7 @@
                     [
                         {data: 'idlarticulos'},
                         {data: 'idarticulos'},
+                        {data: 'tipov'},
                         {data: 'talla'},
                         {data: 'color'},
                         {data: 'cantidad'},
