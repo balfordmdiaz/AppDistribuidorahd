@@ -62,7 +62,7 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Categoria</label>
-                    <input type="text" class="form-control" id="txtname" name="txtname" required>
+                    <input type="text" class="form-control" id="txtname" name="txtname" maxlength="40" required>
 
                 </div>
 
@@ -100,7 +100,7 @@
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Categoria</label>
-                <input type="text" class="form-control" id="txtname2" name="txtname2">
+                <input type="text" class="form-control" id="txtname2" name="txtname2" maxlength="40" required>
             </div>
 
     </div>

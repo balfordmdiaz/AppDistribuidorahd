@@ -132,7 +132,7 @@
                    {!! $errors->first('cantidad','<small class="message_error">:message</small><br>') !!}
                </div>
 
-              <div class="form-group col-md-4 my-lg-3"">
+              <div class="form-group col-md-4 my-lg-3">
                 <label for="exampleFormControlInput1">Tipo:</label>
                 <input name="Tipov" id="Tipov" type="text" class="form-control" value="" readonly="readonly"/>  
               </div>
