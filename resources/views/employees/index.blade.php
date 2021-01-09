@@ -91,7 +91,7 @@
                     <input type="text" class="form-control" id="txtaddress" name="txtaddress" maxlength="50">
 
                 </div>
-                <button type="submit" class="btn btn-primary" onclick="toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});">Agregar</button>
+                <button id="btnnuevoe" type="submit" class="btn btn-primary" onclick="toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});">Agregar</button>
                 </form>
 
                 <div id="result"><!-- Respuesta AJAX (¡IMPORTANTE!) --></div>
@@ -240,7 +240,9 @@
 
         $('#store-employee').submit(function(e)
         {
+            $('#btnnuevoe').on("click", function(e){
             e.preventDefault();
+            });
 
             var idlempleado = $('#txtcodeemp').val();  //(names de los input)
             var nombre = $('#txtname').val();
@@ -267,7 +269,7 @@
                     if(response)
                     {
                         $('#store-employee')[0].reset();   //limpiar campos del formulario luego de agregarlos
-                        toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});
+                        //toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});
                         //$('#table-employee').DataTable().ajax.reload();  //recargar tabla
                         
                     }

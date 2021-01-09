@@ -86,7 +86,7 @@
                     <input type="email" class="form-control" id="txtemail" name="txtemail" maxlength="30">
 
                 </div>
-                <button type="submit" class="btn btn-primary" onclick="toastr.success('El registro se ingreso correctamente','Nuevo Registro',{timeOut:3000});">Agregar</button>
+                <button id="btnagregarn" type="submit" class="btn btn-primary" onclick="toastr.success('El registro se ingreso correctamente','Nuevo Registro',{timeOut:3000});">Agregar</button>
                 </form>
 
                 <div id="result"><!-- Respuesta AJAX (¡IMPORTANTE!) --></div>
@@ -231,7 +231,9 @@
 
         $('#store-provider').submit(function(e)
         {
+            $('#btnagregarn').on("click", function(e){
             e.preventDefault();
+            });
 
             var idlproveedor = $('#txtidprov').val();  //(names de los input)
             var nombre = $('#txtname').val();
@@ -262,10 +264,9 @@
                 {
                     if(response)
                     {
-                        $('#store-provider')[0].reset();   //limpiar campos del formulario luego de agregarlos
+                        $('#store-provider')[0].reload();   //limpiar campos del formulario luego de agregarlos
                         //toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});
                         //$('#table-provider').DataTable().ajax.reload();  //recargar tabla
-                        
                     }
                 }
             });

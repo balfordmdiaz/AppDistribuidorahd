@@ -66,7 +66,7 @@
 
                 </div>
 
-                <button type="submit" class="btn btn-primary" onclick="toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});">Agregar</button>
+                <button id="btnnuevoc" type="submit" class="btn btn-primary" onclick="toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});">Agregar</button>
                 </form>
 
                 <div id="result"><!-- Respuesta AJAX (¡IMPORTANTE!) --></div>
@@ -195,7 +195,9 @@
 
         $('#store-category').submit(function(e)
         {
+            $('#btnnuevoc').on("click", function(e){
             e.preventDefault();
+            });
 
             var idlcategoria = $('#txtidcat').val();  //(names de los input)
             var descripcion = $('#txtname').val();

@@ -68,5 +68,15 @@
             </form>
         </div>
 
+        <script>//Validacion de evitar carga de datos varias veces
+          $('#form-order').submit(function(e)
+        {
+            $('#btn-registrar').on("click", function(e){
+              e.preventDefault();
+            });
+        });
+
+        </script>
+
 </body>
 </html>

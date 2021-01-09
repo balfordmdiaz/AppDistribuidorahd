@@ -102,7 +102,7 @@
                     <input type="email" class="form-control" id="txtemail" name="txtemail" maxlength="30">
 
                 </div>
-                <button type="submit" class="btn btn-primary" onclick="toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});">Agregar</button>
+                <button id="btnnuevo" type="submit" class="btn btn-primary" onclick="toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});">Agregar</button>
                 </form>
 
                 <div id="result"><!-- Respuesta AJAX (¡IMPORTANTE!) --></div>
@@ -260,7 +260,9 @@
 
         $('#store-client').submit(function(e)
         {
+            $('#btnnuevo').on("click", function(e){
             e.preventDefault();
+            });
 
             var idlcliente = $('#txtcodecli').val();  //(names de los input)
             var nombre = $('#txtname').val();
@@ -298,7 +300,7 @@
                     if(response)
                     {
                         $('#store-client')[0].reset();   //limpiar campos del formulario luego de agregarlos
-                        toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});
+                        //toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});
                         //$('#table-client').DataTable().ajax.reload();  //recargar tabla
                         
                     }

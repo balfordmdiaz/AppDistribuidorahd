@@ -79,7 +79,7 @@
 
                 </div>
 
-                <button type="submit" class="btn btn-primary" onclick="toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000})">Agregar</button>
+                <button id="btnnuevo" type="submit" class="btn btn-primary" onclick="toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000})">Agregar</button>
                 </form>
 
                 <div id="result"><!-- Respuesta AJAX (¡IMPORTANTE!) --></div>
@@ -144,6 +144,16 @@
         "colvis": "Visibilidad"
     }
 };
+    </script>
+
+    <script>//Validacion de evitar carga de datos varias veces
+          $('#store-user').submit(function(e)
+        {
+            $('#btnnuevo').on("click", function(e){
+              e.preventDefault();
+            });
+        });
+
     </script>
 
     
