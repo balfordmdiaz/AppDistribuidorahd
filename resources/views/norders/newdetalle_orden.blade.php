@@ -400,13 +400,6 @@
           e.preventDefault();
           });
 
-      });
-    </script>
-
-    <script> //Validacion de evitar carga de datos de finalizar orden
-
-      $('#form-order').submit(function(e)
-      {
           $('#btnfinalizar').on("click", function(e){
           e.preventDefault();
           });
