@@ -54,7 +54,7 @@
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <h3>Nuevo Empleado</h3>
 
-                <form id="store-employee" method="" action="">
+                <form id="store-employee" method="POST" action="{{route('employees.store')}}">
                 @csrf
 
                 <div class="form-group" style="display:none">
@@ -236,7 +236,7 @@
 };
     </script>
 
-    <script> //AGREGAR DATOS A LA TABLA EMPLEADO
+    <script> //Validacion de evitar carga de datos varias veces
 
         $('#store-employee').submit(function(e)
         {
@@ -244,41 +244,7 @@
             e.preventDefault();
             });
 
-            var idlempleado = $('#txtcodeemp').val();  //(names de los input)
-            var nombre = $('#txtname').val();
-            var apellido = $('#txtlastname').val();
-            var cedula = $('#txtidentif').val();
-            var telefono = $('#txttelefono').val();
-            var direccion = $('#txtaddress').val();
-            var _token = $("input[name=_token]").val();
-            console.log('Hello');
-            $.ajax({
-                url: "{{ route('employees.store') }}",   //ruta del post donde almacenara
-                type: "POST",
-                data:{
-                    idlempleado: idlempleado,
-                    nombre: nombre,
-                    apellido: apellido,
-                    cedula: cedula,
-                    telefono: telefono,
-                    direccion: direccion,
-                    _token:_token
-                },
-                success:function(response)
-                {
-                    if(response)
-                    {
-                        $('#store-employee')[0].reset();   //limpiar campos del formulario luego de agregarlos
-                        //toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});
-                        //$('#table-employee').DataTable().ajax.reload();  //recargar tabla
-                        
-                    }
-                }
-            })
-            window.location.reload();
         });
-
-
 
     </script>
 

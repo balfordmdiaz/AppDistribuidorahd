@@ -48,7 +48,7 @@
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <h3>Nueva Categoria</h3>
 
-                <form id="store-category" method="" action="">
+                <form id="store-category" method="POST" action="{{route('categories.store')}}">
                 @csrf
 
                 <div class="form-group" style="display:none">
@@ -191,53 +191,14 @@
 };
     </script>
 
-    <script> //AGREGAR DATOS A LA TABLA CATEGORIA
+    <script> //Validacion de evitar carga de datos varias veces
 
         $('#store-category').submit(function(e)
         {
             $('#btnnuevoc').on("click", function(e){
             e.preventDefault();
             });
-
-            var idlcategoria = $('#txtidcat').val();  //(names de los input)
-            var descripcion = $('#txtname').val();
-            var _token = $("input[name=_token]").val();
-
-
-            //if(idlcategoria==null || descripcion==null  )
-            //{
-            //    toastr.error('Llene todos los campos.', 'Error', {timeOut:3000});
-            //}
-            //else
-            //{
-            $.ajax({
-                url: "{{ route('categories.store') }}",   //ruta del post donde almacenara
-                type: "POST",
-                data:{
-                    idlcategoria: idlcategoria,
-                    descripcion: descripcion,
-                    _token:_token
-                },
-                success:function(response)
-                {
-                    if(response)
-                    {
-                        $('#store-category')[0].reset();   //limpiar campos del formulario luego de agregarlos
-                        //toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});
-                        //$('#table-category').DataTable().ajax.reload();  //recargar tabla
-                        //window.location.reload();
-                        
-                    }
-                }
-            });
-            //}
-
-            window.location.reload();
-
         });
-
-
-
     </script>
 
     <script>//ELIMINAR DATOS EN LA TABLA CATEGORIA

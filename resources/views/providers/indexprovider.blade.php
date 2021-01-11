@@ -54,7 +54,7 @@
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <h3 align="center">Nuevo Proveedor</h3>
 
-                <form id="store-provider" method="" action="">
+                <form id="store-provider" method="POST" action="{{route('providers.store')}}">
                 @csrf
 
                 <div class="form-group" style="display:none">
@@ -227,13 +227,21 @@
 };
     </script>
 
-    <script> //AGREGAR DATOS A LA TABLA CLIENTE
+        <script>//Validacion de evitar carga de datos varias veces
+          $('#store-provider').submit(function(e)
+        {
+            $('#btnagregarn').on("click", function(e){
+              e.preventDefault();
+            });
+        });
+
+        </script>
+
+    <!--<script> //AGREGAR DATOS A LA TABLA CLIENTE CON PROCEDIMIENTOS ALMACENADO
 
         $('#store-provider').submit(function(e)
         {
-            $('#btnagregarn').on("click", function(e){
             e.preventDefault();
-            });
 
             var idlproveedor = $('#txtidprov').val();  //(names de los input)
             var nombre = $('#txtname').val();
@@ -276,7 +284,7 @@
 
 
 
-    </script>
+    </script>-->
 
     <script>//ELIMINAR DATOS EN LA TABLA Cliente
 

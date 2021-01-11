@@ -175,12 +175,12 @@
                     <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#variante_new_modal">Nueva variante de producto</button><br>
                   </div>
                   <div class="form-group col-md-4 my-lg-3 text-center">
-                    <button type="submit" class="btn btn-dark" name="action" id="btn-registrar" value="agregar_articulo">Agregar Articulo</button>
+                    <button type="submit" id="btnagregarart" class="btn btn-dark" name="action" id="btn-registrar" value="agregar_articulo">Agregar Articulo</button>
                   </div>
                 </div>
 
                 <div class="form-group text-center">
-                  <button type="submit" class="btn btn-success" name="action" id="btn-registrar" value="finalizar">Finalizar Orden</button>
+                  <button type="submit" id="btnfinalizar" class="btn btn-success" name="action" id="btn-registrar" value="finalizar">Finalizar Orden</button>
                 </div>
 
             </form>
@@ -234,7 +234,7 @@
   
       <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-success" name="action" value="nuevo_registro">Registrar articulo</button>
+          <button type="submit" id="btnnuevop" class="btn btn-success" name="action" value="nuevo_registro">Registrar articulo</button>
       </div>
       </form>
       </div>
@@ -303,7 +303,7 @@
   
       <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-success" name="action" value="nueva_variante">Registrar variante</button>
+          <button type="submit" id="btnnuevav" class="btn btn-success" name="action" value="nueva_variante">Registrar variante</button>
       </div>
       </form>
       </div>
@@ -369,6 +369,51 @@
   </div>
 
     @section('script')
+
+    <script> //Validacion de evitar carga de datos de Nuevo Producto
+
+        $('#products-new-form').submit(function(e)
+        {
+            $('#btnnuevop').on("click", function(e){
+            e.preventDefault();
+            });
+
+        });
+    </script>
+
+    <script> //Validacion de evitar carga de datos de Nueva Variante
+
+      $('#variante-new-form').submit(function(e)
+      {
+          $('#btnnuevav').on("click", function(e){
+          e.preventDefault();
+          });
+
+      });
+    </script>
+
+    <script> //Validacion de evitar carga de datos de agregar articulo
+
+      $('#form-order').submit(function(e)
+      {
+          $('#btnagregarart').on("click", function(e){
+          e.preventDefault();
+          });
+
+      });
+    </script>
+
+    <script> //Validacion de evitar carga de datos de finalizar orden
+
+      $('#form-order').submit(function(e)
+      {
+          $('#btnfinalizar').on("click", function(e){
+          e.preventDefault();
+          });
+
+      });
+    </script>
+
     <script>
         $(document).ready(function(){
       
