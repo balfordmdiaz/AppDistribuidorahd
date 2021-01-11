@@ -44,15 +44,25 @@ class ProvidersController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(Request $data)
     {
         //
-        $provider = DB::select('call spstore_proveedor(?,?,?,?,?)',
-                        [$request->idlproveedor,
-                        $request->nombreproveedor,
-                        $request->telefono,
-                        $request->direccion,
-                        $request->email]);
+//        $provider = DB::select('call spstore_proveedor(?,?,?,?,?)',   procedimiento almacenado
+//                        [$request->idlproveedor,
+//                        $request->nombreproveedor,
+//                        $request->telefono,
+//                        $request->direccion,
+//                        $request->email]);
+//
+//        return back();
+
+        Providers::create([
+            'idlproveedor' => $data['txtidprov'],
+            'nombreproveedor' => $data['txtname'],
+            'telefono' => $data['txttelefono'],
+            'direccion' => $data['txtaddress'],
+            'email' => $data['txtemail'],
+        ]);
 
         return back();
     }

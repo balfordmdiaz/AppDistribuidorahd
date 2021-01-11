@@ -44,19 +44,12 @@ class CategoriesController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(Request $data)
     {
-        //
-//        $request->validate([
-//            'txtidcat' => 'required',
-//            'txtdescription'  => 'required'
-//
-//        ]);
-
-        //llamar al procedimiento almacenado
-        $category = DB::select('call spstore_categoria(?,?)',
-                        [$request->idlcategoria,
-                        $request->descripcion]);
+        Categories::create([
+            'idlcategoria' => $data['txtidcat'],
+            'descripcion' => $data['txtname'],
+        ]);
 
         return back();
     }

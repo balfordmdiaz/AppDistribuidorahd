@@ -55,7 +55,7 @@
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                 <h3>Nuevo Cliente</h3>
 
-                <form id="store-client" method="" action="">
+                <form id="store-client" method="POST" action="{{route('clients.store')}}">
                 @csrf
 
                 <div class="form-group" style="display:none">
@@ -84,7 +84,7 @@
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Telefono</label>
-                    <input type="number" class="form-control" id="txttelefono" name="txttelefono" max="10">
+                    <input type="text" class="form-control" id="txttelefono" name="txttelefono" maxlength="10">
 
                 </div>
                 <div class="form-group">
@@ -102,7 +102,7 @@
                     <input type="email" class="form-control" id="txtemail" name="txtemail" maxlength="30">
 
                 </div>
-                <button type="submit" class="btn btn-primary" onclick="toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});">Agregar</button>
+                <button id="btnnuevo" type="submit" class="btn btn-primary" onclick="toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});">Agregar</button>
                 </form>
 
                 <div id="result"><!-- Respuesta AJAX (¡IMPORTANTE!) --></div>
@@ -148,7 +148,7 @@
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Telefono</label>
-                <input type="number" class="form-control" id="txttelefono2" name="txttelefono2" max="10">
+                <input type="text" class="form-control" id="txttelefono2" name="txttelefono2" maxlength="10">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Departamento</label>
@@ -256,59 +256,14 @@
 };
     </script>
 
-    <script> //AGREGAR DATOS A LA TABLA CLIENTE
+    <script> //Validacion de evitar carga de datos varias veces
 
         $('#store-client').submit(function(e)
         {
+            $('#btnnuevo').on("click", function(e){
             e.preventDefault();
-
-            var idlcliente = $('#txtcodecli').val();  //(names de los input)
-            var nombre = $('#txtname').val();
-            var apellido = $('#txtlastname').val();
-            var cedula = $('#txtidentif').val();
-            var telefono = $('#txttelefono').val();
-            var departamento = $('#txtdepart').val();
-            var direccion = $('#txtaddress').val();
-            var email = $('#txtemail').val();
-            var _token = $("input[name=_token]").val();
-
-
-            //if(idlcliente==null || nombre==null || apellido==null || cedula==null || telefono==null || departamento==null || direccion==null || email==null )
-            //{
-            //    toastr.error('Llene todos los campos.', 'Error', {timeOut:3000});
-            //}
-            //else
-            //{
-            $.ajax({
-                url: "{{ route('clients.store') }}",   //ruta del post donde almacenara
-                type: "POST",
-                data:{
-                    idlcliente: idlcliente,
-                    nombre: nombre,
-                    apellido: apellido,
-                    cedula: cedula,
-                    telefono: telefono,
-                    departamento: departamento,
-                    direccion: direccion,
-                    email: email,
-                    _token:_token
-                },
-                success:function(response)
-                {
-                    if(response)
-                    {
-                        $('#store-client')[0].reset();   //limpiar campos del formulario luego de agregarlos
-                        toastr.success('El Registro se ingreso Correctamente.', 'Nuevo Registro', {timeOut:3000});
-                        //$('#table-client').DataTable().ajax.reload();  //recargar tabla
-                        
-                    }
-                }
             });
-            //}
-            location.reload();
         });
-
-
 
     </script>
 

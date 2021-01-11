@@ -44,32 +44,18 @@ class ClientsController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(Request $data)
     {
-        //
-
-//        $request->validate([
-//            'txtcodecli' => 'required',
-//            'txtname'  => 'required',
-//            'txtlastname'  => 'required',
-//            'txtidentif'  => 'required',
-//            'txttelefono'  => 'required',
-//            'txtdepart'  => 'required',
-//            'txtaddress'  => 'required',
-//            'txtemail'  => 'required|email'
-//
-//        ]);
-
-        //llamar al procedimiento almacenado
-        $client = DB::select('call spstore_cliente(?,?,?,?,?,?,?,?)',
-                        [$request->idlcliente,
-                        $request->nombre,
-                        $request->apellido,
-                        $request->cedula,
-                        $request->telefono,
-                        $request->departamento,
-                        $request->direccion,
-                        $request->email]);
+        Clients::create([
+            'idlcliente' => $data['txtcodecli'],
+            'nombre' => $data['txtname'],
+            'apellido' => $data['txtlastname'],
+            'cedula' => $data['txtidentif'],
+            'telefono' => $data['txttelefono'],
+            'departamento' => $data['txtdepart'],
+            'direccion' => $data['txtaddress'],
+            'email' => $data['txtemail'],
+        ]);
 
         return back();
     }
