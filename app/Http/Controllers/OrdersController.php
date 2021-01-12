@@ -265,7 +265,7 @@ class OrdersController extends Controller
                        'new_tipo'=>'required',
                        'new_talla' => 'required',
                        'new_colors' => 'required',
-                       'new_precio' => 'required|numeric|gt:0',
+                       //'new_precio' => 'required|numeric|gt:0',
                    ]);
 
                    
@@ -275,7 +275,7 @@ class OrdersController extends Controller
                        'talla' => request('new_talla'),
                        'color' => request('new_colors'),
                        'cantidad' => $cantidad_variante,
-                       'preciov' => request('new_precio'),
+                       'preciov' => 0,
                        'idarticulos' => request('selvariante'),
                    ]);
 

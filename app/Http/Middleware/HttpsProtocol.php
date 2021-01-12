@@ -1,4 +1,5 @@
 <?php
+/*
 namespace App\Http\Middleware;
 
 use Closure;
@@ -11,5 +12,5 @@ class HttpsProtocol {
             }
             return $next($request); 
     }
-}
+}*/
 ?>

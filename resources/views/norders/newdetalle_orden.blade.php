@@ -291,12 +291,13 @@
             {!! $errors->first('new_colors','<small class="message_error">:message</small><br>') !!} 
           </div>
 
+          <!--
           <div class="form-group">
             <label for="inputprecio">Precio venta</label>
             <input name="new_precio" id="new_precio" type="number" step="0.01" class="form-control" />
             {!! $errors->first('new_precio','<small class="message_error">:message</small><br>') !!} 
           </div>
-
+         -->
 
 
       </div>
@@ -319,7 +320,6 @@
             <th scope="col">Tipo</i></th>
             <th scope="col">Talla</i></th>
             <th scope="col">Precio Compra</th>
-            <th scope="col">Precio Venta</th>
             <th scope="col">Cant</th>
             <th scope="col">Monto</th>
           </tr>
@@ -339,7 +339,6 @@
             <td>{{ $detalleItem->tipov }}</td>        
             <td>{{ $detalleItem->talla }}</td>
             <td>{{ $detalleItem->precio }} C$</td>
-            <td>{{ $detalleItem->preciov }} C$</td>
             <td>{{ $detalleItem->cantidadorden }}</td>
             <td>{{ $detalleItem->monto }} C$</td>
           </tr>

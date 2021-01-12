@@ -56,7 +56,6 @@
                      <th scope="col">Tipo</th>
                      <th scope="col">Talla</i></th>
                      <th scope="col">Precio Compra</th>
-                     <th scope="col">Precio Venta</th>
                      <th scope="col">Cant</th>
                      <th scope="col">Monto</th>
                   </tr>
@@ -76,7 +75,6 @@
                      <td>{{ $detalleItem->tipov }}</td>         
                      <td>{{ $detalleItem->talla }}</td>
                      <td>{{ $detalleItem->precio }} C$</td>
-                     <td>{{ $detalleItem->preciov }} C$</td>
                      <td>{{ $detalleItem->cantidadorden }}</td>
                      <td>{{ $detalleItem->monto }} C$</td>
                   </tr>

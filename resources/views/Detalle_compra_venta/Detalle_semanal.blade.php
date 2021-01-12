@@ -42,8 +42,8 @@
                                 <tr>
                                   <th scope="col">Codigo</th>
                                   <th scope="col">Descripcion</i></th>
-                                  <th scope="col">Cant Compra</th> 
-                                  <th scope="col">Precio Compra</th>
+                                  <th scope="col">Cant Compra</th>
+                                  <th scope="col">Precio compra</th>
                                   <th scope="col">Cant Vendida</th>
                                   <th scope="col">Precio Venta</th>  
                                   <th scope="col">Costo Compra</th>          
@@ -57,30 +57,32 @@
                                                     ->join('tbl_articulostock', 'tbl_articulovariante.idarticulos', '=', 'tbl_articulostock.idarticulos')
                                                     ->join('tbl_factura', 'tbl_facturadetalle.idfactura', '=', 'tbl_factura.idfactura')
                                                     ->join('tbl_ordendetalle', 'tbl_articulovariante.idarticulov', '=', 'tbl_ordendetalle.idarticulov')
-                                                    ->join('tbl_orden', 'tbl_orden.idorden', '=', 'tbl_ordendetalle.idorden')
-                                                    ->select('tbl_articulostock.idlarticulos','tbl_articulostock.nombrearticulo','tbl_articulovariante.talla','tbl_articulovariante.color','tbl_facturadetalle.cantidad','tbl_ordendetalle.cantidadorden','tbl_ordendetalle.precio','tbl_articulovariante.preciov','tbl_facturadetalle.monto')
+                                                    ->select('tbl_articulostock.idlarticulos','tbl_articulovariante.idarticulov','tbl_articulostock.nombrearticulo','tbl_articulovariante.talla','tbl_articulovariante.color',DB::raw('SUM(tbl_facturadetalle.cantidad) as cantidad_venta'),DB::raw('SUM(tbl_facturadetalle.cantidad*tbl_ordendetalle.precio) as costo_compra'),DB::raw('SUM(tbl_facturadetalle.cantidad) as precio_compra'),
+                                                    'tbl_articulovariante.preciov',DB::raw('SUM(tbl_ordendetalle.cantidadorden) as cantidadorden'),DB::raw('SUM(tbl_ordendetalle.precio) as precio_compra'),DB::raw('SUM(tbl_facturadetalle.monto) as vendido'))
                                                     ->where('tbl_factura.fechafactura','>=',$fechaInicio)
+                                                    ->groupBy('tbl_articulovariante.idarticulov')
                                                     ->get()  as $detalleItem)
                         
                               <tbody>
                                 <tr>        
                                   <td>{{ $detalleItem->idlarticulos }}</td>
                                   <td>{{ $detalleItem->nombrearticulo }} - {{$detalleItem->talla}} - {{$detalleItem->color}}</td>          
-                                  <td>{{ $detalleItem->cantidadorden }}</td>
-                                  <td>{{ $detalleItem->precio }} C$</td>
-                                  <td>{{ $detalleItem->cantidad }}</td>
+                                  <td>{{ $detalleItem->cantidadorden }} </td>
+                                  <td>{{ $detalleItem->precio_compra }} C$</td>
+                                  <td>{{ $detalleItem->cantidad_venta }}</td>
                                   <td>{{ $detalleItem->preciov }} C$</td>
-                                  <td>{{ ($detalleItem->precio*$detalleItem->cantidad) }} C$</td>
-                                  <td style="font-weight: bold;">{{ $detalleItem->monto }} C$</td>
-                                  <td>{{ $detalleItem->monto-($detalleItem->precio*$detalleItem->cantidad) }} C$</td>
+                                  <td>{{ ($detalleItem->costo_compra) }} C$</td>
+                                  <td style="font-weight: bold;">{{ $detalleItem->vendido }} C$</td>
+                                  <td>{{ $detalleItem->vendido-$detalleItem->costo_compra }} C$</td>
                                 </tr>
 
                                 <?php
-                                    $preciocompra+=$detalleItem->precio;
+
+                                    $preciocompra+=$detalleItem->precio_compra;
                                     $precioventa+=$detalleItem->preciov;
-                                    $costocompra+=($detalleItem->precio*$detalleItem->cantidad);
-                                    $Vendidoaux+=$detalleItem->monto;
-                                    $Gananciaaux+=$detalleItem->monto-($detalleItem->precio*$detalleItem->cantidad);
+                                    $costocompra+=($detalleItem->costo_compra);
+                                    $Vendidoaux+=$detalleItem->vendido;
+                                    $Gananciaaux+=$detalleItem->vendido-($detalleItem->costo_compra);
                                 ?>
                         
 
@@ -94,7 +96,8 @@
                               <td></td>
                               <td></td>
                               <td>{{$preciocompra}} C$</td>
-                              <td><td>{{$precioventa}} C$</td></td>
+                              <td></td>
+                              <td>{{$precioventa}} C$</td>
                               <td>{{$costocompra}} C$</td>
                               <td>{{$Vendidoaux}} C$</td>
                               <td>{{$Gananciaaux}} C$</td>
