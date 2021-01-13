@@ -35,7 +35,6 @@
                                         <th>Talla</th>
                                         <th>Color</th>
                                         <th>Cantidad</th>
-                                        <th>Precio Venta</th>
                                         <th>Categoria</th>
                                         <th>Acciones</th>
                                     </tr>
@@ -76,7 +75,7 @@
             <input type="hidden" id="txtId" name="txtId">
             <div class="form-group">
                 <label for="exampleFormControlInput1">Codigo</label>
-                <input class="form-control" id="txtcode" name="txtcode">
+                <input class="form-control" id="txtcode" name="txtcode" readonly="readonly">
             </div>
             <div class="form-group">
                 <label for="exampleFormControlSelect1">Producto</label>
@@ -95,13 +94,20 @@
                 <input type="text" class="form-control" id="txtcant" name="txtcant" readonly="readonly">
             </div>
             <div class="form-group">
-                <label for="exampleFormControlInput1">Precio</label>
-                <input type="text" class="form-control" id="txtprice" name="txtprice">
+                <label for="exampleFormControlInput1">Categoria</label>
+                <select id="txtcategory" name="txtcategory" class="form-control">
+                    <option value=""></option>
+                        @forelse($prov = DB::table('tbl_categoria')->get() as $prvItem)
+                            <option value="{{ $prvItem->idcategoria }}">{{ $prvItem->descripcion }}</option>
+                        @empty
+                            <option value="">No hay Categorias</option>
+                        @endforelse
+                </select>
             </div>
-            <div class="form-group">
+            <!--<div class="form-group">
                     <label for="exampleFormControlSelect1">Categoria</label>
                     <input type="text" class="form-control" id="txtcategory" name="txtcategory">
-            </div>
+            </div>-->
 
     </div>
     <div class="modal-footer">
@@ -160,7 +166,7 @@
                         {data: 'talla'},
                         {data: 'color'},
                         {data: 'cantidad'},
-                        {data: 'preciov'},
+                        //{data: 'precio'},
                         {data: 'idcategoria'},
                         {data: 'action', orderable: false},
                     ]
@@ -207,7 +213,6 @@
                 $('#txtsize').val(product[0].talla);
                 $('#txtcol').val(product[0].color);
                 $('#txtcant').val(product[0].cantidad);
-                $('#txtprice').val(product[0].preciov);
                 $('#txtcategory').val(product[0].descripcion);
                 $("input[name=_token]").val();
 
@@ -228,7 +233,7 @@
             var size = $('#txtsize').val();
             var color = $('#txtcol').val();
             var cantidad = $('#txtcant').val();
-            var precio = $('#txtprice').val();
+            var catego = $('#txtcategory').val();
             var _token = $("input[name=_token]").val();
 
             $.ajax({
@@ -241,7 +246,7 @@
                     talla: size,
                     color: color,
                     cantidad: cantidad,
-                    preciov: precio,
+                    idcategoria: catego,
                     _token:_token
                 },
                 success:function(response)

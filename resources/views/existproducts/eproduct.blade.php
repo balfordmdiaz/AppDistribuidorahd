@@ -31,8 +31,8 @@
                                     <tr>
                                         <th>Codigo</th>
                                         <th>Producto</th>
+                                        <th>Talla / Color</th>
                                         <th>Tipo</th>
-                                        <th>Precio Venta</th>
                                         <th>Cantidad</th>
                                     </tr>
                                 </thead>
@@ -72,9 +72,9 @@
                     columns:
                     [
                         {data: 'idlarticulos'},
+                        {data: 'nombrearticulo'},
                         {data: 'idarticulos'},
                         {data: 'tipov'},
-                        {data: 'preciov'},
                         {data: 'cantidad'},
                     ]
                 }

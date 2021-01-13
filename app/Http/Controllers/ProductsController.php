@@ -90,7 +90,7 @@ class ProductsController extends Controller
                         $request->talla,
                         $request->color,
                         $request->cantidad,
-                        $request->preciov]);
+                        $request->idcategoria]);
 
         return back();
     }

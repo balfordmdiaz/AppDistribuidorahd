@@ -329,7 +329,7 @@
                               ->join('tbl_articulovariante', 'tbl_ordendetalle.idarticulov', '=', 'tbl_articulovariante.idarticulov')
                               ->join('tbl_articulostock', 'tbl_articulovariante.idarticulos', '=', 'tbl_articulostock.idarticulos')
                               ->join('tbl_orden', 'tbl_ordendetalle.idorden', '=', 'tbl_orden.idorden')
-                              ->select('tbl_articulostock.nombrearticulo', 'tbl_articulovariante.tipov','tbl_articulovariante.talla', 'tbl_ordendetalle.precio','tbl_articulovariante.preciov','tbl_ordendetalle.cantidadorden','tbl_ordendetalle.monto')
+                              ->select('tbl_articulostock.nombrearticulo', 'tbl_articulovariante.tipov','tbl_articulovariante.talla', 'tbl_ordendetalle.precio','tbl_ordendetalle.cantidadorden','tbl_ordendetalle.monto')
                               ->where('tbl_ordendetalle.idorden', $orden->idorden)
                               ->get()  as $detalleItem)
 
