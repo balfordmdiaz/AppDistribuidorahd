@@ -155,13 +155,13 @@
                   {!! $errors->first('Total','<small class="message_error">:message</small><br>') !!}      
                </div>
 
-               <div class="form-group col-md-4 my-lg-3 text-center">       
+               <!--<div class="form-group col-md-4 my-lg-3 text-center">       
                     <input name="chec" type="checkbox" id="chec_venta" onChange="comprobarprecioventa(this);" />
                     <label for="chec">Precio Venta(Cambiar)</label>
                     <input name="precioventa" id="precioventa" type="number" step="0.01" class="form-control" style="display:none" />
                     {!! $errors->first('precioventa','<small class="message_error">:message</small><br>') !!}
                     <button  type="submit" name="action" id="nuevo_precioventa" class="btn btn-primary" value="precioventa" style="display:none;margin-top:4px;">Cambiar</button>
-               </div>
+               </div>-->
 
 
 
