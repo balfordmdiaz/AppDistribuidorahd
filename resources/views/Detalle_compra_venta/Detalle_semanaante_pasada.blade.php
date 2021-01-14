@@ -52,41 +52,39 @@
                                 </tr>
                               </thead>
 
-                            @foreach($detalle = DB::table('tbl_facturadetalle')
-                                                    ->join('tbl_articulovariante', 'tbl_facturadetalle.idarticulov', '=', 'tbl_articulovariante.idarticulov')
-                                                    ->join('tbl_articulostock', 'tbl_articulovariante.idarticulos', '=', 'tbl_articulostock.idarticulos')
-                                                    ->join('tbl_factura', 'tbl_facturadetalle.idfactura', '=', 'tbl_factura.idfactura')
-                                                    ->join('tbl_ordendetalle', 'tbl_articulovariante.idarticulov', '=', 'tbl_ordendetalle.idarticulov')
-                                                    ->join('tbl_orden', 'tbl_orden.idorden', '=', 'tbl_ordendetalle.idorden')
-                                                    ->select('tbl_articulostock.idlarticulos','tbl_articulostock.nombrearticulo','tbl_articulovariante.talla','tbl_articulovariante.color','tbl_facturadetalle.cantidad','tbl_ordendetalle.cantidadorden','tbl_ordendetalle.precio','tbl_articulovariante.preciov','tbl_facturadetalle.monto')
+                              @foreach($detalle = DB::table('tbl_facturadetalle')
+                                                   ->join('tbl_articulovariante', 'tbl_facturadetalle.idarticulov', '=', 'tbl_articulovariante.idarticulov')
+                                                   ->join('tbl_articulostock', 'tbl_articulovariante.idarticulos', '=', 'tbl_articulostock.idarticulos')
+                                                   ->join('tbl_factura', 'tbl_facturadetalle.idfactura', '=', 'tbl_factura.idfactura')
+                                                   ->join('tbl_ordendetalle', 'tbl_articulovariante.idarticulov', '=', 'tbl_ordendetalle.idarticulov')
+                                                   ->join('tbl_orden', 'tbl_orden.idorden', '=', 'tbl_ordendetalle.idorden')
+                                                   ->select('tbl_articulostock.idlarticulos','tbl_articulostock.nombrearticulo','tbl_articulovariante.talla','tbl_articulovariante.color','tbl_facturadetalle.cantidad','tbl_ordendetalle.cantidadorden','tbl_ordendetalle.precio',DB::raw('(tbl_facturadetalle.precio) as precio_venta'),'tbl_facturadetalle.monto')
                                                     ->where('tbl_factura.fechafactura','>=',$fechaInicio_a)
                                                     ->where('tbl_factura.fechafactura','<=',$fechaFin_a)
                                                     ->get()  as $detalleItem)
                         
-                              <tbody>
-                                <tr>        
-                                  <td>{{ $detalleItem->idlarticulos }}</td>
-                                  <td>{{ $detalleItem->nombrearticulo }} - {{$detalleItem->talla}} - {{$detalleItem->color}}</td>          
-                                  <td>{{ $detalleItem->cantidadorden }}</td>
-                                  <td>{{ $detalleItem->precio }} C$</td>
-                                  <td>{{ $detalleItem->cantidad }}</td>
-                                  <td>{{ $detalleItem->preciov }} C$</td>
-                                  <td>{{ ($detalleItem->precio*$detalleItem->cantidad) }} C$</td>
-                                  <td style="font-weight: bold;">{{ $detalleItem->monto }} C$</td>
-                                  <td>{{ $detalleItem->monto-($detalleItem->precio*$detalleItem->cantidad) }} C$</td>
-                                </tr>
+                                 <tbody>
+                                   <tr>        
+                                     <td>{{ $detalleItem->idlarticulos }}</td>
+                                     <td>{{ $detalleItem->nombrearticulo }} - {{$detalleItem->talla}} - {{$detalleItem->color}}</td>          
+                                     <td>{{ $detalleItem->cantidadorden }}</td>
+                                     <td>{{ $detalleItem->precio }} C$</td>
+                                     <td>{{ $detalleItem->cantidad }}</td>
+                                     <td>{{ $detalleItem->precio_venta }}</td>
+                                     <td>{{ ($detalleItem->precio*$detalleItem->cantidad) }} C$</td>
+                                     <td style="font-weight: bold;">{{ $detalleItem->monto }} C$</td>
+                                     <td>{{ $detalleItem->monto-($detalleItem->precio*$detalleItem->cantidad) }} C$</td>
+                                   </tr>
 
-                                <?php
-                                    $preciocompra+=$detalleItem->precio;
-                                    $precioventa+=$detalleItem->preciov;
-                                    $costocompra+=($detalleItem->precio*$detalleItem->cantidad);
-                                    $Vendidoaux+=$detalleItem->monto;
-                                    $Gananciaaux+=$detalleItem->monto-($detalleItem->precio*$detalleItem->cantidad);
-                                ?>
-                        
-
-                        
-                            </tbody>
+                                   <?php
+                                       $preciocompra+=$detalleItem->precio;
+                                       $precioventa+=$detalleItem->precio_venta;
+                                       $costocompra+=($detalleItem->precio*$detalleItem->cantidad);
+                                       $Vendidoaux+=$detalleItem->monto;
+                                       $Gananciaaux+=$detalleItem->monto-($detalleItem->precio*$detalleItem->cantidad);
+                                   ?>
+         
+                               </tbody>
                             @endforeach
 
 
