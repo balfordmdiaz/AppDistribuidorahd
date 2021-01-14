@@ -93,7 +93,7 @@
                 <label for="exampleFormControlInput1">Cantidad</label>
                 <input type="text" class="form-control" id="txtcant" name="txtcant" readonly="readonly">
             </div>
-            <div class="form-group">
+            <!--<div class="form-group">
                 <label for="exampleFormControlInput1">Categoria</label>
                 <select id="txtcategory" name="txtcategory" class="form-control">
                     <option value=""></option>
@@ -103,11 +103,11 @@
                             <option value="">No hay Categorias</option>
                         @endforelse
                 </select>
-            </div>
-            <!--<div class="form-group">
-                    <label for="exampleFormControlSelect1">Categoria</label>
-                    <input type="text" class="form-control" id="txtcategory" name="txtcategory">
             </div>-->
+            <div class="form-group">
+                    <label for="exampleFormControlSelect1">Categoria</label>
+                    <input type="text" class="form-control" id="txtcategory" name="txtcategory" readonly="readonly">
+            </div>
 
     </div>
     <div class="modal-footer">
@@ -233,7 +233,6 @@
             var size = $('#txtsize').val();
             var color = $('#txtcol').val();
             var cantidad = $('#txtcant').val();
-            var catego = $('#txtcategory').val();
             var _token = $("input[name=_token]").val();
 
             $.ajax({
@@ -246,7 +245,6 @@
                     talla: size,
                     color: color,
                     cantidad: cantidad,
-                    idcategoria: catego,
                     _token:_token
                 },
                 success:function(response)
