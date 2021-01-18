@@ -263,7 +263,7 @@
             <select class="form-control" id="selvariante" name="selvariante">
                 <option value=""></option>
                 @forelse($stock = DB::table('tbl_articulostock')->get() as $stockItem)
-                    <option value="{{ $stockItem->idarticulos }}">{{ $stockItem->nombrearticulo }}</option>
+                    <option value="{{ $stockItem->idarticulos }}">{{ $stockItem->idlarticulos }} - {{ $stockItem->nombrearticulo }}</option>
                 @empty
                     <option value="">No hay Categoria</option>
                 @endforelse
@@ -276,6 +276,7 @@
             <select class="form-control" id="new_tipo" name="new_tipo">
                  <option value="UNIDADES">Unidad</option>
                  <option value="DOCENA">Docena</option>
+                 <option value="LIBRA">Libra</option>
             </select>
           </div>
   
