@@ -78,6 +78,7 @@
                <thead>
                   <tr>
                      <th scope="col">Art</th>
+                     <th scope="col">Tipo</th>
                      <th scope="col">Talla</th>
                      <th scope="col">Color</th>
                      <th scope="col">Precio</th>
@@ -90,13 +91,14 @@
                                     ->join('tbl_articulovariante', 'tbl_facturadetalle.idarticulov', '=', 'tbl_articulovariante.idarticulov')
                                     ->join('tbl_articulostock', 'tbl_articulovariante.idarticulos', '=', 'tbl_articulostock.idarticulos')
                                     ->join('tbl_factura', 'tbl_facturadetalle.idfactura', '=', 'tbl_factura.idfactura')
-                                    ->select('tbl_articulostock.nombrearticulo', 'tbl_articulovariante.talla','tbl_articulovariante.color', 'tbl_facturadetalle.precio', 'tbl_facturadetalle.cantidad','tbl_facturadetalle.monto')
+                                    ->select('tbl_articulostock.nombrearticulo', 'tbl_articulovariante.tipov', 'tbl_articulovariante.talla','tbl_articulovariante.color', 'tbl_facturadetalle.precio', 'tbl_facturadetalle.cantidad','tbl_facturadetalle.monto')
                                     ->where('tbl_facturadetalle.idfactura', $factura->idfactura)
                                     ->get()  as $detalleItem)
                
                <tbody>
                <tr>        
-                  <td>{{ $detalleItem->nombrearticulo }}</td>          
+                  <td>{{ $detalleItem->nombrearticulo }}</td>
+                  <td>{{ $detalleItem->tipov }}</td>          
                   <td>{{ $detalleItem->talla }}</td>
                   <td>{{ $detalleItem->color }}</td>
                   <td>{{ $detalleItem->precio }} C$</td>
@@ -117,22 +119,22 @@
 
             <tr>
                <th>Subtotal</th>
-               <td colspan="5">{{ $factura->subtotal }} C$</td>
+               <td colspan="6">{{ $factura->subtotal }} C$</td>
             </tr>
 
             <tr>    
                <th>Iva</th>
-               <td colspan="5">{{ $factura->iva }} C$</td>
+               <td colspan="6">{{ $factura->iva }} C$</td>
             </tr>
 
             <tr>   
                <th>Descuento</th>
-               <td colspan="5">{{ $factura->descuento }} C$</td>
+               <td colspan="6">{{ $factura->descuento }} C$</td>
             </tr>
 
             <tr>
                <th>Total</th>
-               <td colspan="5">{{ $factura->total }} C$</td>
+               <td colspan="6">{{ $factura->total }} C$</td>
             </tr>
 
          </table>

@@ -138,7 +138,7 @@
               </div>
 
                <div class="form-group col-md-4 my-lg-3" >
-                   <label for="exampleFormControlInput1">Precio de compra:</label>
+                   <label for="exampleFormControlInput1">Precio de Compra:</label>
                    <input name="precio" id="precio" type="number" step="0.01" class="form-control" onkeyup="loadcalculos()" value="{{ old('precio') }}" /> 
                    {!! $errors->first('precio','<small class="message_error">:message</small><br>') !!}       
                </div>
@@ -172,7 +172,7 @@
                     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#product_new_modal">Nuevo Producto</button>    
                   </div>
                   <div class="form-group col-md-4 my-lg-3 text-center">
-                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#variante_new_modal">Nueva variante de producto</button><br>
+                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#variante_new_modal">Nueva Variante de Producto</button><br>
                   </div>
                   <div class="form-group col-md-4 my-lg-3 text-center">
                     <button type="submit" id="btnagregarart" class="btn btn-dark" name="action" id="btn-registrar" value="agregar_articulo">Agregar Articulo</button>
@@ -262,7 +262,7 @@
             <label for="inputmonto">Producto</label>
             <select class="form-control" id="selvariante" name="selvariante">
                 <option value=""></option>
-                @forelse($stock = DB::table('tbl_articulostock')->get() as $stockItem)
+                @forelse($stock = DB::table('tbl_articulostock')->get() as $stockItem)  <!--orderBy('idlarticulos', 'ASC')-->
                     <option value="{{ $stockItem->idarticulos }}">{{ $stockItem->idlarticulos }} - {{ $stockItem->nombrearticulo }}</option>
                 @empty
                     <option value="">No hay Categoria</option>
@@ -276,7 +276,11 @@
             <select class="form-control" id="new_tipo" name="new_tipo">
                  <option value="UNIDADES">Unidad</option>
                  <option value="DOCENA">Docena</option>
+                 <option value="PAQUETE">Paquete</option>
                  <option value="LIBRA">Libra</option>
+                 <option value="CAJAS">Caja</option>
+                 <option value="RISTRAS">Ristra</option>
+                 <option value="CARTON">Carton</option>
             </select>
           </div>
   

@@ -90,6 +90,6 @@ class ControllerDetalleGanancia extends Controller
 
     public function general()
     {
-        return view('Detalle_compra_venta.Detalle_general');
+        return view('Detalle_compra_venta.detalle_general');
     }
 }
