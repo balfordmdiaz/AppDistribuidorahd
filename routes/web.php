@@ -11,7 +11,8 @@ use App\Http\Controllers\BillsController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\UserfactController;
 use App\Http\Controllers\UseradminController;
-use App\Http\Controllers\ControllerDetalleGanancia;
+use App\Http\Controllers\ControllerDetalleVenta;
+use App\Http\Controllers\ControllerDetalleCompra;
 
 /*
 |--------------------------------------------------------------------------
@@ -108,11 +109,17 @@ Route::middleware(['auth'])->group(function ()
     Route::resource('home/useradmin','App\Http\Controllers\UseradminController');
     Route::post('/home/useradmin', [UseradminController::class, 'store'])->name('useradmin.store');
 
-    //Detalle Compra y venta
-    Route::get('home/detalle/semanal', [ControllerDetalleGanancia::class, 'index'])->name('detalle.semana');
-    Route::get('home/detalle/semanaante', [ControllerDetalleGanancia::class, 'anterior'])->name('detalle.semanaante');
-    Route::get('home/detalle/semanaante_pasada', [ControllerDetalleGanancia::class, 'ante_pasada'])->name('detalle.semanaante_pasada');
-    Route::get('home/detalle/general', [ControllerDetalleGanancia::class, 'general'])->name('detalle.general');
+    //Detalle venta
+    Route::get('home/detalle/semanal', [ControllerDetalleVenta::class, 'index'])->name('detalle.semana');
+    Route::get('home/detalle/semanaante', [ControllerDetalleVenta::class, 'anterior'])->name('detalle.semanaante');
+    Route::get('home/detalle/semanaante_pasada', [ControllerDetalleVenta::class, 'ante_pasada'])->name('detalle.semanaante_pasada');
+    Route::get('home/detalle/general', [ControllerDetalleVenta::class, 'general'])->name('detalle.general');
+
+    //Detalle Compra
+    Route::get('home/detallec/semanal', [ControllerDetalleCompra::class, 'index'])->name('detallec.semana');
+    Route::get('home/detallec/semanaante', [ControllerDetalleCompra::class, 'anterior'])->name('detallec.semanaante');
+    Route::get('home/detallec/semanaante_pasada', [ControllerDetalleCompra::class, 'ante_pasada'])->name('detallec.semanaante_pasada');
+    Route::get('home/detallec/ordengeneral', [ControllerDetalleCompra::class, 'ordengeneral'])->name('detallec.ordengeneral');
 
 
 });

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use DateTime;
 use DateTimeZone;
 
-class ControllerDetalleGanancia extends Controller
+class ControllerDetalleCompra extends Controller
 {
     public function index()
     {
@@ -31,7 +31,7 @@ class ControllerDetalleGanancia extends Controller
         }
         
         //return Array("fechaInicio"=>$fechaInicio,"fechaFin"=>$fechaFin);
-        return view('Detalle_compra_venta.Detalle_semanal',compact('fechaInicio','fechaFin'));
+        return view('Detalle_compra.Detalle_semanal',compact('fechaInicio','fechaFin'));
     }
 
     public function anterior()
@@ -57,7 +57,7 @@ class ControllerDetalleGanancia extends Controller
        $fechaInicio_a=date("Y-m-d", strtotime("$fechaInicio   -7 day"));
        $fechaFin_a=date("Y-m-d", strtotime("$fechaInicio   -1 day"));
 
-       return view('Detalle_compra_venta.Detalle_semanaante',compact('fechaInicio_a','fechaFin_a'));
+       return view('Detalle_compra.Detalle_semanaante',compact('fechaInicio_a','fechaFin_a'));
 
     }
 
@@ -84,12 +84,13 @@ class ControllerDetalleGanancia extends Controller
        $fechaInicio_a=date("Y-m-d", strtotime("$fechaInicio   -14 day"));
        $fechaFin_a=date("Y-m-d", strtotime("$fechaInicio   -8 day"));
 
-       return view('Detalle_compra_venta.Detalle_semanaante_pasada',compact('fechaInicio_a','fechaFin_a'));
+       return view('Detalle_compra.Detalle_semanaante_pasada',compact('fechaInicio_a','fechaFin_a'));
 
     }
 
-    public function general()
+    public function ordengeneral()
     {
-        return view('Detalle_compra_venta.detalle_general');
+        return view('Detalle_compra.detalle_ordengeneral');
     }
+
 }

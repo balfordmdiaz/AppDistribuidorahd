@@ -87,12 +87,19 @@
                 <div class="form-group col-md-4 my-lg-3">
                     <label for="exampleFormControlInput1">Articulo:</label> 
                     <select  id="idarticulostock" name="idarticulos" class="form-control" >
-                      @foreach($articulostock->get() as $index => $article)
+                      <!--@foreach($articulostock->get() as $index => $article)
                            <option value="{{ $index }}" {{ old('idarticulos') == $index ? 'selected' : '' }}>
                               {{ $article }}
                            </option>
-                      @endforeach  
-                      
+                      @endforeach-->
+                      <option value=""></option>
+                        @forelse($stock = DB::table('tbl_articulostock')
+                                        ->orderBy('idlarticulos', 'ASC')
+                                        ->get() as $stockItem)
+                            <option value="{{ $stockItem->idarticulos }}">{{ $stockItem->idlarticulos }} - {{ $stockItem->nombrearticulo }}</option>
+                        @empty
+                            <option value="">No hay Articulo</option>
+                        @endforelse
         
                     </select> 
                     @if ($errors->has('idarticulos'))
@@ -262,10 +269,12 @@
             <label for="inputmonto">Producto</label>
             <select class="form-control" id="selvariante" name="selvariante">
                 <option value=""></option>
-                @forelse($stock = DB::table('tbl_articulostock')->get() as $stockItem)  <!--orderBy('idlarticulos', 'ASC')-->
+                @forelse($stock = DB::table('tbl_articulostock')
+                                        ->orderBy('idlarticulos', 'ASC')
+                                        ->get() as $stockItem)
                     <option value="{{ $stockItem->idarticulos }}">{{ $stockItem->idlarticulos }} - {{ $stockItem->nombrearticulo }}</option>
                 @empty
-                    <option value="">No hay Categoria</option>
+                    <option value="">No hay Articulo</option>
                 @endforelse
             </select>
             {!! $errors->first('selvariante','<small class="message_error">:message</small><br>') !!} 
