@@ -55,7 +55,7 @@
                                                    ->where('tbl_orden.fechaorden','<=',$fechaFin_a)
                                                    ->groupBy('tbl_ordendetalle.idordendetalle')
                                                    ->orderBy('tbl_articulostock.idlarticulos', 'ASC')
-                                                   ->distinct('tbl_ordendetalle.precio')
+                                                   ->orderBy('tbl_articulovariante.talla', 'ASC')
                                                    ->get()  as $detalleItem)
                         
                                  <tbody>

@@ -52,7 +52,7 @@
                                                    ->select('tbl_articulostock.idlarticulos','tbl_articulostock.nombrearticulo','tbl_articulovariante.tipov','tbl_articulovariante.talla','tbl_ordendetalle.cantidadorden','tbl_ordendetalle.precio', DB::raw('SUM(tbl_orden.total)'))
                                                    ->groupBy('tbl_ordendetalle.idordendetalle')
                                                    ->orderBy('tbl_articulostock.idlarticulos', 'ASC')
-                                                   ->distinct('tbl_ordendetalle.precio')
+                                                   ->orderBy('tbl_articulovariante.talla', 'ASC')
                                                    ->get()  as $detalleItem)
                         
                                  <tbody>

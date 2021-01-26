@@ -53,6 +53,7 @@
                                                    ->select('tbl_articulostock.idlarticulos','tbl_articulostock.nombrearticulo','tbl_articulovariante.tipov','tbl_articulovariante.talla','tbl_articulovariante.color','tbl_facturadetalle.cantidad','tbl_facturadetalle.precio','tbl_facturadetalle.monto')
                                                    ->where('tbl_factura.fechafactura','>=',$fechaInicio)
                                                    ->orderBy('tbl_articulostock.idlarticulos', 'ASC')
+                                                   ->orderBy('tbl_articulovariante.talla', 'ASC')
                                                    ->get()  as $detalleItem)
                         
                                  <tbody>
