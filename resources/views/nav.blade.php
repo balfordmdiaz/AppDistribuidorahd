@@ -73,7 +73,7 @@
                     </li>
                     <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Detalle
+                        Detalle Ventas
                       </a>
                       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="/home/detalle/semanal">Semanal Actual</a>
@@ -83,6 +83,21 @@
                         <a class="dropdown-item" href="/home/detalle/semanaante_pasada">Semana Antepasada</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="/home/detalle/general">General</a>
+                      </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Detalle Compras
+                      </a>
+                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/home/detallec/semanal">Semanal Actual</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/home/detallec/semanaante">Semana Pasada</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/home/detallec/semanaante_pasada">Semana Antepasada</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/home/detallec/ordengeneral">General</a>
                       </div>
                     </li>
 

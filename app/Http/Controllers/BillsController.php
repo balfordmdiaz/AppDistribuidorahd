@@ -47,7 +47,13 @@ class BillsController extends Controller
 
         if($request->ajax())
         {
-            $bill2 = DB::select('CALL spsel_facturadia()');
+            //$bill2 = DB::select('CALL spsel_facturadia()');
+            //$bill2 = Bills::select('idfactura','idlfactura','fechafactura','subtotal','iva','descuento', 'total', 'idcliente', 'idempleado')->where('fechafactura', 'like', $fecha);
+            $bill2 = DB::table('tbl_factura')
+                            ->join ('tbl_clientes', 'tbl_factura.idcliente', '=', 'tbl_clientes.idcliente')
+                            ->join ('tbl_empleado', 'tbl_factura.idempleado', '=', 'tbl_empleado.idempleado')
+                            ->select('tbl_factura.idfactura','tbl_factura.idlfactura','tbl_factura.fechafactura','tbl_factura.subtotal','tbl_factura.iva','tbl_factura.descuento', 'tbl_factura.total', 'tbl_clientes.nombre as idcliente', 'tbl_empleado.nombre as idempleado')
+                            ->where('tbl_factura.fechafactura', 'like', $fecha);
             return DataTables::of($bill2)
 
                     ->addColumn('action', function($bill2)
@@ -72,7 +78,12 @@ class BillsController extends Controller
 
         if($request->ajax())
         {
-            $bill3 = DB::select('CALL spsel_facturames()');
+            //$bill3 = DB::select('CALL spsel_facturames()');
+            $bill3 = DB::table('tbl_factura')
+                            ->join ('tbl_clientes', 'tbl_factura.idcliente', '=', 'tbl_clientes.idcliente')
+                            ->join ('tbl_empleado', 'tbl_factura.idempleado', '=', 'tbl_empleado.idempleado')
+                            ->select('tbl_factura.idfactura','tbl_factura.idlfactura','tbl_factura.fechafactura','tbl_factura.subtotal','tbl_factura.iva','tbl_factura.descuento', 'tbl_factura.total', 'tbl_clientes.nombre as idcliente', 'tbl_empleado.nombre as idempleado')
+                            ->whereRaw('MONTH(tbl_factura.fechafactura) = ?', $aux);
             return DataTables::of($bill3)
 
                     ->addColumn('action', function($bill3)

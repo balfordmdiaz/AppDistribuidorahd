@@ -21,116 +21,125 @@
 <body>
    @include('nav')
 
-    <div id="datos_empresa">
-      <br>
-      <h4>Distribuidora Hermanos Diaz</h4>
-      <br>
-   </div>
+   <div class="container">
 
-    <div id="datos_factura" >
-      <h4>Factura</h4>
-      <br>
-      <label>Nro. Factura:</label>  {{$factura->idlfactura}}
-      <br>
-     <label>Fecha:</label>  {{$factura->fechafactura}}
-   </div>
-   
-    <div id="datos_cliente">
-      <h3 style="text-decoration: underline">Facturar a:</h3>
-      <br>
-      <p><label> Cliente:</label> 
-         {{ $nombreclient = DB::table('tbl_clientes')->where('idcliente', $factura->idcliente)->value('nombre')  }} 
-         {{ $apellidoclient = DB::table('tbl_clientes')->where('idcliente', $factura->idcliente)->value('apellido') }}</p>
-      <p><label>Direccion:</label> 
-         {{ $direccionclient = DB::table('tbl_clientes')->where('idcliente', $factura->idcliente)->value('direccion') }}</p>
-      <p><label>Telefono:</label>
-         {{ $telefonoclient = DB::table('tbl_clientes')->where('idcliente', $factura->idcliente)->value('telefono') }}</p>
-      <p><label>Departemanto:</label> 
-         {{ $departamentoclient = DB::table('tbl_clientes')->where('idcliente', $factura->idcliente)->value('departamento') }}</p>
-   </div>
+         <div id="datos_empresa" style="text-align: center">
+            <br>
+            <h4>Distribuidora Hermanos Diaz</h4>
+            <br>
+         </div>
 
-   <div id="datos_empleado" >
-      <h3 style="text-decoration: underline">Facturado por:</h3>
-      <br>
-      <p><label>Codigo Emp:</label> 
-         {{ $Direccionemp = DB::table('tbl_empleado')->where('idempleado', $factura->idempleado)->value('idlempleado')  }} 
-      </p>
+         <div id="datos_factura" style="text-align: center">
+            <h4>Factura</h4>
+            <br>
+            <label>Nro. Factura:</label>  {{$factura->idlfactura}}
+            <br>
+         <label>Fecha:</label>  {{$factura->fechafactura}}
+         </div>
+         
+         <div id="datos_cliente" style="text-align: center">
+            <h3 style="text-decoration: underline">Facturar a:</h3>
+            <br>
+            <p><label> Cliente:</label> 
+               {{ $nombreclient = DB::table('tbl_clientes')->where('idcliente', $factura->idcliente)->value('nombre')  }} 
+               {{ $apellidoclient = DB::table('tbl_clientes')->where('idcliente', $factura->idcliente)->value('apellido') }}</p>
+            <p><label>Direccion:</label> 
+               {{ $direccionclient = DB::table('tbl_clientes')->where('idcliente', $factura->idcliente)->value('direccion') }}</p>
+            <p><label>Telefono:</label>
+               {{ $telefonoclient = DB::table('tbl_clientes')->where('idcliente', $factura->idcliente)->value('telefono') }}</p>
+            <p><label>Departemanto:</label> 
+               {{ $departamentoclient = DB::table('tbl_clientes')->where('idcliente', $factura->idcliente)->value('departamento') }}</p>
+         </div>
 
-      <p><label> Empleado:</label> 
-         {{ $nombreemp = DB::table('tbl_empleado')->where('idempleado', $factura->idempleado)->value('nombre')  }} 
-         {{ $apellidoemp = DB::table('tbl_empleado')->where('idempleado', $factura->idempleado)->value('apellido') }}
-      </p>
+         <div id="datos_empleado" style="text-align: center">
+            <h3 style="text-decoration: underline">Facturado por:</h3>
+            <br>
+            <p><label>Codigo Emp:</label> 
+               {{ $Direccionemp = DB::table('tbl_empleado')->where('idempleado', $factura->idempleado)->value('idlempleado')  }} 
+            </p>
 
-      <p><label>Direccion:</label> 
-         {{ $Direccionemp = DB::table('tbl_empleado')->where('idempleado', $factura->idempleado)->value('direccion')  }} 
-      </p>
+            <p><label> Empleado:</label> 
+               {{ $nombreemp = DB::table('tbl_empleado')->where('idempleado', $factura->idempleado)->value('nombre')  }} 
+               {{ $apellidoemp = DB::table('tbl_empleado')->where('idempleado', $factura->idempleado)->value('apellido') }}
+            </p>
 
-      <p><label>Telefono:</label> 
-         {{ $telefonoemp = DB::table('tbl_empleado')->where('idempleado', $factura->idempleado)->value('telefono')  }} 
-      </p>
+            <p><label>Direccion:</label> 
+               {{ $Direccionemp = DB::table('tbl_empleado')->where('idempleado', $factura->idempleado)->value('direccion')  }} 
+            </p>
 
-   </div>
+            <p><label>Telefono:</label> 
+               {{ $telefonoemp = DB::table('tbl_empleado')->where('idempleado', $factura->idempleado)->value('telefono')  }} 
+            </p>
 
-    <table id="tabladetallefactura" class="table table-bordered table-hover">
-      <thead>
-           <tr>
-              <th scope="col">Art</th>
-              <th scope="col">Talla</th>
-              <th scope="col">color</th>
-              <th scope="col">Cant</th>
-              <th scope="col">Monto</th>
-           </tr>
-      </thead>
-  
-     @forelse($detalle = DB::table('tbl_facturadetalle')
-                            ->join('tbl_articulovariante', 'tbl_facturadetalle.idarticulov', '=', 'tbl_articulovariante.idarticulov')
-                            ->join('tbl_articulostock', 'tbl_articulovariante.idarticulos', '=', 'tbl_articulostock.idarticulos')
-                            ->join('tbl_factura', 'tbl_facturadetalle.idfactura', '=', 'tbl_factura.idfactura')
-                            ->select('tbl_articulostock.nombrearticulo', 'tbl_articulovariante.talla','tbl_articulovariante.color', 'tbl_facturadetalle.cantidad','tbl_facturadetalle.monto')
-                            ->where('tbl_facturadetalle.idfactura', $factura->idfactura)
-                            ->get()  as $detalleItem)
-      
-       <tbody>
-        <tr>        
-           <td>{{ $detalleItem->nombrearticulo }}</td>          
-           <td>{{ $detalleItem->talla }}</td>
-           <td>{{ $detalleItem->color }}</td>
-           <td>{{ $detalleItem->cantidad }}</td>
-           <td>{{ $detalleItem->monto }}</td>
-        </tr>
-           
-     @empty
+         </div>
 
-     
-      <tr>
-        <td colspan="5"><p style="text-align: center">No hay articulos para mostrar</p> </td>
-      </tr>  
-     
-      </tbody>
+         <div class="table-responsive">
+            <table id="tabladetallefactura" class="table table-bordered table-hover">
+               <thead>
+                  <tr>
+                     <th scope="col">Art</th>
+                     <th scope="col">Tipo</th>
+                     <th scope="col">Talla</th>
+                     <th scope="col">Color</th>
+                     <th scope="col">Precio</th>
+                     <th scope="col">Cant</th>
+                     <th scope="col">Monto</th>
+                  </tr>
+               </thead>
+         
+            @forelse($detalle = DB::table('tbl_facturadetalle')
+                                    ->join('tbl_articulovariante', 'tbl_facturadetalle.idarticulov', '=', 'tbl_articulovariante.idarticulov')
+                                    ->join('tbl_articulostock', 'tbl_articulovariante.idarticulos', '=', 'tbl_articulostock.idarticulos')
+                                    ->join('tbl_factura', 'tbl_facturadetalle.idfactura', '=', 'tbl_factura.idfactura')
+                                    ->select('tbl_articulostock.nombrearticulo', 'tbl_articulovariante.tipov', 'tbl_articulovariante.talla','tbl_articulovariante.color', 'tbl_facturadetalle.precio', 'tbl_facturadetalle.cantidad','tbl_facturadetalle.monto')
+                                    ->where('tbl_facturadetalle.idfactura', $factura->idfactura)
+                                    ->get()  as $detalleItem)
+               
+               <tbody>
+               <tr>        
+                  <td>{{ $detalleItem->nombrearticulo }}</td>
+                  <td>{{ $detalleItem->tipov }}</td>          
+                  <td>{{ $detalleItem->talla }}</td>
+                  <td>{{ $detalleItem->color }}</td>
+                  <td>{{ $detalleItem->precio }} C$</td>
+                  <td>{{ $detalleItem->cantidad }}</td>
+                  <td>{{ $detalleItem->monto }} C$</td>
+               </tr>
+                  
+            @empty
 
-     @endforelse
+            
+               <tr>
+               <td colspan="5"><p style="text-align: center">No hay articulos para mostrar</p> </td>
+               </tr>  
+            
+               </tbody>
 
-     <tr>
-       <th>Subtotal</th>
-       <td colspan="4">{{ $factura->subtotal }} C$</td>
-     </tr>
+            @endforelse
 
-     <tr>    
-       <th>Iva</th>
-       <td colspan="4">{{ $factura->iva }} C$</td>
-     </tr>
+            <tr>
+               <th>Subtotal</th>
+               <td colspan="6">{{ $factura->subtotal }} C$</td>
+            </tr>
 
-    <tr>   
-       <th>Descuento</th>
-       <td colspan="4">{{ $factura->descuento }} C$</td>
-    </tr>
+            <tr>    
+               <th>Iva</th>
+               <td colspan="6">{{ $factura->iva }} C$</td>
+            </tr>
 
-    <tr>
-       <th>Total</th>
-       <td colspan="4">{{ $factura->total }} C$</td>
-    </tr>
+            <tr>   
+               <th>Descuento</th>
+               <td colspan="6">{{ $factura->descuento }} C$</td>
+            </tr>
 
-  </table>
+            <tr>
+               <th>Total</th>
+               <td colspan="6">{{ $factura->total }} C$</td>
+            </tr>
+
+         </table>
+      </div>
+   </div><!--Fin Container-->
     
 
 </body>
