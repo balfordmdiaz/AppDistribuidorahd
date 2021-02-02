@@ -84,6 +84,7 @@
                      <th scope="col">Precio</th>
                      <th scope="col">Cant</th>
                      <th scope="col">Monto</th>
+                     <th scope="col">Comentario</th>
                   </tr>
                </thead>
          
@@ -91,7 +92,7 @@
                                     ->join('tbl_articulovariante', 'tbl_facturadetalle.idarticulov', '=', 'tbl_articulovariante.idarticulov')
                                     ->join('tbl_articulostock', 'tbl_articulovariante.idarticulos', '=', 'tbl_articulostock.idarticulos')
                                     ->join('tbl_factura', 'tbl_facturadetalle.idfactura', '=', 'tbl_factura.idfactura')
-                                    ->select('tbl_articulostock.nombrearticulo', 'tbl_articulovariante.tipov', 'tbl_articulovariante.talla','tbl_articulovariante.color', 'tbl_facturadetalle.precio', 'tbl_facturadetalle.cantidad','tbl_facturadetalle.monto')
+                                    ->select('tbl_articulostock.nombrearticulo', 'tbl_articulovariante.tipov', 'tbl_articulovariante.talla','tbl_articulovariante.color', 'tbl_facturadetalle.precio', 'tbl_facturadetalle.cantidad','tbl_facturadetalle.monto', 'tbl_facturadetalle.comentario')
                                     ->where('tbl_facturadetalle.idfactura', $factura->idfactura)
                                     ->get()  as $detalleItem)
                
@@ -104,13 +105,14 @@
                   <td>{{ $detalleItem->precio }} C$</td>
                   <td>{{ $detalleItem->cantidad }}</td>
                   <td>{{ $detalleItem->monto }} C$</td>
+                  <td>{{ $detalleItem->comentario }}</td>
                </tr>
                   
             @empty
 
             
                <tr>
-               <td colspan="5"><p style="text-align: center">No hay articulos para mostrar</p> </td>
+               <td colspan="7"><p style="text-align: center">No hay articulos para mostrar</p> </td>
                </tr>  
             
                </tbody>
@@ -119,22 +121,22 @@
 
             <tr>
                <th>Subtotal</th>
-               <td colspan="6">{{ $factura->subtotal }} C$</td>
+               <td colspan="7">{{ $factura->subtotal }} C$</td>
             </tr>
 
             <tr>    
                <th>Iva</th>
-               <td colspan="6">{{ $factura->iva }} C$</td>
+               <td colspan="7">{{ $factura->iva }} C$</td>
             </tr>
 
             <tr>   
                <th>Descuento</th>
-               <td colspan="6">{{ $factura->descuento }} C$</td>
+               <td colspan="7">{{ $factura->descuento }} C$</td>
             </tr>
 
             <tr>
                <th>Total</th>
-               <td colspan="6">{{ $factura->total }} C$</td>
+               <td colspan="7">{{ $factura->total }} C$</td>
             </tr>
 
          </table>
