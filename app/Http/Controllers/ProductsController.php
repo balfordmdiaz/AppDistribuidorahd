@@ -83,10 +83,11 @@ class ProductsController extends Controller
     public function update(Request $request)
     {
         //
-        $product = DB::select('call spupdate_articulo(?,?,?,?,?,?)',
+        $product = DB::select('call spupdate_articulo(?,?,?,?,?,?,?)',
                         [$request->idarticulov,
                         $request->idlarticulos,
                         $request->nombrearticulo,
+                        $request->tipov,
                         $request->talla,
                         $request->color,
                         $request->cantidad]);

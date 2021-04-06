@@ -50,13 +50,24 @@
                                                     ->join('tbl_articulovariante', 'tbl_facturadetalle.idarticulov', '=', 'tbl_articulovariante.idarticulov')
                                                     ->join('tbl_articulostock', 'tbl_articulovariante.idarticulos', '=', 'tbl_articulostock.idarticulos')
                                                     ->join('tbl_factura', 'tbl_facturadetalle.idfactura', '=', 'tbl_factura.idfactura')
-                                                    ->select('tbl_articulostock.idlarticulos','tbl_articulostock.nombrearticulo','tbl_articulovariante.tipov','tbl_articulovariante.talla','tbl_facturadetalle.cantidad','tbl_facturadetalle.precio','tbl_facturadetalle.monto')
+                                                    ->select('tbl_articulostock.idlarticulos','tbl_articulostock.nombrearticulo','tbl_articulovariante.tipov','tbl_articulovariante.talla',(DB::raw('SUM(tbl_facturadetalle.cantidad) as cantidad')),'tbl_facturadetalle.precio','tbl_facturadetalle.monto')
                                                     ->where('tbl_factura.fechafactura','>=',$fechaInicio_a)
                                                     ->where('tbl_factura.fechafactura','<=',$fechaFin_a)
                                                     ->groupBy('tbl_facturadetalle.idfacturadetalle')
                                                     ->orderBy('tbl_articulostock.idlarticulos', 'ASC')
                                                     ->orderBy('tbl_articulovariante.talla', 'ASC')
                                                     ->get()  as $detalleItem)
+
+                                                  <!--  ->join('tbl_articulovariante', 'tbl_facturadetalle.idarticulov', '=', 'tbl_articulovariante.idarticulov')
+                                                    ->join('tbl_articulostock', 'tbl_articulovariante.idarticulos', '=', 'tbl_articulostock.idarticulos')
+                                                    ->join('tbl_factura', 'tbl_facturadetalle.idfactura', '=', 'tbl_factura.idfactura')
+                                                    ->select('tbl_articulostock.idlarticulos','tbl_articulostock.nombrearticulo','tbl_articulovariante.tipov','tbl_articulovariante.talla','tbl_facturadetalle.cantidad','tbl_facturadetalle.precio','tbl_facturadetalle.monto')
+                                                    ->where('tbl_factura.fechafactura','>=',$fechaInicio_a)
+                                                    ->where('tbl_factura.fechafactura','<=',$fechaFin_a)
+                                                    ->groupBy('tbl_facturadetalle.idfacturadetalle')
+                                                    ->orderBy('tbl_articulostock.idlarticulos', 'ASC')
+                                                    ->orderBy('tbl_articulovariante.talla', 'ASC')
+                                                    ->get()  as $detalleItem)-->
                         
                                  <tbody>
                                    <tr>        
