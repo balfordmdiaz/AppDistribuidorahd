@@ -35,7 +35,11 @@ class ProductsController extends Controller
         //
         if($request->ajax())
         {
-            $products = DB::select('CALL spsel_articuloexist()');
+            //$products = DB::select('CALL spsel_articuloexist()');
+            $products = DB::table('tbl_articulostock')
+                        ->join ('tbl_articulovariante', 'tbl_articulovariante.idarticulos', '=', 'tbl_articulostock.idarticulos')
+                        ->select('tbl_articulostock.idlarticulos', 'tbl_articulostock.nombrearticulo', 'tbl_articulovariante.talla', 'tbl_articulovariante.tipov', 'tbl_articulovariante.cantidad')
+                        ->where('tbl_articulovariante.cantidad', '>', '0');
             return DataTables::of($products)
                     ->make(true);
         }

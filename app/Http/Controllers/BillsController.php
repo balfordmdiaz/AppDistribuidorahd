@@ -21,7 +21,11 @@ class BillsController extends Controller
         if($request->ajax())
         {
             $aux="'bills.show'";
-            $bill = DB::select('CALL spsel_factura()');
+            //$bill = DB::select('CALL spsel_factura()');
+            $bill = DB::table('tbl_factura')
+                            ->join ('tbl_clientes', 'tbl_factura.idcliente', '=', 'tbl_clientes.idcliente')
+                            ->join ('tbl_empleado', 'tbl_factura.idempleado', '=', 'tbl_empleado.idempleado')
+                            ->select('tbl_factura.idfactura','tbl_factura.idlfactura','tbl_factura.fechafactura','tbl_factura.subtotal','tbl_factura.iva','tbl_factura.descuento', 'tbl_factura.total', 'tbl_clientes.nombrecompleto as idcliente', 'tbl_empleado.nombre as idempleado');
             return DataTables::of($bill)
 
                     ->addColumn('action', function($bill)
@@ -52,7 +56,7 @@ class BillsController extends Controller
             $bill2 = DB::table('tbl_factura')
                             ->join ('tbl_clientes', 'tbl_factura.idcliente', '=', 'tbl_clientes.idcliente')
                             ->join ('tbl_empleado', 'tbl_factura.idempleado', '=', 'tbl_empleado.idempleado')
-                            ->select('tbl_factura.idfactura','tbl_factura.idlfactura','tbl_factura.fechafactura','tbl_factura.subtotal','tbl_factura.iva','tbl_factura.descuento', 'tbl_factura.total', 'tbl_clientes.nombre as idcliente', 'tbl_empleado.nombre as idempleado')
+                            ->select('tbl_factura.idfactura','tbl_factura.idlfactura','tbl_factura.fechafactura','tbl_factura.subtotal','tbl_factura.iva','tbl_factura.descuento', 'tbl_factura.total', 'tbl_clientes.nombrecompleto as idcliente', 'tbl_empleado.nombre as idempleado')
                             ->where('tbl_factura.fechafactura', 'like', $fecha);
             return DataTables::of($bill2)
 
@@ -82,7 +86,7 @@ class BillsController extends Controller
             $bill3 = DB::table('tbl_factura')
                             ->join ('tbl_clientes', 'tbl_factura.idcliente', '=', 'tbl_clientes.idcliente')
                             ->join ('tbl_empleado', 'tbl_factura.idempleado', '=', 'tbl_empleado.idempleado')
-                            ->select('tbl_factura.idfactura','tbl_factura.idlfactura','tbl_factura.fechafactura','tbl_factura.subtotal','tbl_factura.iva','tbl_factura.descuento', 'tbl_factura.total', 'tbl_clientes.nombre as idcliente', 'tbl_empleado.nombre as idempleado')
+                            ->select('tbl_factura.idfactura','tbl_factura.idlfactura','tbl_factura.fechafactura','tbl_factura.subtotal','tbl_factura.iva','tbl_factura.descuento', 'tbl_factura.total', 'tbl_clientes.nombrecompleto as idcliente', 'tbl_empleado.nombre as idempleado')
                             ->whereRaw('MONTH(tbl_factura.fechafactura) = ?', $aux);
             return DataTables::of($bill3)
 

@@ -22,7 +22,7 @@ class ClientsController extends Controller
         //
         if($request->ajax())
         {
-            $client = DB::select('CALL spsel_cliente()');
+            $client = DB::table('tbl_clientes')->get();
             return DataTables::of($client)
                     ->addColumn('action', function($client)
                     {
@@ -48,8 +48,8 @@ class ClientsController extends Controller
     {
         Clients::create([
             'idlcliente' => $data['txtcodecli'],
-            'nombre' => $data['txtname'],
-            'apellido' => $data['txtlastname'],
+            'nombrecompleto' => $data['txtname'],
+            //'apellido' => $data['txtlastname'],
             'cedula' => $data['txtidentif'],
             'telefono' => $data['txttelefono'],
             'departamento' => $data['txtdepart'],
@@ -78,11 +78,11 @@ class ClientsController extends Controller
     public function update(Request $request)
     {
         //
-        $client = DB::select('call spupdate_cliente(?,?,?,?,?,?,?,?,?)',
+        $client = DB::select('call spupdate_cliente(?,?,?,?,?,?,?,?)',
                         [$request->idcliente,
                         $request->idlcliente,
-                        $request->nombre,
-                        $request->apellido,
+                        $request->nombrecompleto,
+                        //$request->apellido,
                         $request->cedula,
                         $request->telefono,
                         $request->departamento,

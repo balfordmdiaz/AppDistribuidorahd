@@ -41,8 +41,7 @@
             <h3 style="text-decoration: underline">Facturar a:</h3>
             <br>
             <p><label> Cliente:</label> 
-               {{ $nombreclient = DB::table('tbl_clientes')->where('idcliente', $factura->idcliente)->value('nombre')  }} 
-               {{ $apellidoclient = DB::table('tbl_clientes')->where('idcliente', $factura->idcliente)->value('apellido') }}</p>
+               {{ $nombreclient = DB::table('tbl_clientes')->where('idcliente', $factura->idcliente)->value('nombrecompleto')  }}</p>
             <p><label>Direccion:</label> 
                {{ $direccionclient = DB::table('tbl_clientes')->where('idcliente', $factura->idcliente)->value('direccion') }}</p>
             <p><label>Telefono:</label>
