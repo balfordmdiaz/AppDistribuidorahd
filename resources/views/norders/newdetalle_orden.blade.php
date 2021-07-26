@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.22/r-2.2.6/datatables.min.css"/>
     <link href="{{ asset('../css/style.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('js/jquery-ui/jquery-ui.min.css')}}">
 
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.22/r-2.2.6/datatables.min.js"></script>
@@ -85,14 +86,15 @@
                 </div>
 
                 <div class="form-group col-md-4 my-lg-3">
-                    <label for="exampleFormControlInput1">Articulo:</label> 
-                    <select  id="idarticulostock" name="idarticulos" class="form-control" >
+                    <label for="exampleFormControlInput1">Articulo:</label>
+                    <input id="idarticulostock" name="idarticulos" type="text" class="form-control" value="">
+                    <!--<select  id="idarticulostock" name="idarticulos" class="form-control" >-->
                       <!--@foreach($articulostock->get() as $index => $article)
                            <option value="{{ $index }}" {{ old('idarticulos') == $index ? 'selected' : '' }}>
                               {{ $article }}
                            </option>
                       @endforeach-->
-                      <option value=""></option>
+                      <!--<option value=""></option>
                         @forelse($stock = DB::table('tbl_articulostock')
                                         ->orderBy('idlarticulos', 'ASC')
                                         ->get() as $stockItem)
@@ -106,7 +108,7 @@
                        <span class="invalid-feedback" role="alert">
                            <strong>{{ $errors->first('idarticulos') }}</strong>
                        </span>
-                    @endif   
+                    @endif   -->
                 </div>
 
                 <div class="form-group col-md-4 my-lg-3">
@@ -383,6 +385,29 @@
 
     @section('script')
 
+    <script src="{{asset('js/jquery/jquery-3.5.1.min.js')}}"></script>
+    <script src="{{asset('js/jquery-ui/jquery-ui.min.js')}}"></script>
+
+    <script>// manda a llamar o autocompletar datos buscados
+
+        $('#idarticulostock').autocomplete({
+            source: function(request, response){
+                $.ajax({
+                    url: "{{route('search.articulo',$orden->idorden,'articulo')}}",
+                    dataType: 'json',
+                    data: {
+                        term: request.term
+                    },
+                    success: function(data){
+                        response(data)
+                    }
+                });
+            }
+          
+        });
+
+</script>
+
     <script> //Validacion de evitar carga de datos de Nuevo Producto
 
         $('#products-new-form').submit(function(e)
@@ -429,7 +454,7 @@
                 if($.trim(idarticulos) != '')
                 {
                     
-                  $.get('variante',{idarticulos: idarticulos}, function(variantes){
+                  $.get('variante',{idlarticulos: idarticulos}, function(variantes){
                            
                           var old=$('#idarticulov').data('old') != '' ? $('#idarticulov').data('old') : '';
                           $('#idarticulov').empty();
@@ -479,7 +504,7 @@
             var talla=$('#idarticulov option:selected').text();
             if($.trim(idarticulos) != '')
             {
-              $.get('colores',{idarticulos: idarticulos,talla: talla}, function(variantes){   
+              $.get('colores',{idlarticulos: idarticulos,talla: talla}, function(variantes){   
                  var old=$('#color').data('old') != '' ? $('#color').data('old') : '';
                  $('#color').empty();
                  $('#color').append("<option value=''>Selecciona color</option>");

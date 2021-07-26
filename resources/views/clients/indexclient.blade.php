@@ -68,15 +68,15 @@
 
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlInput1">Nombre</label>
-                    <input type="text" class="form-control" id="txtname" name="txtname" maxlength="20" required>
+                    <label for="exampleFormControlInput1">Nombre Completo</label>
+                    <input type="text" class="form-control" id="txtname" name="txtname" maxlength="50" required>
 
                 </div>
-                <div class="form-group">
+                <!--<div class="form-group">
                     <label for="exampleFormControlInput1">Apellido</label>
                     <input type="text" class="form-control" id="txtlastname" name="txtlastname" maxlength="20" required>
 
-                </div>
+                </div>-->
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Cedula</label>
                     <input type="text" class="form-control" id="txtidentif" name="txtidentif" maxlength="16" placeholder="ex: 000-000000-0000A">
@@ -135,13 +135,13 @@
                 <input type="text" class="form-control" id="txtcodecli2" name="txtcodecli2" readonly="readonly">
             </div>
             <div class="form-group">
-                <label for="exampleFormControlInput1">Nombre</label>
-                <input type="text" class="form-control" id="txtname2" name="txtname2" maxlength="20">
+                <label for="exampleFormControlInput1">Nombre Completo</label>
+                <input type="text" class="form-control" id="txtname2" name="txtname2" maxlength="50">
             </div>
-            <div class="form-group">
+            <!--<div class="form-group">
                 <label for="exampleFormControlInput1">Apellido</label>
                 <input type="text" class="form-control" id="txtlastname2" name="txtlastname2" maxlength="20">
-            </div>
+            </div>-->
             <div class="form-group">
                 <label for="exampleFormControlInput1">Cedula</label>
                 <input type="text" class="form-control" id="txtidentif2" name="txtidentif2" maxlength="16" placeholder="ex: 000-000000-0000A">
@@ -216,7 +216,7 @@
                     columns:
                     [
                         {data: 'idlcliente'},
-                        {data: 'cliente'},
+                        {data: 'nombrecompleto'},
                         {data: 'cedula'},
                         {data: 'telefono'},
                         {data: 'departamento'},
@@ -304,8 +304,8 @@
                 //asignar los datos recuperados en la ventana modal
                 $('#txtId2').val(client[0].idcliente);
                 $('#txtcodecli2').val(client[0].idlcliente);
-                $('#txtname2').val(client[0].nombre);
-                $('#txtlastname2').val(client[0].apellido);
+                $('#txtname2').val(client[0].nombrecompleto);
+                //$('#txtlastname2').val(client[0].apellido);
                 $('#txtidentif2').val(client[0].cedula);
                 $('#txttelefono2').val(client[0].telefono);
                 $('#txtdepart2').val(client[0].departamento);
@@ -327,7 +327,7 @@
             var idcliente2 = $('#txtId2').val(); //Agregado
             var idlcliente2 = $('#txtcodecli2').val();
             var nombre2 = $('#txtname2').val();
-            var apellido2 = $('#txtlastname2').val();
+            //var apellido2 = $('#txtlastname2').val();
             var cedula2 = $('#txtidentif2').val();
             var telefono2 = $('#txttelefono2').val();
             var departamento2 = $('#txtdepart2').val();
@@ -341,8 +341,8 @@
                 data:{
                     idcliente: idcliente2,
                     idlcliente: idlcliente2,
-                    nombre: nombre2,
-                    apellido: apellido2,
+                    nombrecompleto: nombre2,
+                    //apellido: apellido2,
                     cedula: cedula2,
                     telefono: telefono2,
                     departamento: departamento2,

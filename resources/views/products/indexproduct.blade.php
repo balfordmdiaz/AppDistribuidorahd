@@ -82,6 +82,10 @@
                 <input class="form-control" id="txtname" name="txtname">
             </div>
             <div class="form-group">
+                <label for="exampleFormControlSelect1">Tipo</label>
+                <input class="form-control" id="txttipo" name="txttipo">
+            </div>
+            <div class="form-group">
                 <label for="exampleFormControlInput1">Talla</label>
                 <input type="text" class="form-control" id="txtsize" name="txtsize">
             </div>
@@ -91,7 +95,7 @@
             </div>
             <div class="form-group">
                 <label for="exampleFormControlInput1">Cantidad</label>
-                <input type="text" class="form-control" id="txtcant" name="txtcant" readonly="readonly">
+                <input type="number" step="any" class="form-control" id="txtcant" name="txtcant">
             </div>
             <!--<div class="form-group">
                 <label for="exampleFormControlInput1">Categoria</label>
@@ -210,6 +214,7 @@
                 $('#txtId').val(product[0].idarticulov);
                 $('#txtcode').val(product[0].idlarticulos);
                 $('#txtname').val(product[0].nombrearticulo);
+                $('#txttipo').val(product[0].tipov);
                 $('#txtsize').val(product[0].talla);
                 $('#txtcol').val(product[0].color);
                 $('#txtcant').val(product[0].cantidad);
@@ -230,6 +235,7 @@
             var id = $('#txtId').val();
             var codigo = $('#txtcode').val();
             var nombre = $('#txtname').val();
+            var tipo = $('#txttipo').val();
             var size = $('#txtsize').val();
             var color = $('#txtcol').val();
             var cantidad = $('#txtcant').val();
@@ -242,6 +248,7 @@
                     idarticulov: id,
                     idlarticulos: codigo,
                     nombrearticulo: nombre,
+                    tipov: tipo,
                     talla: size,
                     color: color,
                     cantidad: cantidad,
