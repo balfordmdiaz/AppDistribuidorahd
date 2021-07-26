@@ -13,6 +13,7 @@ use App\Http\Controllers\UserfactController;
 use App\Http\Controllers\UseradminController;
 use App\Http\Controllers\ControllerDetalleVenta;
 use App\Http\Controllers\ControllerDetalleCompra;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -94,6 +95,7 @@ Route::middleware(['auth'])->group(function ()
 
     Route::post('/home/orders', [OrdersController::class, 'store_newprod'])->name('norders.store_newprod');
     Route::get('/home/norders/{id}/index',[OrdersController::class, 'detalle'])->name('norders.detalle_orden');
+    Route::get('/home/norders/{id}/articulo', [SearchController::class, 'articulo'])->name('search.articulo');
     Route::get('/home/norders/{id}/variante',[OrdersController::class, 'gettalla']);
     Route::get('/home/norders/{id}/colores',[OrdersController::class, 'getcolor']);
     Route::get('/home/norders/{id}/precio',[OrdersController::class, 'getprecio']);

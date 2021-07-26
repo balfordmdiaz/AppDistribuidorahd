@@ -103,7 +103,14 @@ class OrdersController extends Controller
     public function gettalla(Request $request)
     {
            if($request->ajax()){
-              $idarticulov=Products::select('talla')->distinct()->where('idarticulos',$request->idarticulos)->get();
+              //$idarticulov=Products::select('talla')->distinct()->where('idarticulos',$request->idarticulos)->get();
+              $idarticulov= DB::table('tbl_articulovariante')
+                            ->join('tbl_articulostock', 'tbl_articulovariante.idarticulos', '=', 'tbl_articulostock.idarticulos') //buscar talla mediante el idlarticulos
+                            //->select('tbl_articulovariante.talla', DB::raw("CONCAT(tbl_articulostock.idlarticulos,' - ',tbl_articulostock.nombrearticulo) as Articulo"))
+                            ->select('tbl_articulovariante.talla')
+                            ->distinct()
+                            ->where('tbl_articulostock.idlarticulos',$request->idlarticulos)
+                            ->get();
               $count=1;
               foreach($idarticulov as $articulo){
                   $articuloarray[$count] = $articulo->talla;
@@ -116,7 +123,12 @@ class OrdersController extends Controller
     public function getcolor(Request $request)
     {
         if($request->ajax()){
-            $idarticulov=Products::where('idarticulos','=',$request->idarticulos)->where('talla','LIKE',$request->talla)->get();      
+            //$idarticulov=Products::where('idarticulos','=',$request->idarticulos)->where('talla','LIKE',$request->talla)->get();
+            $idarticulov= DB::table('tbl_articulovariante')
+                            ->join('tbl_articulostock', 'tbl_articulovariante.idarticulos', '=', 'tbl_articulostock.idarticulos')
+                            ->where('tbl_articulostock.idlarticulos',$request->idlarticulos)
+                            ->where('tbl_articulovariante.talla',$request->talla)
+                            ->get();      
             foreach($idarticulov as $articulo){
                 
                 $articuloarray[$articulo->idarticulov] = $articulo->color;
