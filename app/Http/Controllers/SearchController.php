@@ -18,6 +18,7 @@ class SearchController extends Controller
                             ->select('tbl_articulostock.idarticulos', DB::raw("CONCAT(tbl_articulostock.idlarticulos,' - ',tbl_articulostock.nombrearticulo) as Articulo")) //busqueda mediante id y nombre
                             ->where('tbl_articulostock.idlarticulos', 'LIKE', '%' . $term . '%')
                             ->orWhere('tbl_articulostock.nombrearticulo', 'LIKE', '%' . $term . '%')
+                            ->orderBy('tbl_articulostock.idlarticulos', 'ASC')
                             ->get();
            // $querys = ArticuloStock::where('tbl_articulostock.nombrearticulo', 'LIKE', '%' . $term . '%')->get();         
     
