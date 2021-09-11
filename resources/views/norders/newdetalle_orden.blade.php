@@ -177,20 +177,21 @@
               </div>
               
               <div class="form-row">
-                  <div class="form-group col-md-4 my-lg-3 text-center">
+                  <!--<div class="form-group col-md-4 my-lg-3 text-center">
                     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#product_new_modal">Nuevo Producto</button>    
                   </div>
                   <div class="form-group col-md-4 my-lg-3 text-center">
                     <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#variante_new_modal">Nueva Variante de Producto</button><br>
-                  </div>
+                  </div>-->
                   <div class="form-group col-md-4 my-lg-3 text-center">
                     <button type="submit" id="btnagregarart" class="btn btn-dark" name="action" id="btn-registrar" value="agregar_articulo">Agregar Articulo</button>
                   </div>
+                  <div class="form-group col-md-4 my-lg-3 text-center">
+                    <button type="submit" id="btnfinalizar" class="btn btn-success" name="action" id="btn-registrar" value="finalizar">Finalizar Orden</button>
+                  </div>
                 </div>
 
-                <div class="form-group text-center">
-                  <button type="submit" id="btnfinalizar" class="btn btn-success" name="action" id="btn-registrar" value="finalizar">Finalizar Orden</button>
-                </div>
+                
 
             </form>
     </div>
@@ -199,7 +200,7 @@
 <!-- Button trigger modal -->
 
 <!-- Modal nueva producto -->
-<div class="modal fade" id="product_new_modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<!--<div class="modal fade" id="product_new_modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
       <div class="modal-content">
       <div class="modal-header">
@@ -248,12 +249,12 @@
       </form>
       </div>
   </div>
-  </div>
+  </div>-->
 
 <!--------------------------------------------------------------------------------------------------->
 
 <!-- Modal nueva variante -->
-<div class="modal fade" id="variante_new_modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<!--<div class="modal fade" id="variante_new_modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
       <div class="modal-content">
       <div class="modal-header">
@@ -305,7 +306,7 @@
             <label for="inputprecio">Color</label>
             <input type="text" class="form-control" name="new_colors" id="new_colors" placeholder="Color de articulo">
             {!! $errors->first('new_colors','<small class="message_error">:message</small><br>') !!} 
-          </div>
+          </div>-->
 
           <!--
           <div class="form-group">
@@ -316,14 +317,14 @@
          -->
 
 
-      </div>
+<!--      </div>
   
       <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
           <button type="submit" id="btnnuevav" class="btn btn-success" name="action" value="nueva_variante">Registrar variante</button>
       </div>
       </form>
-      </div>
+      </div>-->
   </div>
   </div>
 <!--------------------------------------------------------------------------------------------------->

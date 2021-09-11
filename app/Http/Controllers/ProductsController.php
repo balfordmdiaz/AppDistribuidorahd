@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProductStock;
 use App\Models\Products;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -48,29 +49,65 @@ class ProductsController extends Controller
     }
 
 
-    public function create()
+    public function newprod(Request $request)
     {
         //
+        if($request->ajax())
+        {
+            $products = DB::select('CALL sp_selnewprod()');
+            return DataTables::of($products)
+                    ->make(true);
+        }
 
+        return view('newproduct.newprod');
     }
 
 
-    public function store(Request $request)
+    public function store(Request $data)
     {
-        //
-//        $product = DB::select('call spstore_articulo(?,?,?,?,?,?)',
-//                        [$request->idlarticulov,
-//                        $request->talla,
-//                        $request->color,
-//                        $request->cantidad,
-//                        $request->precio,
-//                        $request->idarticulos]);
-//
-//        return back();
+
+//        ProductStock::create([         
+//            'idlarticulos' => request('new_codigoproducto'),
+//            'nombrearticulo' => request('new_nombreproducto'),
+//            'idcategoria' => request('selcat'),
+//           ]);
+
+        ProductStock::create([
+            'idlarticulos' => $data['new_prod'],
+            'nombrearticulo' => $data['new_nom'],
+            'idcategoria' => $data['selcate'],
+        ]);   
+
+        return back()->with('mensaje'," Articulo se ha Registrado -> (Agregar Variante)");
+    }
+
+    public function storeVariant(Request $data)
+    {
+        $cantidad_variante=0;
+
+// /        Products::create([ 
+// /            'tipov'=>  request('new_tipo'),      
+// /            'talla' => request('new_talla'),
+// /            'color' => request('new_colors'),
+// /            'cantidad' => $cantidad_variante,
+// /            'preciov' => 0,
+// /            'idarticulos' => request('selvariante'),
+// /        ]);
+
+        Products::create([
+            'tipov' => $data['ntipo'],
+            'talla' => $data['ntalla'],
+            'color' => $data['ncolors'],
+            'cantidad' => $cantidad_variante,
+            'preciov' => 0,
+            'idarticulos' => request('nselvariante'),
+        ]);
+
+        return back()->with('mensaje'," Variante Articulo agregada");;
     }
 
 
-    public function show(Products $products)
+    public function show(ProductStock $products)
     {
         //
     }
