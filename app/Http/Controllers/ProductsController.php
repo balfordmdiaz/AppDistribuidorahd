@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProjectRequest;
 use App\Models\ProductStock;
 use App\Models\Products;
 use Illuminate\Support\Facades\DB;
@@ -63,22 +64,29 @@ class ProductsController extends Controller
     }
 
 
-    public function store(Request $data)
+    public function store(ProjectRequest $request)
     {
 
-//        ProductStock::create([         
-//            'idlarticulos' => request('new_codigoproducto'),
-//            'nombrearticulo' => request('new_nombreproducto'),
-//            'idcategoria' => request('selcat'),
-//           ]);
 
-        ProductStock::create([
-            'idlarticulos' => $data['new_prod'],
-            'nombrearticulo' => $data['new_nom'],
-            'idcategoria' => $data['selcate'],
-        ]);   
+//        request()->validate([
+//            'new_prod' => 'required',
+//            'new_nom'=>'required',
+//            'selcate' => 'required',
+//        ]);
+//
+        ProductStock::create([         
+            'idlarticulos' => request('new_prod'),
+            'nombrearticulo' => request('new_nom'),
+            'idcategoria' => request('selcate'),
+           ]);
 
-        return back()->with('mensaje'," Articulo se ha Registrado -> (Agregar Variante)");
+//        ProductStock::create([
+//            'idlarticulos' => $data['new_prod'],
+//            'nombrearticulo' => $data['new_nom'],
+//            'idcategoria' => $data['selcate'],
+//        ]);   
+
+        return back()->with('mensaje'," El Producto se ha Registrado -> (Agregar Variante)");
     }
 
     public function storeVariant(Request $data)
@@ -103,7 +111,7 @@ class ProductsController extends Controller
             'idarticulos' => request('nselvariante'),
         ]);
 
-        return back()->with('mensaje'," Variante Articulo agregada");;
+        return back()->with('mensaje'," La variante del Producto se ha agregado");;
     }
 
 

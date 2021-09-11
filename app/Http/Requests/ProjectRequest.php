@@ -24,7 +24,25 @@ class ProjectRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            
+            'new_prod' => ['required', 'unique:tbl_articulostock,idlarticulos'],
+            'new_nom' => 'required',
+            'selcate' => 'required',
+            
         ];
     }
+
+
+    public function messages()
+    {
+        return [
+
+            'new_prod.required' => 'Necesitas un Codigo de Producto',
+            'new_nom.required' => 'Necesitas una descripcion del Producto',
+            'selcate.required' => 'Necesitas una categoria para el Producto'
+
+        ];
+
+    }
+
 }

@@ -25,7 +25,7 @@
                 <form id="products-new-form" method="POST" action="{{route('products.store')}}">
                 @csrf
 
-
+                <!-------------------------------MENSAJES------------------------------------->
                 <div class="form-group">
                 @if(session('mensaje'))
                     <div class="alert alert-success" role="alert">
@@ -37,19 +37,34 @@
                 @endif
                </div>
 
+               <div class="form-group">
+                @if ($errors->any())
+                    <div class="alert alert-danger" role="alert">
+                        <ul>
+                            @foreach($errors->all() as $error)
+                                <li><strong>Aviso </strong>{{ $error }}</li>
+                            @endforeach
+                        </ul>    
+                    </div>
+                @endif
+               </div>
+               <!-------------------------------MENSAJES------------------------------------->
+
 
                 <div class="modal-body">
                   <div class="form-group">
                     <label for="inputcodigo">Codigo Producto</label>
-                    <input type="text" name="new_prod" class="form-control" id="new_prod" placeholder="Codigo" required>
+                    <input type="text" name="new_prod" class="form-control" id="new_prod" placeholder="Codigo" value="{{ old('new_prod') }}">
+                    {!! $errors->first('new_prod','<small class="message_error">:message</small><br>') !!}
                   </div>
                   <div class="form-group">
                     <label for="inputnombre">Descripcion</label>
-                    <input type="text" class="form-control" name="new_nom" id="new_nom" placeholder="Nombre de articulo" required>
+                    <input type="text" class="form-control" name="new_nom" id="new_nom" placeholder="Nombre de articulo" value="{{ old('new_nom') }}">
+                    {!! $errors->first('new_nom','<small class="message_error">:message</small><br>') !!}
                   </div>
                   <div class="form-group">
                     <label for="inputcategoria">Categoria</label>
-                    <select class="form-control" id="selcate" name="selcate" required>
+                    <select class="form-control" id="selcate" name="selcate" value="{{ old('selcate') }}">
                         <option value=""></option>
                         @forelse($catego = DB::table('tbl_categoria')->get() as $catItem)
                             <option value="{{ $catItem->idcategoria }}">{{ $catItem->descripcion }}</option>
@@ -57,6 +72,7 @@
                             <option value="">No hay Categoria</option>
                         @endforelse
                     </select>
+                    {!! $errors->first('selcate','<small class="message_error">:message</small><br>') !!} 
                   </div>
 
                   <div class="form-row">
