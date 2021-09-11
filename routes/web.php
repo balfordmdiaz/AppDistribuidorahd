@@ -74,7 +74,9 @@ Route::middleware(['auth'])->group(function ()
     //PRODUCTOS
     Route::resource('home/products','App\Http\Controllers\ProductsController');
     Route::get('home/existproducts', [ProductsController::class, 'prod_existentes'])->name('existproducts.prod_existentes');
-    Route::post('home/products', [ProductsController::class, 'store'])->name('products.store');
+    Route::get('home/newproduct', [ProductsController::class, 'newprod'])->name('newproduct.newprod');
+    Route::post('home/newproduct', [ProductsController::class, 'store'])->name('newproduct.store');
+    Route::post('home/newproduct', [ProductsController::class, 'storeVariant'])->name('newproduct.storeVariant');
     Route::get('home/products/destroy/{idarticulo}', [ProductsController::class, 'destroy'])->name('products.destroy');
     Route::get('home/products/edit/{idarticulo}', [ProductsController::class, 'edit'])->name('products.edit');
     Route::post('home/products/update', [ProductsController::class, 'update'])->name('products.update');

@@ -42,7 +42,9 @@
                      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                        <a class="dropdown-item" href="/home/categories">Categoria</a>
                        <div class="dropdown-divider"></div>
-                       <a class="dropdown-item" href="/home/products">Productos</a>
+                       <a class="dropdown-item" href="/home/newproduct">Nuevo Producto</a>
+                       <div class="dropdown-divider"></div>
+                       <a class="dropdown-item" href="/home/products">Productos Totales</a>
                        <div class="dropdown-divider"></div>
                        <a class="dropdown-item" href="/home/existproducts">Productos Existentes</a>
                      </div>
