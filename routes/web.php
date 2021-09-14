@@ -94,7 +94,7 @@ Route::middleware(['auth'])->group(function ()
     Route::post('home/norders', [OrdersController::class, 'store_orden'])->name('norders.store_orden');
     Route::get('home/orders/destroy/{idorden}', [OrdersController::class, 'destroy'])->name('orders.destroy');
     Route::get('home/orders/show/{idorden}', [OrdersController::class, 'show'])->name('orders.show');
-
+   
     Route::post('/home/orders', [OrdersController::class, 'store_newprod'])->name('norders.store_newprod');
     Route::get('/home/norders/{id}/index',[OrdersController::class, 'detalle'])->name('norders.detalle_orden');
     Route::get('/home/norders/{id}/articulo', [SearchController::class, 'articulo'])->name('search.articulo');
@@ -103,6 +103,7 @@ Route::middleware(['auth'])->group(function ()
     Route::get('/home/norders/{id}/precio',[OrdersController::class, 'getprecio']);
     Route::get('/home/norders/{id}/tipo',[OrdersController::class, 'gettipo']);
     Route::post('/home/norders/{id}/index',[OrdersController::class, 'store_detalle'])->name('norders.new_detalle');
+    Route::delete('/home/norders/{id}/{idordendetalle}', [OrdersController::class, 'delete_register'])->name('norders.delete_register');
     Route::get('/home/norders/{id}/index/details',[OrdersController::class, 'show_detalleorden'])->name('norders.showdetalle');
 
     //Usuarios Facturas

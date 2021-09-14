@@ -172,7 +172,7 @@ class OrdersController extends Controller
         return back();
     }
 
-    public function store_detalle()
+    public function store_detalle($id)
     {
         $aux=request('idorden');
         $aux_articulo=request('idarticulo');
@@ -298,9 +298,17 @@ class OrdersController extends Controller
 
            case 'finalizar':
                   $cant_orden=OrdersDetalle::where('idorden',$orden->idorden)->exists();
+
+
                   if($cant_orden)
                   {
+                    
                     return redirect()->route('norders.showdetalle',$orden->idorden);
+
+                    //return response()->json([
+                    //    'Orden' => Orders::find($id)
+                   //]);
+
                   }
                   else
                   {
@@ -324,6 +332,84 @@ class OrdersController extends Controller
         return view('norders.ordersshow',[
             'orden'=> Orders::findOrFail($id)
         ]); 
+    }
+
+    public function delete_register($id)
+    {
+        
+        $aux=request('idorden');
+        $orden = Orders::where('idorden', $aux)->first();
+        //
+        $nregistro = OrdersDetalle::where('idordendetalle',$id)->exists();
+
+        if($nregistro)
+        {
+            $artp=$nregistro;
+            $art=OrdersDetalle::where('idordendetalle', $artp)->first();
+            //datos del articulo a eliminar
+            $cantart= $art->cantidadorden;
+            $montart= $art->monto;
+            $idart= $art->idarticulov;
+
+            //datos del la orden
+            //$subtotalor = $orden->subtotal;
+            $subtotalor = DB::table('tbl_orden')
+                            //->select('tbl_orden.subtotal')
+                            ->where('idorden', $artp)
+                            ->pluck('tbl_orden.subtotal')
+                            ->first();
+            //$totalor = $orden->total;
+            $totalor = DB::table('tbl_orden')
+                        //->select('tbl_orden.total')
+                        ->where('idorden', $artp)
+                        ->pluck('tbl_orden.total')
+                        ->first();
+
+            //operacion de resta
+            $subtotalor = $subtotalor-$montart;
+            $totalor = $totalor-$montart;
+
+            //Orders::where('idorden', $orden->idorden)
+            DB::table('tbl_orden')
+                //->select('tbl_orden.idorden','tbl_orden.subtotal','tbl_orden.total')
+                ->where('idorden', $orden)
+                ->update([
+                    'subtotal' => $subtotalor,
+                    'total' => $totalor,
+                
+                ]);
+
+            //OPERACION DE CANTIDADES DEL ARTICULO
+            $cantart2=DB::table('tbl_articulovariante')
+                        ->join('tbl_ordendetalle', 'tbl_articulovariante.idarticulov', '=', 'tbl_ordendetalle.idarticulov')
+                        //->select('tbl_articulovariante.cantidad')
+                        ->where('tbl_ordendetalle.idordendetalle', $artp)
+                        ->pluck('tbl_articulovariante.cantidad')
+                        ->first();
+    
+            $cantidadn=$cantart-$cantart2;
+    
+                //Products::where('idarticulov', $artp->idarticulov)
+                DB::table('tbl_articulovariante')
+                        //->select('tbl_orden.idorden','tbl_orden.subtotal','tbl_orden.total')
+                        ->where('tbl_articulovariante.idarticulov', $artp)
+                        ->update([
+                            'tbl_articulovariante.cantidad' => $cantidadn,
+                        ]);
+
+            //ELIMINA EL REGISTRO DE LA TABLA ORDENDETALLE
+            $order=OrdersDetalle::where('idordendetalle', $id)->firstOrFail();
+            $order->delete();
+
+        
+            return back()->with('flash'," Se ha eliminado el registro de la orden");
+
+        }
+        else
+        {
+            return back()->with('flash'," No se ha eliminado el articulo de la orden");
+        }
+
     }
 
 

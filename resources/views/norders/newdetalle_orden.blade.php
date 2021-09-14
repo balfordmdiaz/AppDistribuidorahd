@@ -339,6 +339,7 @@
             <th scope="col">Precio Compra</th>
             <th scope="col">Cant</th>
             <th scope="col">Monto</th>
+            <th scope="col">Eliminar</th>
           </tr>
         </thead>
 
@@ -346,7 +347,7 @@
                               ->join('tbl_articulovariante', 'tbl_ordendetalle.idarticulov', '=', 'tbl_articulovariante.idarticulov')
                               ->join('tbl_articulostock', 'tbl_articulovariante.idarticulos', '=', 'tbl_articulostock.idarticulos')
                               ->join('tbl_orden', 'tbl_ordendetalle.idorden', '=', 'tbl_orden.idorden')
-                              ->select('tbl_articulostock.nombrearticulo', 'tbl_articulovariante.tipov','tbl_articulovariante.talla', 'tbl_ordendetalle.precio','tbl_ordendetalle.cantidadorden','tbl_ordendetalle.monto')
+                              ->select('tbl_articulostock.nombrearticulo', 'tbl_articulovariante.tipov','tbl_articulovariante.talla', 'tbl_ordendetalle.precio','tbl_ordendetalle.cantidadorden','tbl_ordendetalle.monto','tbl_ordendetalle.idordendetalle')
                               ->where('tbl_ordendetalle.idorden', $orden->idorden)
                               ->get()  as $detalleItem)
 
@@ -358,12 +359,19 @@
             <td>{{ $detalleItem->precio }} C$</td>
             <td>{{ $detalleItem->cantidadorden }}</td>
             <td>{{ $detalleItem->monto }} C$</td>
+            <td>
+                <form action="{{ route('norders.new_detalle',$detalleItem->idordendetalle) }}" method="POST"><!--ACCION PARA ELIMINAR REGISTROS DE UNA TABLA-->
+                  @csrf
+                  @method('DELETE')
+                  <button type="submit" class="btn btn-danger btn-sm" id="btn-deletereg" data-id="{{ $detalleItem->idordendetalle }}">Eliminar</button>
+                </form>                
+            </td>
           </tr>
 
       @empty
 
       <tr>
-          <td colspan="5"><p style="text-align: center">No hay articulos para mostrar</p> </td>
+          <td colspan="7"><p style="text-align: center">No hay articulos para mostrar</p> </td>
       </tr> 
 
       </tbody>
@@ -372,12 +380,12 @@
 
       <tr class="thead-dark">
           <th>Subtotal</th>
-          <td colspan="6">{{ $orden->subtotal }} C$</td>
+          <td colspan="7">{{ $orden->subtotal }} C$</td>
       </tr>
 
       <tr class="thead-dark">
         <th>Total</th>
-        <td colspan="6">{{ $orden->total }} C$</td>
+        <td colspan="7">{{ $orden->total }} C$</td>
       </tr>
 
       </table>
