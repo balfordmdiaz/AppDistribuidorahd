@@ -347,7 +347,7 @@
                               ->join('tbl_articulovariante', 'tbl_ordendetalle.idarticulov', '=', 'tbl_articulovariante.idarticulov')
                               ->join('tbl_articulostock', 'tbl_articulovariante.idarticulos', '=', 'tbl_articulostock.idarticulos')
                               ->join('tbl_orden', 'tbl_ordendetalle.idorden', '=', 'tbl_orden.idorden')
-                              ->select('tbl_articulostock.nombrearticulo', 'tbl_articulovariante.tipov','tbl_articulovariante.talla', 'tbl_ordendetalle.precio','tbl_ordendetalle.cantidadorden','tbl_ordendetalle.monto','tbl_ordendetalle.idordendetalle')
+                              ->select('tbl_articulostock.nombrearticulo', 'tbl_articulovariante.tipov','tbl_articulovariante.talla', 'tbl_ordendetalle.precio','tbl_ordendetalle.cantidadorden','tbl_ordendetalle.monto','tbl_ordendetalle.idordendetalle','tbl_ordendetalle.idorden')
                               ->where('tbl_ordendetalle.idorden', $orden->idorden)
                               ->get()  as $detalleItem)
 
@@ -363,7 +363,9 @@
                 <form action="{{ route('norders.new_detalle',$detalleItem->idordendetalle) }}" method="POST"><!--ACCION PARA ELIMINAR REGISTROS DE UNA TABLA-->
                   @csrf
                   @method('DELETE')
-                  <button type="submit" class="btn btn-danger btn-sm" id="btn-deletereg" data-id="{{ $detalleItem->idordendetalle }}">Eliminar</button>
+                  <a>
+                    <button type="submit" class="btn btn-danger btn-sm" id="btn-deletereg" data-id="{{ $detalleItem->idordendetalle }}">Eliminar</button>
+                  </a>
                 </form>                
             </td>
           </tr>
@@ -550,26 +552,26 @@
   <script>//Nuevo Producto - Ventana Modal
 
 
-    function loadprecio()
-    {
-        var idarticulov=$('#color').val();
-        var idarticulos=$('#idarticulostock').val();
-        console.log("id stock:"+idarticulos);
-        console.log("id variante:"+idarticulov);
-
-        if($.trim(idarticulov) != '')
-        {
-          $.get('precio',{idarticulov: idarticulov},function(variable){
-
-          $.each(variable,function(index,value){
-             $('#precioventa').val(value);
-          })     
-        });
-
-
-        }
-
-    }
+//    function loadprecio()
+//    {
+//        var idarticulov=$('#color').val();
+//        var idarticulos=$('#idarticulostock').val();
+//        console.log("id stock:"+idarticulos);
+//        console.log("id variante:"+idarticulov);
+//
+//        if($.trim(idarticulov) != '')
+//        {
+//          $.get('precio',{idarticulov: idarticulov},function(variable){
+//
+//          $.each(variable,function(index,value){
+//             $('#precioventa').val(value);
+//          })     
+//        });
+//
+//
+//        }
+//
+//    }
 
 
     function loadtipo()
@@ -595,40 +597,11 @@
 
     $(document).ready(function()
     {
-         $('#color').on('change',loadprecio);
+         //$('#color').on('change',loadprecio);
          $('#color').on('change',loadtipo);
     });
 
 
-  $('#product-new-form').submit(function(e){
-
-      e.preventDefault();
-
-      var id = $('#txtcode').val();
-      var nombre = $('#txtname').val();
-      var categoria = $('#selcat').val();
-      var _token = $("input[name=_token]").val();
-
-      $.ajax({
-          url: "{{ route('norders.store_newprod') }}",
-          type: "POST",
-          data:{
-              idlarticulos: id,
-              nombrearticulo: nombre,
-              idcategoria: categoria,
-              _token:_token
-          },
-          success:function(response)
-          {
-              if(response)
-              {
-
-                  toastr.info('Nuevo Producto Registrado.', 'Nuevo Registro', {timeOut:3000});
-                  window.location.reload();
-              }
-          }
-      })
-  });
   </script>
 
     @endsection

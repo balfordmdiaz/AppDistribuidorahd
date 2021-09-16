@@ -103,6 +103,7 @@ Route::middleware(['auth'])->group(function ()
     Route::get('/home/norders/{id}/precio',[OrdersController::class, 'getprecio']);
     Route::get('/home/norders/{id}/tipo',[OrdersController::class, 'gettipo']);
     Route::post('/home/norders/{id}/index',[OrdersController::class, 'store_detalle'])->name('norders.new_detalle');
+    //Route::post('/home/norders/{id}/delete_update', [OrdersController::class, 'delete_update'])->name('norders.delete_update');
     Route::delete('/home/norders/{id}/{idordendetalle}', [OrdersController::class, 'delete_register'])->name('norders.delete_register');
     Route::get('/home/norders/{id}/index/details',[OrdersController::class, 'show_detalleorden'])->name('norders.showdetalle');
 
