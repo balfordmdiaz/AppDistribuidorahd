@@ -38,17 +38,20 @@ class BillsantepExport implements FromCollection
             $fechaFin= date("Y-m-d",$strFecha);
         }
     
-       $fechaInicio_a=date("Y-m-d", strtotime("$fechaInicio   -14 day"));
-       $fechaFin_a=date("Y-m-d", strtotime("$fechaInicio   -8 day"));
+       $fechaInicio_ab=date("Y-m-d", strtotime("$fechaInicio   -14 day"));
+       $fechaFin_ab=date("Y-m-d", strtotime("$fechaInicio   -8 day"));
+       $horaini = ' 00:00:01';
+       $horafin = ' 23:59:59';
+       $fechaInicio_a = $fechaInicio_ab . $horaini;
+       $fechaFin_a = $fechaFin_ab . $horafin;
 
         return DB::table('tbl_facturadetalle')
                 ->join('tbl_articulovariante', 'tbl_facturadetalle.idarticulov', '=', 'tbl_articulovariante.idarticulov')
                 ->join('tbl_articulostock', 'tbl_articulovariante.idarticulos', '=', 'tbl_articulostock.idarticulos')
                 ->join('tbl_factura', 'tbl_facturadetalle.idfactura', '=', 'tbl_factura.idfactura')
-                ->select('tbl_articulostock.idlarticulos','tbl_articulostock.nombrearticulo','tbl_articulovariante.tipov','tbl_articulovariante.talla',(DB::raw('SUM(tbl_facturadetalle.cantidad) as cantidad')),'tbl_facturadetalle.precio','tbl_facturadetalle.monto')
+                ->select('tbl_articulostock.idlarticulos','tbl_articulostock.nombrearticulo','tbl_articulovariante.tipov','tbl_articulovariante.talla','tbl_facturadetalle.cantidad','tbl_facturadetalle.precio','tbl_facturadetalle.monto')
                 ->where('tbl_factura.fechafactura','>=',$fechaInicio_a)
                 ->where('tbl_factura.fechafactura','<=',$fechaFin_a)
-                ->groupBy('tbl_facturadetalle.idfacturadetalle')
                 ->orderBy('tbl_articulostock.idlarticulos', 'ASC')
                 ->orderBy('tbl_articulovariante.talla', 'ASC')
                 ->get();

@@ -22,7 +22,7 @@
   
     <br>
     <h4 align="center">Detalle Venta - Semanal</h4>
-    <h5 align="center" style="color:blue">{{$fechaInicio_a}} hasta el {{$fechaFin_a}}</h5>
+    <h5 align="center" style="color:blue">{{$fechaInicio_ab}} hasta el {{$fechaFin_ab}}</h5>
     <br>
 
     <?php
@@ -62,7 +62,6 @@
                                                     ->select('tbl_articulostock.idlarticulos','tbl_articulostock.nombrearticulo','tbl_articulovariante.tipov','tbl_articulovariante.talla','tbl_facturadetalle.cantidad','tbl_facturadetalle.precio','tbl_facturadetalle.monto')
                                                     ->where('tbl_factura.fechafactura','>=',$fechaInicio_a)
                                                     ->where('tbl_factura.fechafactura','<=',$fechaFin_a)
-                                                    ->groupBy('tbl_facturadetalle.idfacturadetalle')
                                                     ->orderBy('tbl_articulostock.idlarticulos', 'ASC')
                                                     ->orderBy('tbl_articulovariante.talla', 'ASC')
                                                     ->get()  as $detalleItem)
