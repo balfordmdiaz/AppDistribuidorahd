@@ -164,30 +164,16 @@
                   {!! $errors->first('Total','<small class="message_error">:message</small><br>') !!}      
                </div>
 
-               <!--<div class="form-group col-md-4 my-lg-3 text-center">       
-                    <input name="chec" type="checkbox" id="chec_venta" onChange="comprobarprecioventa(this);" />
-                    <label for="chec">Precio Venta(Cambiar)</label>
-                    <input name="precioventa" id="precioventa" type="number" step="0.01" class="form-control" style="display:none" />
-                    {!! $errors->first('precioventa','<small class="message_error">:message</small><br>') !!}
-                    <button  type="submit" name="action" id="nuevo_precioventa" class="btn btn-primary" value="precioventa" style="display:none;margin-top:4px;">Cambiar</button>
-               </div>-->
-
 
 
               </div>
               
               <div class="form-row">
-                  <!--<div class="form-group col-md-4 my-lg-3 text-center">
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#product_new_modal">Nuevo Producto</button>    
+                  <div class="form-group col-md-4 my-lg-3 text-center">
+                    <button type="submit" id="btnagregarart" class="btn btn-dark" name="action" value="agregar_articulo">Agregar Articulo</button>
                   </div>
                   <div class="form-group col-md-4 my-lg-3 text-center">
-                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#variante_new_modal">Nueva Variante de Producto</button><br>
-                  </div>-->
-                  <div class="form-group col-md-4 my-lg-3 text-center">
-                    <button type="submit" id="btnagregarart" class="btn btn-dark" name="action" id="btn-registrar" value="agregar_articulo">Agregar Articulo</button>
-                  </div>
-                  <div class="form-group col-md-4 my-lg-3 text-center">
-                    <button type="submit" id="btnfinalizar" class="btn btn-success" name="action" id="btn-registrar" value="finalizar">Finalizar Orden</button>
+                    <button type="submit" id="btnfinalizar" class="btn btn-success" name="action" value="finalizar">Finalizar Orden</button>
                   </div>
                 </div>
 
@@ -195,136 +181,6 @@
 
             </form>
     </div>
-
-<!-- Modal Para agregar-->
-<!-- Button trigger modal -->
-
-<!-- Modal nueva producto -->
-<!--<div class="modal fade" id="product_new_modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-      <div class="modal-content">
-      <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Nuevo Producto</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-          </button>
-      </div>
-  
-      <form id="products-new-form" method="POST" action="{{ route('norders.new_detalle',$orden->idorden,'store') }}">
-      @csrf
-
-      <div class="form-group" style="display:none">
-         <input name="id_articulo_hidde" type="text" class="form-control" value="{{ $id=$articulo_codigo->idarticulos }}">
-      </div>
-
-      <div class="modal-body">
-        <div class="form-group">
-          <label for="inputcodigo">Codigo Producto</label>
-          <input type="text" name="new_codigoproducto" class="form-control" id="new_codigoproducto" placeholder="Codigo">
-          {!! $errors->first('new_codigoproducto','<small class="message_error">:message</small><br>') !!} 
-        </div>
-        <div class="form-group">
-          <label for="inputnombre">Descripcion</label>
-          <input type="text" class="form-control" name="new_nombreproducto" id="new_nombreproducto" placeholder="Nombre de articulo">
-          {!! $errors->first('new_nombreproducto','<small class="message_error">:message</small><br>') !!} 
-        </div>
-        <div class="form-group">
-          <label for="inputcategoria">Categoria</label>
-          <select class="form-control" id="selcat" name="selcat">
-              <option value=""></option>
-              @forelse($catego = DB::table('tbl_categoria')->get() as $catItem)
-                  <option value="{{ $catItem->idcategoria }}">{{ $catItem->descripcion }}</option>
-              @empty
-                  <option value="">No hay Categoria</option>
-              @endforelse
-          </select>
-          {!! $errors->first('selcat','<small class="message_error">:message</small><br>') !!} 
-        </div>
-    </div>
-  
-      <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <button type="submit" id="btnnuevop" class="btn btn-success" name="action" value="nuevo_registro">Registrar articulo</button>
-      </div>
-      </form>
-      </div>
-  </div>
-  </div>-->
-
-<!--------------------------------------------------------------------------------------------------->
-
-<!-- Modal nueva variante -->
-<!--<div class="modal fade" id="variante_new_modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-      <div class="modal-content">
-      <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Nuevo Producto variante</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-          </button>
-      </div>
-  
-      <form id="variante-new-form" method="POST" action="{{ route('norders.new_detalle',$orden->idorden,'store') }}">
-      @csrf
-      <div class="modal-body">
-  
-          <div class="form-group">
-            <label for="inputmonto">Producto</label>
-            <select class="form-control" id="selvariante" name="selvariante">
-                <option value=""></option>
-                @forelse($stock = DB::table('tbl_articulostock')
-                                        ->orderBy('idlarticulos', 'ASC')
-                                        ->get() as $stockItem)
-                    <option value="{{ $stockItem->idarticulos }}">{{ $stockItem->idlarticulos }} - {{ $stockItem->nombrearticulo }}</option>
-                @empty
-                    <option value="">No hay Articulo</option>
-                @endforelse
-            </select>
-            {!! $errors->first('selvariante','<small class="message_error">:message</small><br>') !!} 
-          </div>
-
-          <div class="form-group">
-            <label for="inputtipov">Tipo</label>
-            <select class="form-control" id="new_tipo" name="new_tipo">
-                 <option value="UNIDADES">Unidad</option>
-                 <option value="DOCENA">Docena</option>
-                 <option value="PAQUETE">Paquete</option>
-                 <option value="LIBRA">Libra</option>
-                 <option value="CAJAS">Caja</option>
-                 <option value="RISTRAS">Ristra</option>
-                 <option value="CARTON">Carton</option>
-            </select>
-          </div>
-  
-          <div class="form-group">
-            <label for="inputcantidad">Talla</label>
-            <input type="text" class="form-control" name="new_talla" maxlength="4"  id="new_talla" placeholder="Talla de articulo">
-            {!! $errors->first('new_talla','<small class="message_error">:message</small><br>') !!} 
-          </div>
-
-          <div class="form-group">
-            <label for="inputprecio">Color</label>
-            <input type="text" class="form-control" name="new_colors" id="new_colors" placeholder="Color de articulo">
-            {!! $errors->first('new_colors','<small class="message_error">:message</small><br>') !!} 
-          </div>-->
-
-          <!--
-          <div class="form-group">
-            <label for="inputprecio">Precio venta</label>
-            <input name="new_precio" id="new_precio" type="number" step="0.01" class="form-control" />
-            {!! $errors->first('new_precio','<small class="message_error">:message</small><br>') !!} 
-          </div>
-         -->
-
-
-<!--      </div>
-  
-      <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <button type="submit" id="btnnuevav" class="btn btn-success" name="action" value="nueva_variante">Registrar variante</button>
-      </div>
-      </form>
-      </div>-->
   </div>
   </div>
 <!--------------------------------------------------------------------------------------------------->
@@ -343,34 +199,18 @@
           </tr>
         </thead>
 
-      @forelse($detalle = DB::table('tbl_ordendetalle')
-                              ->join('tbl_articulovariante', 'tbl_ordendetalle.idarticulov', '=', 'tbl_articulovariante.idarticulov')
-                              ->join('tbl_articulostock', 'tbl_articulovariante.idarticulos', '=', 'tbl_articulostock.idarticulos')
-                              ->join('tbl_orden', 'tbl_ordendetalle.idorden', '=', 'tbl_orden.idorden')
-                              ->select('tbl_articulostock.nombrearticulo', 'tbl_articulovariante.tipov','tbl_articulovariante.talla', 'tbl_ordendetalle.precio','tbl_ordendetalle.cantidadorden','tbl_ordendetalle.monto','tbl_ordendetalle.idordendetalle','tbl_ordendetalle.idorden')
-                              ->where('tbl_ordendetalle.idorden', $orden->idorden)
-                              ->get()  as $detalleItem)
-
         <tbody>
           <tr>        
-            <td>{{ $detalleItem->nombrearticulo }}</td>  
-            <td>{{ $detalleItem->tipov }}</td>        
-            <td>{{ $detalleItem->talla }}</td>
-            <td>{{ $detalleItem->precio }} C$</td>
-            <td>{{ $detalleItem->cantidadorden }}</td>
-            <td>{{ $detalleItem->monto }} C$</td>
+            <td></td>  
+            <td></td>        
+            <td></td>
+            <td> C$</td>
+            <td></td>
+            <td> C$</td>
             <td>
-                <form action="{{ route('norders.new_detalle',$detalleItem->idordendetalle) }}" method="POST"><!--ACCION PARA ELIMINAR REGISTROS DE UNA TABLA-->
-                  @csrf
-                  @method('DELETE')
-                  <a>
-                    <button type="submit" class="btn btn-danger btn-sm" id="btn-deletereg" data-id="{{ $detalleItem->idordendetalle }}">Eliminar</button>
-                  </a>
-                </form>                
+              <button type="submit" class="btn btn-danger btn-sm" id="btn-deletereg" data-id="">X</button>               
             </td>
           </tr>
-
-      @empty
 
       <tr>
           <td colspan="7"><p style="text-align: center">No hay articulos para mostrar</p> </td>
@@ -378,16 +218,14 @@
 
       </tbody>
 
-      @endforelse
-
       <tr class="thead-dark">
           <th>Subtotal</th>
-          <td colspan="7">{{ $orden->subtotal }} C$</td>
+          <td colspan="7">C$</td>
       </tr>
 
       <tr class="thead-dark">
         <th>Total</th>
-        <td colspan="7">{{ $orden->total }} C$</td>
+        <td colspan="7">C$</td>
       </tr>
 
       </table>
@@ -419,28 +257,6 @@
 
 </script>
 
-    <script> //Validacion de evitar carga de datos de Nuevo Producto
-
-        $('#products-new-form').submit(function(e)
-        {
-            $('#btnnuevop').on("click", function(e){
-            e.preventDefault();
-            });
-
-        });
-    </script>
-
-    <script> //Validacion de evitar carga de datos de Nueva Variante
-
-      $('#variante-new-form').submit(function(e)
-      {
-          $('#btnnuevav').on("click", function(e){
-          e.preventDefault();
-          });
-
-      });
-    </script>
-
     <script> //Validacion de evitar carga de datos de agregar articulo
 
       $('#form-order').submit(function(e)
@@ -456,7 +272,7 @@
       });
     </script>
 
-    <script>
+    <script>  //Carga de talla y color de cada producto
         $(document).ready(function(){
       
              function loadvariante()
@@ -479,34 +295,6 @@
              loadvariante();
             $('#idarticulostock').on('change', loadvariante);
         });
-      
-      
-      </script>
-
-      <script>
-         function loadcalculos()
-         {
-           var elementos = document.getElementById('color').value;
-
-           if(elementos>0)
-           {
-            var precioaux=document.getElementById('precio').value;
-            var cantidadaux=document.getElementById('cantidad').value;
-            var montoaux=0.00;
-            if(cantidadaux>0)
-            {
-               montoaux=precioaux*cantidadaux;
-               console.log("precio:"+precioaux);
-               console.log("cantidad:"+cantidadaux);
-               console.log("monto:"+montoaux);
-               document.getElementById('subtotal').value=montoaux;
-               document.getElementById('Total').value=parseFloat(montoaux);
-            }
-
-           }
-
-         }
-
 
          $(document).ready(function(){ 
          function loadcolor()
@@ -528,51 +316,6 @@
         loadcolor();
         $('#idarticulov').on('change', loadcolor);
         });
-
-        function comprobarprecioventa(obj)
-        {   
-           if (obj.checked)
-           {
-              document.getElementById('precioventa').style.display = "";
-              document.getElementById('nuevo_precioventa').style.display = "";
-           } else
-           {
-              document.getElementById('precioventa').style.display = "none";
-              document.getElementById('nuevo_precioventa').style.display = "none";
-           }     
-       } 
-
-       $(document).ready(function()
-       {
-         $('#color').on('change',loadcalculos);
-       });
-
-   </script>
-
-  <script>//Nuevo Producto - Ventana Modal
-
-
-//    function loadprecio()
-//    {
-//        var idarticulov=$('#color').val();
-//        var idarticulos=$('#idarticulostock').val();
-//        console.log("id stock:"+idarticulos);
-//        console.log("id variante:"+idarticulov);
-//
-//        if($.trim(idarticulov) != '')
-//        {
-//          $.get('precio',{idarticulov: idarticulov},function(variable){
-//
-//          $.each(variable,function(index,value){
-//             $('#precioventa').val(value);
-//          })     
-//        });
-//
-//
-//        }
-//
-//    }
-
 
     function loadtipo()
     {
@@ -597,11 +340,36 @@
 
     $(document).ready(function()
     {
-         //$('#color').on('change',loadprecio);
          $('#color').on('change',loadtipo);
     });
 
 
+  </script>
+  
+  <script>//CALCULOS PARA AGREGAR A TABLA
+    
+    function loadcalculos()
+         {
+           var elementos = document.getElementById('color').value;
+
+           if(elementos>0)
+           {
+            var precioaux=document.getElementById('precio').value;
+            var cantidadaux=document.getElementById('cantidad').value;
+            var montoaux=0.00;
+            if(cantidadaux>0)
+            {
+               montoaux=precioaux*cantidadaux;
+               console.log("precio:"+precioaux);
+               console.log("cantidad:"+cantidadaux);
+               console.log("monto:"+montoaux);
+               document.getElementById('subtotal').value=montoaux;
+               document.getElementById('Total').value=parseFloat(montoaux);
+            }
+
+           }
+
+         }
   </script>
 
     @endsection
