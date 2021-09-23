@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 
 use DateTime;
 use DateTimeZone;
+use App\Exports\OrderGenExport;
+use App\Exports\OrderSemExport;
+use App\Exports\OrderSemPExport;
+use App\Exports\OrderSemAntePExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ControllerDetalleCompra extends Controller
 {
@@ -91,6 +96,26 @@ class ControllerDetalleCompra extends Controller
     public function ordengeneral()
     {
         return view('Detalle_compra.detalle_ordengeneral');
+    }
+
+    public function exportGenExcel() 
+    {
+        return Excel::download(new OrderGenExport, 'Detalle de Orden General.xlsx');
+    }
+
+    public function exportSemExcel() 
+    {
+        return Excel::download(new OrderSemExport, 'Detalle de Orden Semanal.xlsx');
+    }
+
+    public function exportSemPExcel() 
+    {
+        return Excel::download(new OrderSemPExport, 'Detalle de Orden Semana Pasada.xlsx');
+    }
+
+    public function exportSemAntePExcel() 
+    {
+        return Excel::download(new OrderSemAntePExport, 'Detalle de Orden Semana Ante Pasada.xlsx');
     }
 
 }

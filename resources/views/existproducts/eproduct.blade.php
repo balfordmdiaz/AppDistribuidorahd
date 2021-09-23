@@ -22,6 +22,16 @@
     <div class="container"><br>
 
                 <h3 align="center">Productos en Existencia</h3>
+                <br>
+
+                <div class="container">
+                    <div class="row d-flex justify-content-center">
+                        <div class="form-group" style="text-align: center">
+                            <a   a href="{{  url('home/exportExcel')  }}" class="btn btn-sm btn-success">Exportar a Excel</a>
+                        </div>
+                    </div>
+                </div>
+                <br>
 
                 <div class="container">
                     <div class="row">
