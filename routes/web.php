@@ -117,9 +117,13 @@ Route::middleware(['auth'])->group(function ()
 
     //Detalle venta
     Route::get('home/detalle/semanal', [ControllerDetalleVenta::class, 'index'])->name('detalle.semana');
+    Route::get('home/detalle/exportExcel', [ControllerDetalleVenta::class, 'exportExcel'])->name('detalle.exportExcel');
     Route::get('home/detalle/semanaante', [ControllerDetalleVenta::class, 'anterior'])->name('detalle.semanaante');
+    Route::get('home/detalle/exportanteExcel', [ControllerDetalleVenta::class, 'exportanteExcel'])->name('detalle.exportanteExcel');
     Route::get('home/detalle/semanaante_pasada', [ControllerDetalleVenta::class, 'ante_pasada'])->name('detalle.semanaante_pasada');
+    Route::get('home/detalle/exportantepExcel', [ControllerDetalleVenta::class, 'exportantepExcel'])->name('detalle.exportantepExcel');
     Route::get('home/detalle/general', [ControllerDetalleVenta::class, 'general'])->name('detalle.general');
+    Route::get('home/detalle/exportGenExcel', [ControllerDetalleVenta::class, 'exportGenExcel'])->name('detalle.exportGenExcel');
 
     //Detalle Compra
     Route::get('home/detallec/semanal', [ControllerDetalleCompra::class, 'index'])->name('detallec.semana');
