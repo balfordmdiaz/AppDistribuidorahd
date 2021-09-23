@@ -30,6 +30,15 @@
     ?>
 
     <div class="container">
+    <div class="row d-flex justify-content-center">
+      <div class="form-group" style="text-align: center">
+        <a href="{{  url('home/detallec/exportSemPExcel')  }}" class="btn btn-sm btn-success">Exportar a Excel</a><!--BOTON DE EXPORTAR EXCEL-->
+      </div>
+    </div>
+    </div>
+    <br>
+
+    <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
                       <div class="table-responsive">
@@ -50,10 +59,9 @@
                                                    ->join('tbl_orden', 'tbl_orden.idorden', '=', 'tbl_ordendetalle.idorden')
                                                    ->join('tbl_articulovariante', 'tbl_articulovariante.idarticulov', '=', 'tbl_ordendetalle.idarticulov')
                                                    ->join('tbl_articulostock', 'tbl_articulovariante.idarticulos', '=', 'tbl_articulostock.idarticulos')
-                                                   ->select('tbl_articulostock.idlarticulos','tbl_articulostock.nombrearticulo','tbl_articulovariante.tipov','tbl_articulovariante.talla','tbl_ordendetalle.cantidadorden','tbl_ordendetalle.precio', DB::raw('SUM(tbl_orden.total)'))
+                                                   ->select('tbl_articulostock.idlarticulos','tbl_articulostock.nombrearticulo','tbl_articulovariante.tipov','tbl_articulovariante.talla','tbl_ordendetalle.cantidadorden','tbl_ordendetalle.precio', 'tbl_ordendetalle.monto')
                                                    ->where('tbl_orden.fechaorden','>=',$fechaInicio_a)
                                                    ->where('tbl_orden.fechaorden','<=',$fechaFin_a)
-                                                   ->groupBy('tbl_ordendetalle.idordendetalle')
                                                    ->orderBy('tbl_articulostock.idlarticulos', 'ASC')
                                                    ->orderBy('tbl_articulovariante.talla', 'ASC')
                                                    ->get()  as $detalleItem)
