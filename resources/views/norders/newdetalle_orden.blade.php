@@ -184,10 +184,10 @@
                     <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#variante_new_modal">Nueva Variante de Producto</button><br>
                   </div>-->
                   <div class="form-group col-md-4 my-lg-3 text-center">
-                    <button type="submit" id="btnagregarart" class="btn btn-dark" name="action" id="btn-registrar" value="agregar_articulo">Agregar Articulo</button>
+                    <button type="submit" id="btnagregarart" class="btn btn-dark" name="action" value="agregar_articulo">Agregar Articulo</button>
                   </div>
                   <div class="form-group col-md-4 my-lg-3 text-center">
-                    <button type="submit" id="btnfinalizar" class="btn btn-success" name="action" id="btn-registrar" value="finalizar">Finalizar Orden</button>
+                    <button type="submit" id="btnfinalizar" class="btn btn-success" name="action" value="finalizar">Finalizar Orden</button>
                   </div>
                 </div>
 

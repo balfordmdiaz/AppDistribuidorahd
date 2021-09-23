@@ -30,6 +30,15 @@
     ?>
 
     <div class="container">
+      <div class="row d-flex justify-content-center">
+          <div class="form-group" style="text-align: center">
+          <a href="{{  url('home/detalle/exportantepExcel')  }}" class="btn btn-sm btn-success">Exportar a Excel</a>
+          </div>
+      </div>
+    </div>
+      <br>
+
+    <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
                       <div class="table-responsive">

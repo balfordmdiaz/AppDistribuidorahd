@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 
 use DateTime;
 use DateTimeZone;
+use App\Exports\BillsExport;
+use App\Exports\BillsanteExport;
+use App\Exports\BillsantepExport;
+use App\Exports\BillsGenExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ControllerDetalleVenta extends Controller
 {
@@ -92,5 +97,27 @@ class ControllerDetalleVenta extends Controller
     {
         return view('Detalle_venta.detalle_general');
     }
+
+    public function exportExcel() 
+    {
+        return Excel::download(new BillsExport, 'DetalleVenta.xlsx');
+    }
+
+    public function exportanteExcel() 
+    {
+        return Excel::download(new BillsanteExport, 'DetalleVenta.xlsx');
+    }
+
+    public function exportantepExcel() 
+    {
+        return Excel::download(new BillsantepExport, 'DetalleVenta.xlsx');
+    }
+
+    public function exportGenExcel() 
+    {
+        return Excel::download(new BillsGenExport, 'DetalleVenta.xlsx');
+    }
+    
+
 
 }
