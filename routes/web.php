@@ -74,6 +74,7 @@ Route::middleware(['auth'])->group(function ()
     //PRODUCTOS
     Route::resource('home/products','App\Http\Controllers\ProductsController');
     Route::get('home/existproducts', [ProductsController::class, 'prod_existentes'])->name('existproducts.prod_existentes');
+    Route::get('home/exportExcel', [ProductsController::class, 'exportExcel'])->name('existproducts.exportExcel');//RUTA PARA EXPORTAR EXCEL
     Route::get('home/newproduct', [ProductsController::class, 'newprod'])->name('newproduct.newprod');
     Route::post('home/newproduct', [ProductsController::class, 'store'])->name('newproduct.store');
     Route::post('home/newproduct', [ProductsController::class, 'storeVariant'])->name('newproduct.storeVariant');
@@ -127,9 +128,13 @@ Route::middleware(['auth'])->group(function ()
 
     //Detalle Compra
     Route::get('home/detallec/semanal', [ControllerDetalleCompra::class, 'index'])->name('detallec.semana');
+    Route::get('home/detallec/exportSemExcel', [ControllerDetalleCompra::class, 'exportSemExcel'])->name('detallec.exportSemExcel');
     Route::get('home/detallec/semanaante', [ControllerDetalleCompra::class, 'anterior'])->name('detallec.semanaante');
+    Route::get('home/detallec/exportSemPExcel', [ControllerDetalleCompra::class, 'exportSemPExcel'])->name('detallec.exportSemPExcel');
     Route::get('home/detallec/semanaante_pasada', [ControllerDetalleCompra::class, 'ante_pasada'])->name('detallec.semanaante_pasada');
+    Route::get('home/detallec/exportSemAntePExcel', [ControllerDetalleCompra::class, 'exportSemAntePExcel'])->name('detallec.exportSemAntePExcel');
     Route::get('home/detallec/ordengeneral', [ControllerDetalleCompra::class, 'ordengeneral'])->name('detallec.ordengeneral');
+    Route::get('home/detallec/exportGenExcel', [ControllerDetalleCompra::class, 'exportGenExcel'])->name('detallec.exportGenExcel');
 
 
 });
