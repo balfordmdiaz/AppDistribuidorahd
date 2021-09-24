@@ -88,27 +88,6 @@
                 <div class="form-group col-md-4 my-lg-3">
                     <label for="exampleFormControlInput1">Articulo:</label>
                     <input id="idarticulostock" name="idarticulos" type="text" class="form-control" value="">
-                    <!--<select  id="idarticulostock" name="idarticulos" class="form-control" >-->
-                      <!--@foreach($articulostock->get() as $index => $article)
-                           <option value="{{ $index }}" {{ old('idarticulos') == $index ? 'selected' : '' }}>
-                              {{ $article }}
-                           </option>
-                      @endforeach-->
-                      <!--<option value=""></option>
-                        @forelse($stock = DB::table('tbl_articulostock')
-                                        ->orderBy('idlarticulos', 'ASC')
-                                        ->get() as $stockItem)
-                            <option value="{{ $stockItem->idarticulos }}">{{ $stockItem->idlarticulos }} - {{ $stockItem->nombrearticulo }}</option>
-                        @empty
-                            <option value="">No hay Articulo</option>
-                        @endforelse
-        
-                    </select> 
-                    @if ($errors->has('idarticulos'))
-                       <span class="invalid-feedback" role="alert">
-                           <strong>{{ $errors->first('idarticulos') }}</strong>
-                       </span>
-                    @endif   -->
                 </div>
 
                 <div class="form-group col-md-4 my-lg-3">
@@ -181,6 +160,8 @@
 
             </form>
     </div>
+
+
   </div>
   </div>
 <!--------------------------------------------------------------------------------------------------->
@@ -272,31 +253,62 @@
       });
     </script>
 
-    <script>  //Carga de talla y color de cada producto
-        $(document).ready(function(){
-      
-             function loadvariante()
-             {
-                var idarticulos=$('#idarticulostock').val();
-                if($.trim(idarticulos) != '')
-                {
-                    
-                  $.get('variante',{idlarticulos: idarticulos}, function(variantes){
-                           
-                          var old=$('#idarticulov').data('old') != '' ? $('#idarticulov').data('old') : '';
-                          $('#idarticulov').empty();
-                          $('#idarticulov').append("<option value=''>Selecciona una Talla</option>");
-                          $.each(variantes,function(index,value){
-                            $('#idarticulov').append("<option value='"+index+"'"+ (old==index ? 'selected' : '') +">"+value+"</option>");
-                          })
-                  });
-                }
-             }
-             loadvariante();
-            $('#idarticulostock').on('change', loadvariante);
-        });
+    <script>  //CALCULOS DE LOS CAMPOS
+        
+         function loadcalculos()
+         {
+           var elementos = document.getElementById('color').value;
 
-         $(document).ready(function(){ 
+           if(elementos>0)
+           {
+            var precioaux=document.getElementById('precio').value;
+            var cantidadaux=document.getElementById('cantidad').value;
+            var montoaux=0.00;
+            if(cantidadaux>0)
+            {
+               montoaux=precioaux*cantidadaux;
+               console.log("precio:"+precioaux);
+               console.log("cantidad:"+cantidadaux);
+               console.log("monto:"+montoaux);
+               document.getElementById('subtotal').value=montoaux;
+               document.getElementById('Total').value=parseFloat(montoaux);
+            }
+
+           }
+
+         }
+
+
+         
+
+   </script>
+
+  <script>  //CARGAR TALLA Y COLOR DE CADA ARTICULO
+
+    $(document).ready(function(){
+      
+      function loadvariante()
+      {
+         var idarticulos=$('#idarticulostock').val();
+         if($.trim(idarticulos) != '')
+         {
+             
+           $.get('variante',{idlarticulos: idarticulos}, function(variantes){
+                    
+                   var old=$('#idarticulov').data('old') != '' ? $('#idarticulov').data('old') : '';
+                   $('#idarticulov').empty();
+                   $('#idarticulov').append("<option value=''>Selecciona una Talla</option>");
+                   $.each(variantes,function(index,value){
+                     $('#idarticulov').append("<option value='"+index+"'"+ (old==index ? 'selected' : '') +">"+value+"</option>");
+                   })
+           });
+         }
+      }
+      loadvariante();
+      $('#idarticulostock').on('change', loadvariante);
+      });
+
+      $(document).ready(function(){ 
          function loadcolor()
          { 
             var idarticulos=$('#idarticulostock').val();
@@ -342,6 +354,8 @@
     {
          $('#color').on('change',loadtipo);
     });
+
+    
 
 
   </script>

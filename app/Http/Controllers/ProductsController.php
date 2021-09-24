@@ -8,6 +8,8 @@ use App\Models\Products;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ExistProductExport;
 
 class ProductsController extends Controller
 {
@@ -149,4 +151,10 @@ class ProductsController extends Controller
     {
         //
     }
+
+    public function exportExcel() 
+    {
+        return Excel::download(new ExistProductExport, 'Productos Existentes.xlsx');
+    }
+
 }
