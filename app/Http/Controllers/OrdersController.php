@@ -87,19 +87,6 @@ class OrdersController extends Controller
         ]);
     }
 
-    public function store_newprod(Request $request)
-    {
-        //
-        $newprod = DB::select('call spstore_articulo(?,?,?)',
-                        [$request->idlarticulos,
-                        $request->nombrearticulo,
-                        $request->idcategoria]);
-
-        return back();
-
-
-    }
-
     public function gettalla(Request $request)
     {
            if($request->ajax()){
@@ -139,18 +126,18 @@ class OrdersController extends Controller
 
     }
 
-    public function getprecio(Request $request)
-    {     
-        if($request->ajax()){
-            $idarticulov=Products::where('idarticulov',$request->idarticulov)->get();      
-            foreach($idarticulov as $articulo){
-                
-                $articuloarray[$articulo->idarticulov] = $articulo->preciov;
-            }
-            return response()->json($articuloarray);
-         }    
-
-    }
+//    public function getprecio(Request $request)
+//    {     
+//        if($request->ajax()){
+//            $idarticulov=Products::where('idarticulov',$request->idarticulov)->get();      
+//            foreach($idarticulov as $articulo){
+//                
+//                $articuloarray[$articulo->idarticulov] = $articulo->preciov;
+//            }
+//            return response()->json($articuloarray);
+//         }    
+//
+//    }
 
     public function gettipo(Request $request)
     {     
@@ -332,71 +319,6 @@ class OrdersController extends Controller
         return view('norders.ordersshow',[
             'orden'=> Orders::findOrFail($id)
         ]); 
-    }
-
-    public function delete_update($id)
-    {
-
-        $aux=request('idorden');
-        $orden = Orders::where('idorden', $aux)->first();
-        //
-        $art = OrdersDetalle::where('idordendetalle', $id)->firstOrFail();
-
-        //datos del articulo a eliminar
-        $cantart= $art->cantidadorden;
-        $montart= $art->monto;
-        $idart= $art->idarticulov;
-        //datos del la orden
-        $subtotalor = $orden->subtotal;
-        //$subtotalor = DB::table('tbl_orden')
-                        //->select('tbl_orden.subtotal')
-                        //->where('tbl_orden.idorden', $orden)
-                        //->pluck('tbl_orden.subtotal')
-                        //->first();
-        $totalor = $orden->total;
-        //$totalor = DB::table('tbl_orden')
-                    //->select('tbl_orden.total')
-                    //->where('tbl_orden.idorden', $orden)
-                    //->pluck('tbl_orden.total')
-                    //->first();
-        //operacion de resta
-        $subtotalor = $subtotalor-$montart;
-        $totalor = $totalor-$montart;
-
-        Orders::where('idorden', $orden->idorden)
-        //DB::table('tbl_orden')
-        //    //->select('tbl_orden.idorden','tbl_orden.subtotal','tbl_orden.total')
-        //    ->where('tbl_orden.idorden', $orden)
-            ->update([
-                'subtotal' => $subtotalor,
-                'total' => $totalor,
-            
-            ]);
-
-            //OPERACION DE CANTIDADES DEL ARTICULO
-//            $cantart2=DB::table('tbl_articulovariante')
-//                        ->join('tbl_ordendetalle', 'tbl_articulovariante.idarticulov', '=', 'tbl_ordendetalle.idarticulov')
-//                        //->select('tbl_articulovariante.cantidad')
-//                        ->where('tbl_ordendetalle.idordendetalle', $artp)
-//                        ->pluck('tbl_articulovariante.cantidad')
-//                        ->first();
-//    
-//            $cantidadn=$cantart-$cantart2;
-//    
-//                //Products::where('idarticulov', $artp->idarticulov)
-//                DB::table('tbl_articulovariante')
-//                        //->select('tbl_orden.idorden','tbl_orden.subtotal','tbl_orden.total')
-//                        ->where('tbl_articulovariante.idarticulov', $artp)
-//                        ->update([
-//                            'tbl_articulovariante.cantidad' => $cantidadn,
-//                        ]);
-
-            
-
-        
-            
-            return back();
-        
     }
 
     public function delete_register($id)
