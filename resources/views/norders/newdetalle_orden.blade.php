@@ -81,34 +81,13 @@
                 <div class="form-group col-md-4 my-lg-3">
                     <label for="exampleFormControlInput1">Proveedor</label>
                     <input type="text" class="form-control" name="idproveedor" id="txtidproveedor" 
-                    value="{{ $prove = DB::table('tbl_proveedor')->where('idproveedor', $orden->idproveedor)->value('idlproveedor') }}" 
+                    value="{{ $prove = DB::table('tbl_proveedor')->where('idproveedor', $orden->idproveedor)->value('nombreproveedor') }}" 
                     readonly="readonly">
                 </div>
 
                 <div class="form-group col-md-4 my-lg-3">
                     <label for="exampleFormControlInput1">Articulo:</label>
-                    <input id="idarticulostock" name="idarticulos" type="text" class="form-control" value="">
-                    <!--<select  id="idarticulostock" name="idarticulos" class="form-control" >-->
-                      <!--@foreach($articulostock->get() as $index => $article)
-                           <option value="{{ $index }}" {{ old('idarticulos') == $index ? 'selected' : '' }}>
-                              {{ $article }}
-                           </option>
-                      @endforeach-->
-                      <!--<option value=""></option>
-                        @forelse($stock = DB::table('tbl_articulostock')
-                                        ->orderBy('idlarticulos', 'ASC')
-                                        ->get() as $stockItem)
-                            <option value="{{ $stockItem->idarticulos }}">{{ $stockItem->idlarticulos }} - {{ $stockItem->nombrearticulo }}</option>
-                        @empty
-                            <option value="">No hay Articulo</option>
-                        @endforelse
-        
-                    </select> 
-                    @if ($errors->has('idarticulos'))
-                       <span class="invalid-feedback" role="alert">
-                           <strong>{{ $errors->first('idarticulos') }}</strong>
-                       </span>
-                    @endif   -->
+                    <input id="idarticulostock" name="idarticulos" type="text" class="form-control" placeholder="Ingrese el Articulo">
                 </div>
 
                 <div class="form-group col-md-4 my-lg-3">
