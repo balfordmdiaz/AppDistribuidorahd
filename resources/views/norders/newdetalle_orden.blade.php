@@ -156,10 +156,12 @@
               </div>
               
               <div class="form-row">
-                  <!--<div class="form-group col-md-4 my-lg-3 text-center">
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#product_new_modal">Nuevo Producto</button>    
-                  </div>
                   <div class="form-group col-md-4 my-lg-3 text-center">
+                    <button type="button" class="btn btn-primary">
+                      <a target="_blank" href="/home/newproduct"style="color:white;">Nuevo Producto</a>
+                    </button>    
+                  </div>
+                  <!--<div class="form-group col-md-4 my-lg-3 text-center">
                     <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#variante_new_modal">Nueva Variante de Producto</button><br>
                   </div>-->
                   <div class="form-group col-md-4 my-lg-3 text-center">
