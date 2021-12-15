@@ -26,6 +26,7 @@
 
     <?php
        $Vendidoaux=0;
+       $gananciasaux=0;
     ?>
 
     <div class="container">
@@ -51,6 +52,8 @@
                                   <th scope="col">Cant Vendida</th>
                                   <th scope="col">Precio Venta</th>          
                                   <th scope="col">Vendido</th>
+                                  <th scope="col">Precio Compra</th>
+                                  <th scope="col">Ganancias</th>
                                 </tr>
                               </thead>
 
@@ -58,9 +61,13 @@
                                                    ->join('tbl_articulovariante', 'tbl_facturadetalle.idarticulov', '=', 'tbl_articulovariante.idarticulov')
                                                    ->join('tbl_articulostock', 'tbl_articulovariante.idarticulos', '=', 'tbl_articulostock.idarticulos')
                                                    ->join('tbl_factura', 'tbl_facturadetalle.idfactura', '=', 'tbl_factura.idfactura')
-                                                   ->select('tbl_articulostock.idlarticulos','tbl_articulostock.nombrearticulo','tbl_articulovariante.tipov','tbl_articulovariante.talla','tbl_articulovariante.color','tbl_facturadetalle.cantidad','tbl_facturadetalle.precio','tbl_facturadetalle.monto')
+                                                   ->join('tbl_ordendetalle', 'tbl_ordendetalle.idarticulov', '=', 'tbl_articulovariante.idarticulov')
+                                                   ->select('tbl_articulostock.idlarticulos','tbl_articulostock.nombrearticulo','tbl_articulovariante.tipov','tbl_articulovariante.talla',
+                                                    'tbl_articulovariante.color','tbl_facturadetalle.cantidad','tbl_facturadetalle.precio','tbl_facturadetalle.monto',
+                                                    DB::raw('MAX(tbl_ordendetalle.precio) as preciocompra'), DB::raw('(tbl_facturadetalle.precio - MAX(tbl_ordendetalle.precio)) as ganancia'))
                                                    ->orderBy('tbl_articulostock.idlarticulos', 'ASC')
                                                    ->orderBy('tbl_articulovariante.talla', 'ASC')
+                                                   ->groupBy('tbl_facturadetalle.idfacturadetalle')
                                                    ->get()  as $detalleItem)
                         
                                  <tbody>
@@ -71,11 +78,14 @@
                                      <td>{{ $detalleItem->talla }}</td>
                                      <td>{{ $detalleItem->cantidad }}</td>
                                      <td>{{ $detalleItem->precio }}</td>
-                                     <td>{{ ($detalleItem->precio*$detalleItem->cantidad) }} C$</td>
+                                     <td>{{ $detalleItem->monto }} C$</td>
+                                     <td>{{ $detalleItem->preciocompra }}</td>
+                                     <td>{{ ($detalleItem->ganancia) }}</td>
                                    </tr>
 
                                    <?php
-                                       $Vendidoaux+=$detalleItem->monto;
+                                       $Vendidoaux += $detalleItem->monto;
+                                       $gananciasaux += $detalleItem->ganancia;
                                    ?>
                   
                                </tbody>
@@ -88,8 +98,10 @@
                               <td></td>
                               <td></td>
                               <td></td>
-                              <td></td>
+                              <td>Total Vendido: </td>
                               <td>{{$Vendidoaux}} C$</td>
+                              <td>Ganancias: </td>
+                              <td>{{$gananciasaux}} C$</td>
                             </tr>
                         
                           </table>
