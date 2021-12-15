@@ -44,6 +44,8 @@
                                         <th>Talla</th>
                                         <th>Tipo</th>
                                         <th>Cantidad</th>
+                                        <th>Precio</th>
+                                        <th>Monto</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -60,6 +62,15 @@
 
         </div>
 
+        <br>
+            <div class="container">
+                <div class="row d-flex justify-content-center">
+                    <div class="form-group" style="text-align: center">
+                        <label for="inputmonto">Total en Inventario</label>
+                    <input type="number" class="form-control" style="text-align: center" id="inputtinv" name="inputtinv" step="any" readonly="readonly" value="{{$total_inv}}"/>
+                    </div>
+                </div>
+            </div>
 
   
 
@@ -86,6 +97,8 @@
                         {data: 'talla'},
                         {data: 'tipov'},
                         {data: 'cantidad'},
+                        {data: 'precio'},
+                        {data: 'monto'},
                     ]
                 }
             )
@@ -118,6 +131,7 @@
         "colvis": "Visibilidad"
     }
 };
+
     </script>
 
 </body>

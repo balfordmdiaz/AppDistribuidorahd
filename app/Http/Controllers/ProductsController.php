@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProjectRequest;
 use App\Models\ProductStock;
 use App\Models\Products;
+use App\Models\Bills;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ExistProductExport;
+use SebastianBergmann\Environment\Console;
 
 class ProductsController extends Controller
 {
@@ -36,19 +38,47 @@ class ProductsController extends Controller
 
     public function prod_existentes(Request $request)
     {
-        //
+        //$total_inventario = Bills::select(DB::raw('SUM(total) as total_inventario'))->first();
+        $total_inventario = DB::table('tbl_articulovariante')
+                            ->join('tbl_ordendetalle', 'tbl_ordendetalle.idarticulov', '=', 'tbl_articulovariante.idarticulov')
+                            ->select(DB::raw('(tbl_articulovariante.cantidad * MAX(tbl_ordendetalle.precio)) as inventario'))
+                            ->where('tbl_articulovariante.cantidad', '>', '0')
+                            ->groupBy('tbl_articulovariante.idarticulov')
+                            ->get()
+                            ->toArray();
+
+        
+        $total_inv = 0;
+
+        foreach($total_inventario as $t){
+
+			$array[] = $t->inventario;
+			}
+        
+            $array_num = count($array);
+            for ($i = 0; $i < $array_num; ++$i){
+                $total_inv += $array[$i];
+            }
+
+            //print $total_inv;
+        
+       
         if($request->ajax())
         {
             //$products = DB::select('CALL spsel_articuloexist()');
             $products = DB::table('tbl_articulostock')
-                        ->join ('tbl_articulovariante', 'tbl_articulovariante.idarticulos', '=', 'tbl_articulostock.idarticulos')
-                        ->select('tbl_articulostock.idlarticulos', 'tbl_articulostock.nombrearticulo', 'tbl_articulovariante.talla', 'tbl_articulovariante.tipov', 'tbl_articulovariante.cantidad')
-                        ->where('tbl_articulovariante.cantidad', '>', '0');
+                        ->join('tbl_articulovariante', 'tbl_articulovariante.idarticulos', '=', 'tbl_articulostock.idarticulos')
+                        ->join('tbl_ordendetalle', 'tbl_ordendetalle.idarticulov', '=', 'tbl_articulovariante.idarticulov')
+                        ->select('tbl_articulostock.idlarticulos', 'tbl_articulostock.nombrearticulo', 'tbl_articulovariante.talla', 'tbl_articulovariante.tipov', 
+                                'tbl_articulovariante.cantidad', DB::raw('MAX(tbl_ordendetalle.precio) as precio'), DB::raw('(tbl_articulovariante.cantidad * MAX(tbl_ordendetalle.precio)) as monto'))
+                        ->where('tbl_articulovariante.cantidad', '>', '0')
+                        ->groupBy('tbl_articulovariante.idarticulov');
+
             return DataTables::of($products)
                     ->make(true);
         }
 
-        return view('existproducts.eproduct');
+        return view('existproducts.eproduct',compact('total_inv'));
     }
 
 
