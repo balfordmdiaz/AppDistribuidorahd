@@ -25,7 +25,7 @@ class BillsGenExport implements FromCollection
                 ->join('tbl_ordendetalle', 'tbl_ordendetalle.idarticulov', '=', 'tbl_articulovariante.idarticulov')
                 ->select('tbl_articulostock.idlarticulos','tbl_articulostock.nombrearticulo','tbl_articulovariante.tipov','tbl_articulovariante.talla',
                  'tbl_articulovariante.color','tbl_facturadetalle.cantidad','tbl_facturadetalle.precio','tbl_facturadetalle.monto',
-                 DB::raw('MAX(tbl_ordendetalle.precio) as preciocompra'), DB::raw('(tbl_facturadetalle.precio - MAX(tbl_ordendetalle.precio)) as ganancia'))
+                 DB::raw('MAX(tbl_ordendetalle.precio) as preciocompra'), DB::raw('((tbl_facturadetalle.precio - MAX(tbl_ordendetalle.precio)) * tbl_facturadetalle.cantidad) as ganancia'))
                 ->orderBy('tbl_articulostock.idlarticulos', 'ASC')
                 ->orderBy('tbl_articulovariante.talla', 'ASC')
                 ->groupBy('tbl_facturadetalle.idfacturadetalle')
