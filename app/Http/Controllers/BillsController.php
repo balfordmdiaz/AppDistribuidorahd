@@ -78,7 +78,9 @@ class BillsController extends Controller
         //
         $dt = new DateTime("now", new DateTimeZone('America/Managua'));
         $aux= $dt->format('m');
-        $total_mes = Bills::select(DB::raw('SUM(total) as total_mes'))->whereRaw('MONTH(fechafactura) = ?', $aux)->first();
+        $aux2= $dt->format('Y');
+        $total_mes = Bills::select(DB::raw('SUM(total) as total_mes'))->whereRaw('MONTH(fechafactura) = ?', $aux)
+                                                                      ->whereRaw('YEAR(fechafactura) = ?', $aux2)->first();
 
         if($request->ajax())
         {
@@ -87,7 +89,8 @@ class BillsController extends Controller
                             ->join ('tbl_clientes', 'tbl_factura.idcliente', '=', 'tbl_clientes.idcliente')
                             ->join ('tbl_empleado', 'tbl_factura.idempleado', '=', 'tbl_empleado.idempleado')
                             ->select('tbl_factura.idfactura','tbl_factura.idlfactura','tbl_factura.fechafactura','tbl_factura.subtotal','tbl_factura.iva','tbl_factura.descuento', 'tbl_factura.total', 'tbl_clientes.nombrecompleto as idcliente', 'tbl_empleado.nombre as idempleado')
-                            ->whereRaw('MONTH(tbl_factura.fechafactura) = ?', $aux);
+                            ->whereRaw('MONTH(tbl_factura.fechafactura) = ?', $aux)
+                            ->whereRaw('YEAR(tbl_factura.fechafactura) = ?', $aux2);
             return DataTables::of($bill3)
 
                     ->addColumn('action', function($bill3)
