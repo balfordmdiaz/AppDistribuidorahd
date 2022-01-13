@@ -193,6 +193,7 @@
 
                     }, 1000);
                     $('#btndelete').text('Eliminar');
+                    location.reload()
                 }
                 });
         });
