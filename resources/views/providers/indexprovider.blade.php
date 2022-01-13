@@ -308,6 +308,7 @@
                         $('#confirmModal').modal('hide');
                         toastr.warning('El Registro fue eliminado Correctamente.', 'Eliminar Registro', {timeOut:3000});
                         $('#table-provider').DataTable().ajax.reload();  //recargar tabla
+                        location.reload()
 
                     }, 2000);
                     $('#btndelete').text('Eliminar');
