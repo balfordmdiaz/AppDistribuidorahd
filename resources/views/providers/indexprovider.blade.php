@@ -58,12 +58,12 @@
                 @csrf
 
                 <div class="form-group" style="display:none">
-                    <input name="id_proveedor_hidde" type="text" class="form-control" value="{{ $id=$proveedor->idproveedor }}">
+                    <input name="id_proveedor_hidde" type="text" class="form-control" value="{{ $provider_id }}">
                 </div>
 
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Codigo Proveedor</label>
-                    <input type="text" class="form-control" id="txtidprov" name="txtidprov" value="PRV{{ $id=$id+1 }}" readonly="readonly">
+                    <input type="text" class="form-control" id="txtidprov" name="txtidprov" value="{{ $provider_id }}" readonly="readonly">
 
                 </div>
                 <div class="form-group">
