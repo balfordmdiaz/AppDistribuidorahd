@@ -59,12 +59,12 @@
                 @csrf
 
                 <div class="form-group" style="display:none">
-                    <input name="id_cliente_hidde" type="text" class="form-control" value="{{$id=$cliente->idcliente}}">
+                    <input name="id_cliente_hidde" type="text" class="form-control" value="{{$client_id}}">
                 </div>
 
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Codigo Cliente</label>
-                    <input type="text" class="form-control" id="txtcodecli" name="txtcodecli" value="CLI{{ $id=$id+1 }}" readonly="readonly">
+                    <input type="text" class="form-control" id="txtcodecli" name="txtcodecli" value="{{ $client_id }}" readonly="readonly">
 
                 </div>
                 <div class="form-group">

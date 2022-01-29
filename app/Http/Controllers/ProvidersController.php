@@ -12,13 +12,28 @@ class ProvidersController extends Controller
 
     public function index(Request $request)
     {
-        $proveedor=Providers::latest('idproveedor')->first();
+        $proveedor=Providers::latest('idproveedor')->pluck('idproveedor')->first();
         $proveedor_aux=Providers::latest('idproveedor')->exists();
         if(!$proveedor_aux)
         {
             $proveedor=new Providers();
             $proveedor->idproveedor=0;
         }
+
+        
+        //Autoincrementador de id proveedor
+        $incrementId = $proveedor + 1;
+        if($incrementId > 0 && $incrementId < 10){
+            $provider_id = 'PRV'.'00'.$incrementId;
+        }
+        elseif ($incrementId >= 10 && $incrementId < 100){
+            $provider_id = 'PRV'.'0'.$incrementId;
+        }
+        elseif ($incrementId >= 100){
+            $provider_id = 'PRV'.$incrementId;
+        }
+
+
         //
         if($request->ajax())
         {
@@ -34,7 +49,7 @@ class ProvidersController extends Controller
                     ->make(true);
         }
 
-        return view('providers.indexprovider',compact('proveedor'));
+        return view('providers.indexprovider',compact('provider_id'));
     }
 
 

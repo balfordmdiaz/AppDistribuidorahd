@@ -26,13 +26,13 @@
                     @csrf
 
                     <div class="form-group" style="display:none">
-                      <input name="id_orden_hidde" type="text" class="form-control" value="{{ $id=$orden->idorden }}">
+                      <input name="id_orden_hidde" type="text" class="form-control" value="{{ $order_id }}">
                     </div>
 
                     <div class="form-row">
                       <div class="form-group col-md-4 my-lg-3">
                         <label for="exampleFormControlInput1">No. Orden</label>
-                        <input type="text" class="form-control" name="idorden" id="txtidorden"  value="ORD00{{ $id=$id+1 }}" readonly="readonly">
+                        <input type="text" class="form-control" name="idorden" id="txtidorden"  value="{{ $order_id }}" readonly="readonly">
                         {!! $errors->first('idorden','<small class="message_error">:message</small><br>') !!}
                       </div>
 

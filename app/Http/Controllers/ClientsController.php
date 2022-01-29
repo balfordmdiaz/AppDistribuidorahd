@@ -12,13 +12,30 @@ class ClientsController extends Controller
 
     public function index(Request $request)
     {
-        $cliente=Clients::latest('idcliente')->first();
+        $cliente=Clients::latest('idcliente')->pluck('idcliente')->first();
         $cliente_aux=Clients::latest('idcliente')->exists();
         if(!$cliente_aux)
         {
             $cliente=new Clients();
             $cliente->idcliente=0;
         }
+
+        //Autoincrementador de id cliente
+        $incrementId = $cliente + 1;
+        if($incrementId > 0 && $incrementId < 10){
+            $client_id = 'CLI'.'000'.$incrementId;
+        }
+        elseif ($incrementId >= 10 && $incrementId < 100){
+            $client_id = 'CLI'.'00'.$incrementId;
+        }
+        elseif ($incrementId >= 100 && $incrementId < 1000){
+            $client_id = 'CLI'.'0'.$incrementId;
+        }
+        elseif ($incrementId >= 1000){
+            $client_id = 'CLI'.$incrementId;
+        }
+
+
         //
         if($request->ajax())
         {
@@ -34,7 +51,7 @@ class ClientsController extends Controller
                     ->make(true);
         }
 
-        return view('clients.indexclient',compact('cliente'));
+        return view('clients.indexclient',compact('client_id'));
     }
 
 

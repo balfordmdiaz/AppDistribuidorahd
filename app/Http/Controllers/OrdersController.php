@@ -36,17 +36,33 @@ class OrdersController extends Controller
 
     public function new_orders()
     {
-        $orden=Orders::latest('idorden')->first();
+        $orden=Orders::latest('idorden')->pluck('idorden')->first();
         $orden_aux=Orders::latest('idorden')->exists();
         if(!$orden_aux)
         {
             $orden=new Orders();
             $orden->idorden=0;
         }
+
+        //Autoincrementador de id orden
+        $incrementId = $orden + 1;
+        if($incrementId > 0 && $incrementId < 10){
+            $order_id = 'ORD'.'000'.$incrementId;
+        }
+        elseif ($incrementId >= 10 && $incrementId < 100){
+            $order_id = 'ORD'.'00'.$incrementId;
+        }
+        elseif ($incrementId >= 100 && $incrementId < 1000){
+            $order_id = 'ORD'.'0'.$incrementId;
+        }
+        elseif ($incrementId >= 1000){
+            $order_id = 'ORD'.$incrementId;
+        }
+
         date_default_timezone_set("America/Managua");
         $date=date("Y-m-d");
 
-        return view('norders.neworder',compact('orden','date'));
+        return view('norders.neworder',compact('order_id','date'));
     }
 
 
