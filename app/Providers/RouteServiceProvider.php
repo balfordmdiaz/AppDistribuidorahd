@@ -60,4 +60,19 @@ class RouteServiceProvider extends ServiceProvider
             return Limit::perMinute(60);
         });
     }
+
+
+    /**
+     * The application's middleware groups.
+     *
+     * @var array
+     */
+    protected $middlewareGroups = [
+        'web' => [
+            // ...
+            \Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class,
+        ],
+
+        // ...
+    ];
 }

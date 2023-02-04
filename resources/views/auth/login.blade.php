@@ -12,7 +12,7 @@
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
+                    <form id="form-login" method="POST" action="{{ route('login') }}">
                         @csrf
 
                         <div class="form-group row">
@@ -46,7 +46,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button id="btn_login" type="submit" class="btn btn-primary">
                                     {{ __('Iniciar sesion') }}
                                 </button>
                             </div>
@@ -58,4 +58,17 @@
         </div>
     </div>
 </div>
+
+
+    <script> //Validacion de evitar carga de datos varias veces
+
+        $('#form-login').submit(function(e)
+        {
+            $('#btn_login').on("click", function(e){
+            e.preventDefault();
+            });
+        });
+
+    </script>
+
 @endsection
