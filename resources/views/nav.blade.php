@@ -47,6 +47,8 @@
                        <a class="dropdown-item" href="/home/products">Productos Totales</a>
                        <div class="dropdown-divider"></div>
                        <a class="dropdown-item" href="/home/existproducts">Productos Existentes</a>
+                       <div class="dropdown-divider"></div>
+                       <a class="dropdown-item" href="/home/cambiodollar">Cambio Dollar</a>
                      </div>
                    </li>
                    <li class="nav-item dropdown">

@@ -14,6 +14,7 @@ use App\Http\Controllers\UseradminController;
 use App\Http\Controllers\ControllerDetalleVenta;
 use App\Http\Controllers\ControllerDetalleCompra;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\DollarChangeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -134,6 +135,11 @@ Route::middleware(['auth'])->group(function ()
     Route::get('home/detallec/ordengeneral', [ControllerDetalleCompra::class, 'ordengeneral'])->name('detallec.ordengeneral');
     Route::get('home/detallec/exportGenExcel', [ControllerDetalleCompra::class, 'exportGenExcel'])->name('detallec.exportGenExcel');
 
+
+    //Cambio Dollar
+    Route::resource('home/cambiodollar','App\Http\Controllers\DollarChangeController');
+    Route::get('home/cambiodollar/edit/{idcambiodollar}', [DollarChangeController::class, 'edit'])->name('cambiodollar.edit');
+    Route::post('home/cambiodollar/update', [DollarChangeController::class, 'update'])->name('cambiodollar.update');
 
 });
 

@@ -12,7 +12,7 @@ class Bills extends Model
     protected $table='tbl_factura';
     protected $primaryKey = 'idfactura';
 
-    protected $fillable = ['idlfactura','fechafactura','iva','descuento','total','idcliente','idempleado'];
+    protected $fillable = ['idlfactura','fechafactura','iva','descuento','total','idcliente','idempleado', 'idcambiodollar'];
 
     public $timestamps = false;
 }
