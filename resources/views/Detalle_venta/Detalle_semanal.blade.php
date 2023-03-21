@@ -68,6 +68,11 @@
                                                    'tbl_articulovariante.color','tbl_facturadetalle.cantidad','tbl_facturadetalle.precio','tbl_facturadetalle.monto',
                                                    DB::raw('MAX(tbl_ordendetalle.precio) as preciocompra'), DB::raw('((tbl_facturadetalle.precio - MAX(tbl_ordendetalle.precio)) * tbl_facturadetalle.cantidad) as ganancia'))
                                                    ->where('tbl_factura.fechafactura','>=',$fechaInicio)
+                                                   ->where('tbl_ordendetalle.precio', function ($query) {
+                                                                $query->selectRaw('precio FROM tbl_ordendetalle')
+                                                                      ->orderBy('idordendetalle', 'DESC')
+                                                                      ->first();
+                                                            })
                                                    ->orderBy('tbl_articulostock.idlarticulos', 'ASC')
                                                    ->orderBy('tbl_articulovariante.talla', 'ASC')
                                                    ->groupBy('tbl_facturadetalle.idfacturadetalle')
